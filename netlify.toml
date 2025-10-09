@@ -6,3 +6,5 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+# This file configures Netlify deployment
