@@ -10,7 +10,7 @@ export default function FloatingCTA() {
 
   return (
     <>
-      <div className="fixed bottom-6 right-24 z-40 group">
+      <div className="fixed bottom-6 left-6 z-40 group">
         <Button
           onClick={() => setIsQuoteModalOpen(true)}
           className="bg-gradient-to-r from-accent via-orange-500 to-accent bg-[length:200%_100%] hover:bg-right text-accent-foreground px-6 py-4 rounded-full shadow-2xl hover:shadow-accent/50 font-semibold flex items-center space-x-2 transition-all duration-500 hover:scale-105 hover:-translate-y-1"
