@@ -26,6 +26,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
 import ChatBot from "@/components/ChatBot";
+import CustomCursor from "@/components/CustomCursor";
 
 function Router() {
   return (
@@ -54,6 +55,7 @@ function Router() {
 function AppContent() {
   return (
     <>
+      <CustomCursor />
       <Navbar />
       <main className="min-h-screen">
         <Router />
