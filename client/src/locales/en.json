@@ -1,0 +1,656 @@
+{
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "about": "About",
+    "resources": "Resources",
+    "exports": "Exports",
+    "contact": "Contact"
+  },
+  "company": {
+    "name": "Sakthi Sai Biotech",
+    "since": "Since 1999"
+  },
+  "hero": {
+    "badge": "Trusted Since 1999 | Exporting to 50+ Countries",
+    "title": "Advanced Agricultural Solutions for Global Growth",
+    "description": "Premium micronutrients, bactericides, and growth promoters trusted by distributors worldwide. Quality manufacturing from Pollachi, Tamil Nadu."
+  },
+  "cta": {
+    "getQuote": "Get a Quote",
+    "viewProducts": "View Products",
+    "requestQuote": "Request Quote",
+    "learnMore": "Learn More About Us",
+    "viewAllProducts": "View Complete Catalog",
+    "contactUs": "Contact Us",
+    "sendMessage": "Send Message",
+    "submitQuote": "Submit Request",
+    "readMore": "Read More",
+    "chatNow": "Chat Now",
+    "getCustomQuote": "Get Custom Quote",
+    "contactExpert": "Contact Expert",
+    "download": "Download",
+    "subscribe": "Subscribe",
+    "viewAllMarkets": "View All Export Markets",
+    "exploreMarkets": "Explore Your Market",
+    "getExportQuote": "Get Export Quote",
+    "contactExportTeam": "Contact Export Team",
+    "viewAllResources": "View All Resources",
+    "getInTouch": "Get in Touch"
+  },
+  "stats": {
+    "experience": "Years Experience",
+    "countries": "Export Countries",
+    "products": "Products",
+    "clients": "Happy Clients"
+  },
+  "trust": {
+    "title": "Trusted by Industry Leaders",
+    "subtitle": "Certified and recognized globally"
+  },
+  "certifications": {
+    "iso": {
+      "description": "Quality Management System"
+    },
+    "organic": {
+      "title": "Organic Certified",
+      "description": "Organic farming approved"
+    },
+    "quality": {
+      "title": "Quality Assured",
+      "description": "Rigorous quality control"
+    },
+    "export": {
+      "title": "Export Excellence",
+      "description": "International standards"
+    }
+  },
+  "products": {
+    "featured": {
+      "title": "Featured Products",
+      "subtitle": "Premium agricultural solutions for optimal crop health and yield"
+    },
+    "categories": {
+      "all": "All Products",
+      "micronutrients": "Micronutrients",
+      "bactericides": "Bactericides",
+      "growth-promoters": "Growth Promoters",
+      "bio-fertilizers": "Bio-Fertilizers",
+      "plant-tonics": "Plant Tonics"
+    },
+    "suitableFor": "Suitable for",
+    "packingSizes": "Packing",
+    "keySpecs": "Key Specifications",
+    "viewDetails": "View Details",
+    "multiple": "Multiple Products",
+    "consultation": "Technical Consultation",
+    "hero": {
+      "badge": "Premium Agricultural Solutions",
+      "title": "Our Product Range",
+      "description": "Comprehensive agricultural solutions designed for optimal crop health and yield enhancement. Trusted by distributors in over 50 countries worldwide."
+    },
+    "search": {
+      "placeholder": "Search products..."
+    },
+    "loading": "Loading products...",
+    "results": "{{count}} products found",
+    "noResults": {
+      "title": "No Products Found",
+      "description": "Try adjusting your search criteria or browse all categories to find what you're looking for.",
+      "clearFilters": "Clear Filters"
+    },
+    "cta": {
+      "title": "Can't Find What You're Looking For?",
+      "description": "Our experts can help you find the perfect agricultural solution for your specific needs. Get personalized recommendations and competitive pricing."
+    },
+    "error": {
+      "title": "Failed to Load Products",
+      "description": "Please try refreshing the page or contact support."
+    }
+  },
+  "testimonials": {
+    "title": "What Our Partners Say",
+    "subtitle": "Trusted by distributors worldwide",
+    "ahmed": {
+      "text": "Sakthi Sai Biotech has been our trusted partner for 5 years. Their micronutrient products have significantly improved our farmers' yields. The quality is consistent and their export support is exceptional.",
+      "author": "Ahmed Hassan",
+      "role": "Agricultural Distributor, Ethiopia"
+    },
+    "budi": {
+      "text": "Outstanding bio-fertilizers that have transformed our crop production. Professional service and timely delivery across Indonesia.",
+      "author": "Budi Santoso",
+      "role": "Farm Cooperative Manager, Indonesia"
+    },
+    "sarah": {
+      "text": "Premium quality products with excellent technical support. Their growth promoters have exceeded our expectations in field trials.",
+      "author": "Dr. Sarah Kimani",
+      "role": "Agricultural Research Institute, Kenya"
+    }
+  },
+  "exports": {
+    "title": "Global Export Markets",
+    "subtitle": "Serving agricultural communities across continents",
+    "hero": {
+      "badge": "Global Reach",
+      "title": "Global Export Markets",
+      "description": "Serving agricultural communities across continents with premium products and reliable export services since 1999."
+    },
+    "stats": {
+      "countries": "Countries",
+      "years": "Years Experience",
+      "products": "Products",
+      "shipments": "Shipments/Year"
+    },
+    "map": {
+      "title": "Our Global Presence",
+      "subtitle": "Interactive map showing export routes and market presence",
+      "interactive": "Interactive World Map",
+      "description": "Comprehensive visualization of export routes and market distribution"
+    },
+    "markets": {
+      "title": "Key Export Markets",
+      "subtitle": "Our established presence in major agricultural markets",
+      "products": "Products",
+      "more": "And many more markets across Africa, Asia, and beyond..."
+    },
+    "services": {
+      "title": "Our Export Services",
+      "subtitle": "Comprehensive support for international trade",
+      "logistics": {
+        "title": "Global Logistics",
+        "description": "Reliable shipping to all major ports worldwide with tracking and insurance"
+      },
+      "documentation": {
+        "title": "Complete Documentation",
+        "description": "Full export compliance support including certificates and permits"
+      },
+      "payment": {
+        "title": "Flexible Payment Options",
+        "description": "Multiple payment terms including L/C, T/T, and trade finance solutions"
+      },
+      "support": {
+        "title": "24/7 Export Support",
+        "description": "Dedicated export team available for immediate assistance"
+      }
+    },
+    "process": {
+      "title": "Export Process",
+      "subtitle": "Streamlined process from inquiry to delivery",
+      "inquiry": {
+        "title": "Initial Inquiry",
+        "description": "Submit your requirements and receive detailed product information and pricing"
+      },
+      "quotation": {
+        "title": "Quotation & Terms",
+        "description": "Receive comprehensive quotation with shipping terms and delivery schedule"
+      },
+      "order": {
+        "title": "Order Confirmation",
+        "description": "Confirm order details, payment terms, and documentation requirements"
+      },
+      "production": {
+        "title": "Production & Quality",
+        "description": "Manufacturing with quality control and testing as per international standards"
+      },
+      "shipping": {
+        "title": "Shipping & Delivery",
+        "description": "Professional packaging, documentation, and shipment with tracking information"
+      }
+    },
+    "terms": {
+      "title": "Flexible Shipping Terms",
+      "subtitle": "Choose the terms that work best for your business",
+      "fob": {
+        "title": "Free on Board",
+        "description": "Goods delivered to port, buyer handles international shipping"
+      },
+      "cif": {
+        "title": "Cost, Insurance, Freight",
+        "description": "Price includes cost, insurance, and freight to destination port"
+      },
+      "ddp": {
+        "title": "Delivered Duty Paid",
+        "description": "Complete door-to-door service including all duties and taxes"
+      }
+    },
+    "cta": {
+      "title": "Ready to Expand Your Market?",
+      "description": "Join our global network of distributors and bring premium agricultural solutions to your market. Our export experts are ready to support your success."
+    },
+    "error": {
+      "title": "Failed to Load Export Markets",
+      "description": "Please try refreshing the page or contact support."
+    }
+  },
+  "resources": {
+    "hero": {
+      "badge": "Knowledge Center",
+      "title": "Resources & Insights",
+      "description": "Expert knowledge, research findings, and practical guides to help you maximize agricultural productivity and make informed decisions."
+    },
+    "categories": {
+      "all": "All Resources",
+      "research": "Research",
+      "case-study": "Case Studies",
+      "guide": "Guides"
+    },
+    "search": {
+      "placeholder": "Search resources..."
+    },
+    "featured": {
+      "title": "Featured Resources",
+      "subtitle": "Essential downloads and guides for agricultural success"
+    },
+    "additional": {
+      "catalog": {
+        "title": "Complete Product Catalog",
+        "description": "Download our comprehensive product catalog with specifications and applications."
+      },
+      "application": {
+        "title": "Application Guide",
+        "description": "Step-by-step application guidelines for optimal results."
+      },
+      "certification": {
+        "title": "Certifications & Quality",
+        "description": "View our quality certifications and compliance documents."
+      }
+    },
+    "blog": {
+      "title": "Latest Articles"
+    },
+    "loading": "Loading articles...",
+    "results": "{{count}} articles found",
+    "noResults": {
+      "title": "No Articles Found",
+      "description": "Try adjusting your search criteria or browse all categories to find what you're looking for.",
+      "clearFilters": "Clear Filters"
+    },
+    "cta": {
+      "title": "Stay Updated with Latest Insights",
+      "description": "Subscribe to our newsletter for the latest research findings, application guides, and industry insights delivered to your inbox."
+    },
+    "error": {
+      "title": "Failed to Load Resources",
+      "description": "Please try refreshing the page or contact support."
+    }
+  },
+  "blog": {
+    "readTime": "5 min read"
+  },
+  "about": {
+    "hero": {
+      "badge": "Since 1999 - Agricultural Innovation",
+      "title": "Growing Together Since 1999",
+      "description": "From our roots in Pollachi, Tamil Nadu – India's agricultural heartland – we've grown into a trusted name in agricultural solutions, serving distributors across 50+ countries."
+    },
+    "story": {
+      "title": "Our Story",
+      "paragraph1": "Founded in 1999 in the fertile lands of Pollachi, Tamil Nadu, Sakthi Sai Biotech began with a simple yet powerful vision: to revolutionize agricultural productivity through innovative, science-based solutions.",
+      "paragraph2": "Over the years, we have grown from a local manufacturer to an internationally recognized brand, combining traditional agricultural wisdom with modern biotechnology to create products that truly make a difference in crop health and farmer prosperity.",
+      "paragraph3": "Today, our commitment to quality, innovation, and farmer success has made us a preferred partner for distributors across the globe, with our products enhancing agricultural productivity in over 50 countries."
+    },
+    "achievements": {
+      "global": {
+        "title": "50+ Countries",
+        "description": "Global export presence across multiple continents"
+      },
+      "quality": {
+        "title": "ISO Certified",
+        "description": "Quality management system certification"
+      },
+      "growth": {
+        "title": "25+ Years",
+        "description": "Consistent growth and innovation in agriculture"
+      },
+      "clients": {
+        "title": "5000+ Clients",
+        "description": "Trusted by distributors and farmers worldwide"
+      }
+    },
+    "timeline": {
+      "title": "Our Journey",
+      "subtitle": "Milestones that shaped our growth and innovation",
+      "1999": {
+        "title": "Company Founded",
+        "description": "Started operations in Pollachi with a vision to revolutionize agricultural inputs"
+      },
+      "2005": {
+        "title": "Product Innovation",
+        "description": "Developed first range of bio-enhanced micronutrient formulations"
+      },
+      "2008": {
+        "title": "International Expansion",
+        "description": "Began exporting to Ethiopia and Indonesia markets"
+      },
+      "2012": {
+        "title": "Research Partnership",
+        "description": "Established collaborations with agricultural universities for product development"
+      },
+      "2015": {
+        "title": "ISO Certification",
+        "description": "Achieved ISO 9001:2015 certification for quality management systems"
+      },
+      "2020": {
+        "title": "Digital Transformation",
+        "description": "Launched digital platforms for better customer engagement and support"
+      },
+      "2024": {
+        "title": "Global Presence",
+        "description": "Expanded to 50+ countries with comprehensive product portfolio"
+      }
+    },
+    "leadership": {
+      "title": "Our Leadership",
+      "subtitle": "Experienced leaders driving innovation and growth",
+      "ceo": {
+        "role": "CEO & Founder",
+        "bio": "Visionary leader with 25+ years in agricultural innovation and international trade"
+      },
+      "cso": {
+        "role": "Chief Scientific Officer",
+        "bio": "PhD in Agricultural Chemistry, leading our R&D initiatives and product development"
+      },
+      "cto": {
+        "role": "Head of International Trade",
+        "bio": "Expert in global agricultural markets and export logistics with 15+ years experience"
+      }
+    },
+    "values": {
+      "title": "Our Values",
+      "subtitle": "The principles that guide our mission and vision",
+      "quality": {
+        "title": "Quality Excellence",
+        "description": "Commitment to highest quality standards in all our products and services"
+      },
+      "innovation": {
+        "title": "Innovation",
+        "description": "Continuous research and development to create cutting-edge agricultural solutions"
+      },
+      "sustainability": {
+        "title": "Sustainability",
+        "description": "Environmentally responsible practices for sustainable agriculture"
+      },
+      "partnership": {
+        "title": "Partnership",
+        "description": "Building long-term relationships with customers and stakeholders"
+      }
+    },
+    "location": {
+      "title": "Visit Our Headquarters",
+      "description": "Located in the heart of Tamil Nadu's agricultural region, our facilities combine traditional knowledge with modern technology."
+    }
+  },
+  "contact": {
+    "hero": {
+      "badge": "Let's Connect",
+      "title": "Get in Touch",
+      "description": "Ready to transform your agricultural business? Our experts are here to help you find the perfect solutions for your market."
+    },
+    "form": {
+      "title": "Send us a message",
+      "subtitle": "Fill out the form below and we'll get back to you as soon as possible."
+    },
+    "address": {
+      "title": "Address"
+    },
+    "email": {
+      "title": "Email"
+    },
+    "phone": {
+      "title": "Phone"
+    },
+    "hours": {
+      "title": "Business Hours"
+    },
+    "whatsapp": {
+      "title": "Instant Support",
+      "subtitle": "Chat with us on WhatsApp for immediate assistance"
+    },
+    "map": {
+      "title": "Google Maps Integration",
+      "subtitle": "Pollachi, Tamil Nadu"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Quick answers to common questions",
+      "shipping": {
+        "question": "What are your shipping terms for international orders?",
+        "answer": "We offer flexible shipping terms including FOB, CIF, and DDP depending on your requirements. Shipping times vary by destination but typically range from 2-6 weeks."
+      },
+      "minimum": {
+        "question": "What is the minimum order quantity?",
+        "answer": "Minimum order quantities vary by product. Contact us for specific MOQ information and volume discounts available for bulk orders."
+      },
+      "certifications": {
+        "question": "Do you provide certificates and documentation?",
+        "answer": "Yes, we provide complete documentation including certificates of analysis, phytosanitary certificates, and all required export documentation."
+      },
+      "samples": {
+        "question": "Can I request product samples?",
+        "answer": "Yes, we provide samples for qualified distributors and bulk buyers. Sample requests are processed within 3-5 business days."
+      }
+    },
+    "success": {
+      "title": "Message Sent Successfully",
+      "description": "Thank you for your inquiry. We will contact you within 24 hours."
+    },
+    "error": {
+      "title": "Failed to Send Message",
+      "description": "Please try again or contact us directly via phone or email.",
+      "privacy": {
+        "title": "Privacy Policy Required",
+        "description": "Please accept the privacy policy to continue."
+      }
+    }
+  },
+  "form": {
+    "name": "Your Name",
+    "namePlaceholder": "John Doe",
+    "company": "Company Name",
+    "companyPlaceholder": "Company Ltd",
+    "email": "Email Address",
+    "emailPlaceholder": "john@example.com",
+    "phone": "Phone Number",
+    "phonePlaceholder": "+1 234 567 890",
+    "country": "Country",
+    "countryPlaceholder": "Select Country",
+    "productInterest": "Product Interest",
+    "productPlaceholder": "Select Category",
+    "message": "Message",
+    "messagePlaceholder": "Tell us about your requirements, target markets, and how we can help your business grow...",
+    "privacy": "I agree to the privacy policy and terms of service. I consent to being contacted about agricultural products and business opportunities.",
+    "sending": "Sending...",
+    "submitting": "Submitting...",
+    "namePlaceholder": "John Doe"
+  },
+  "quote": {
+    "title": "Request a Quote",
+    "success": {
+      "title": "Quote Request Submitted",
+      "description": "Thank you! Our expert will contact you soon."
+    },
+    "error": {
+      "title": "Submission Failed",
+      "description": "Please try again or contact us directly."
+    }
+  },
+  "chatbot": {
+    "welcome": "Hello! I'm AgriBot, your agricultural assistant. How can I help you with our products today?",
+    "status": "Online now",
+    "placeholder": "Type your question...",
+    "error": "I'm experiencing technical difficulties. Please contact our support team directly for immediate assistance.",
+    "quickQuestions": "Quick questions:",
+    "quick": {
+      "micronutrients": "Tell me about micronutrients",
+      "bactericides": "What bactericides do you offer?",
+      "export": "Do you export to my country?",
+      "pricing": "How can I get pricing information?"
+    }
+  },
+  "footer": {
+    "quickLinks": {
+      "title": "Quick Links"
+    },
+    "products": {
+      "title": "Products"
+    },
+    "newsletter": {
+      "title": "Newsletter",
+      "description": "Subscribe to get updates on new products and market insights",
+      "placeholder": "Your email",
+      "subscribe": "Subscribe"
+    },
+    "rights": "All rights reserved",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "sitemap": "Sitemap"
+  },
+  "newsletter": {
+    "placeholder": "Enter your email"
+  },
+  "admin": {
+    "login": {
+      "title": "Admin Login",
+      "subtitle": "Access the Sakthi Sai Biotech admin dashboard",
+      "username": "Username",
+      "usernamePlaceholder": "Enter your username",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "submit": "Sign In",
+      "signing": "Signing In...",
+      "demo": "Demo credentials: admin / admin123",
+      "success": {
+        "title": "Login Successful",
+        "description": "Welcome to the admin dashboard"
+      },
+      "error": {
+        "credentials": "Invalid username or password",
+        "general": "Login failed. Please try again."
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Admin Dashboard",
+    "welcome": "Welcome back, {{name}}",
+    "stats": {
+      "inquiries": "Total Inquiries",
+      "leads": "Active Leads",
+      "products": "Products",
+      "countries": "Export Markets"
+    },
+    "quickActions": {
+      "title": "Quick Actions",
+      "manageCRM": "Manage CRM",
+      "manageProducts": "Manage Products",
+      "manageLanguages": "Manage Languages"
+    },
+    "pipeline": {
+      "title": "Lead Pipeline Overview",
+      "new": "New",
+      "contacted": "Contacted",
+      "quoted": "Quoted",
+      "negotiation": "Negotiation",
+      "converted": "Converted",
+      "viewFull": "View Full CRM"
+    },
+    "activity": {
+      "title": "Recent Activity",
+      "placeholder": "Activity tracking will be implemented in future updates"
+    },
+    "error": {
+      "title": "Failed to Load Dashboard",
+      "description": "Please check your connection and try again."
+    }
+  },
+  "roles": {
+    "admin": "Administrator",
+    "manager": "Manager"
+  },
+  "crm": {
+    "title": "Customer Relationship Management",
+    "subtitle": "Manage leads and track customer interactions",
+    "addLead": "Add Lead",
+    "search": {
+      "placeholder": "Search leads..."
+    },
+    "filter": {
+      "status": "Filter by status",
+      "all": "All Status"
+    },
+    "status": {
+      "new": "New",
+      "contacted": "Contacted",
+      "quoted": "Quoted",
+      "negotiation": "Negotiation",
+      "converted": "Converted",
+      "closed": "Closed"
+    },
+    "table": {
+      "name": "Name",
+      "company": "Company",
+      "status": "Status",
+      "country": "Country",
+      "created": "Created",
+      "actions": "Actions",
+      "empty": {
+        "title": "No leads found",
+        "description": "Try adjusting your search criteria or add new leads."
+      }
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "empty": "No leads in this stage",
+    "success": {
+      "title": "Lead Updated",
+      "description": "Lead has been successfully updated."
+    },
+    "error": {
+      "title": "Update Failed",
+      "description": "Failed to update lead. Please try again."
+    }
+  },
+  "languages": {
+    "title": "Language Manager",
+    "subtitle": "Manage multilingual content across all languages",
+    "search": {
+      "placeholder": "Search translations..."
+    },
+    "table": {
+      "title": "Translation Keys",
+      "keys": "keys",
+      "key": "Key",
+      "actions": "Actions",
+      "placeholder": "Enter translation...",
+      "missing": "Missing translation",
+      "empty": {
+        "title": "No translations found",
+        "description": "Try adjusting your search criteria or add new translation keys."
+      }
+    },
+    "help": {
+      "title": "Translation Guidelines",
+      "keyFormat": "Key Format",
+      "keyDescription": "Use dot notation for nested keys:",
+      "interpolation": "Variable Interpolation",
+      "interpolationDescription": "Use double curly braces for variables:",
+      "autoSync": "Changes are automatically synchronized with the frontend"
+    },
+    "success": {
+      "title": "Translation Updated",
+      "description": "Translation has been successfully updated."
+    },
+    "error": {
+      "title": "Update Failed",
+      "description": "Failed to update translation. Please try again.",
+      "loadTitle": "Failed to Load Languages",
+      "loadDescription": "Please check your connection and try again."
+    }
+  },
+  "common": {
+    "cancel": "Cancel",
+    "update": "Update",
+    "create": "Create"
+  }
+}

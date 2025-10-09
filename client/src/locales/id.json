@@ -1,0 +1,655 @@
+{
+  "nav": {
+    "home": "Beranda",
+    "products": "Produk",
+    "about": "Tentang Kami",
+    "resources": "Sumber Daya",
+    "exports": "Ekspor",
+    "contact": "Kontak"
+  },
+  "company": {
+    "name": "Sakthi Sai Biotech",
+    "since": "Sejak 1999"
+  },
+  "hero": {
+    "badge": "Dipercaya Sejak 1999 | Mengekspor ke 50+ Negara",
+    "title": "Solusi Pertanian Canggih untuk Pertumbuhan Global",
+    "description": "Mikronutrien premium, bakterisida, dan promotor pertumbuhan yang dipercaya oleh distributor di seluruh dunia. Manufaktur berkualitas dari Pollachi, Tamil Nadu."
+  },
+  "cta": {
+    "getQuote": "Dapatkan Penawaran",
+    "viewProducts": "Lihat Produk",
+    "requestQuote": "Minta Penawaran",
+    "learnMore": "Pelajari Lebih Lanjut Tentang Kami",
+    "viewAllProducts": "Lihat Katalog Lengkap",
+    "contactUs": "Hubungi Kami",
+    "sendMessage": "Kirim Pesan",
+    "submitQuote": "Kirim Permintaan",
+    "readMore": "Baca Selengkapnya",
+    "chatNow": "Chat Sekarang",
+    "getCustomQuote": "Dapatkan Penawaran Khusus",
+    "contactExpert": "Hubungi Ahli",
+    "download": "Unduh",
+    "subscribe": "Berlangganan",
+    "viewAllMarkets": "Lihat Semua Pasar Ekspor",
+    "exploreMarkets": "Jelajahi Pasar Anda",
+    "getExportQuote": "Dapatkan Penawaran Ekspor",
+    "contactExportTeam": "Hubungi Tim Ekspor",
+    "viewAllResources": "Lihat Semua Sumber Daya",
+    "getInTouch": "Hubungi Kami"
+  },
+  "stats": {
+    "experience": "Tahun Pengalaman",
+    "countries": "Negara Ekspor",
+    "products": "Produk",
+    "clients": "Klien Puas"
+  },
+  "trust": {
+    "title": "Dipercaya oleh Para Pemimpin Industri",
+    "subtitle": "Bersertifikat dan diakui secara global"
+  },
+  "certifications": {
+    "iso": {
+      "description": "Sistem Manajemen Mutu"
+    },
+    "organic": {
+      "title": "Bersertifikat Organik",
+      "description": "Disetujui untuk pertanian organik"
+    },
+    "quality": {
+      "title": "Jaminan Kualitas",
+      "description": "Kontrol kualitas yang ketat"
+    },
+    "export": {
+      "title": "Keunggulan Ekspor",
+      "description": "Standar internasional"
+    }
+  },
+  "products": {
+    "featured": {
+      "title": "Produk Unggulan",
+      "subtitle": "Solusi pertanian premium untuk kesehatan tanaman dan hasil panen yang optimal"
+    },
+    "categories": {
+      "all": "Semua Produk",
+      "micronutrients": "Mikronutrien",
+      "bactericides": "Bakterisida",
+      "growth-promoters": "Promotor Pertumbuhan",
+      "bio-fertilizers": "Bio-Pupuk",
+      "plant-tonics": "Tonik Tanaman"
+    },
+    "suitableFor": "Cocok untuk",
+    "packingSizes": "Kemasan",
+    "keySpecs": "Spesifikasi Utama",
+    "viewDetails": "Lihat Detail",
+    "multiple": "Beberapa Produk",
+    "consultation": "Konsultasi Teknis",
+    "hero": {
+      "badge": "Solusi Pertanian Premium",
+      "title": "Rangkaian Produk Kami",
+      "description": "Solusi pertanian komprehensif yang dirancang untuk kesehatan tanaman dan peningkatan hasil panen yang optimal. Dipercaya oleh distributor di lebih dari 50 negara di seluruh dunia."
+    },
+    "search": {
+      "placeholder": "Cari produk..."
+    },
+    "loading": "Memuat produk...",
+    "results": "{{count}} produk ditemukan",
+    "noResults": {
+      "title": "Tidak Ada Produk Ditemukan",
+      "description": "Coba sesuaikan kriteria pencarian Anda atau jelajahi semua kategori untuk menemukan yang Anda cari.",
+      "clearFilters": "Hapus Filter"
+    },
+    "cta": {
+      "title": "Tidak Menemukan Yang Anda Cari?",
+      "description": "Para ahli kami dapat membantu Anda menemukan solusi pertanian yang sempurna untuk kebutuhan spesifik Anda. Dapatkan rekomendasi yang dipersonalisasi dan harga yang kompetitif."
+    },
+    "error": {
+      "title": "Gagal Memuat Produk",
+      "description": "Silakan coba refresh halaman atau hubungi dukungan."
+    }
+  },
+  "testimonials": {
+    "title": "Kata Para Mitra Kami",
+    "subtitle": "Dipercaya oleh distributor di seluruh dunia",
+    "ahmed": {
+      "text": "Sakthi Sai Biotech telah menjadi mitra terpercaya kami selama 5 tahun. Produk mikronutrien mereka telah secara signifikan meningkatkan hasil panen petani kami. Kualitasnya konsisten dan dukungan ekspor mereka luar biasa.",
+      "author": "Ahmed Hassan",
+      "role": "Distributor Pertanian, Ethiopia"
+    },
+    "budi": {
+      "text": "Bio-pupuk yang luar biasa telah mengubah produksi tanaman kami. Layanan profesional dan pengiriman tepat waktu di seluruh Indonesia.",
+      "author": "Budi Santoso",
+      "role": "Manajer Koperasi Pertanian, Indonesia"
+    },
+    "sarah": {
+      "text": "Produk berkualitas premium dengan dukungan teknis yang sangat baik. Promotor pertumbuhan mereka telah melampaui harapan kami dalam uji coba lapangan.",
+      "author": "Dr. Sarah Kimani",
+      "role": "Institut Penelitian Pertanian, Kenya"
+    }
+  },
+  "exports": {
+    "title": "Pasar Ekspor Global",
+    "subtitle": "Melayani komunitas pertanian di berbagai benua",
+    "hero": {
+      "badge": "Jangkauan Global",
+      "title": "Pasar Ekspor Global",
+      "description": "Melayani komunitas pertanian di berbagai benua dengan produk premium dan layanan ekspor yang andal sejak 1999."
+    },
+    "stats": {
+      "countries": "Negara",
+      "years": "Tahun Pengalaman",
+      "products": "Produk",
+      "shipments": "Pengiriman/Tahun"
+    },
+    "map": {
+      "title": "Kehadiran Global Kami",
+      "subtitle": "Peta interaktif yang menunjukkan rute ekspor dan kehadiran pasar",
+      "interactive": "Peta Dunia Interaktif",
+      "description": "Visualisasi komprehensif rute ekspor dan distribusi pasar"
+    },
+    "markets": {
+      "title": "Pasar Ekspor Utama",
+      "subtitle": "Kehadiran kami yang mapan di pasar pertanian utama",
+      "products": "Produk",
+      "more": "Dan banyak pasar lainnya di Afrika, Asia, dan sekitarnya..."
+    },
+    "services": {
+      "title": "Layanan Ekspor Kami",
+      "subtitle": "Dukungan komprehensif untuk perdagangan internasional",
+      "logistics": {
+        "title": "Logistik Global",
+        "description": "Pengiriman terpercaya ke semua pelabuhan utama di seluruh dunia dengan pelacakan dan asuransi"
+      },
+      "documentation": {
+        "title": "Dokumentasi Lengkap",
+        "description": "Dukungan kepatuhan ekspor penuh termasuk sertifikat dan izin"
+      },
+      "payment": {
+        "title": "Opsi Pembayaran Fleksibel",
+        "description": "Berbagai syarat pembayaran termasuk L/C, T/T, dan solusi pembiayaan perdagangan"
+      },
+      "support": {
+        "title": "Dukungan Ekspor 24/7",
+        "description": "Tim ekspor khusus tersedia untuk bantuan segera"
+      }
+    },
+    "process": {
+      "title": "Proses Ekspor",
+      "subtitle": "Proses yang efisien dari pertanyaan hingga pengiriman",
+      "inquiry": {
+        "title": "Pertanyaan Awal",
+        "description": "Kirimkan kebutuhan Anda dan terima informasi produk dan harga yang detail"
+      },
+      "quotation": {
+        "title": "Penawaran & Syarat",
+        "description": "Terima penawaran komprehensif dengan syarat pengiriman dan jadwal pengiriman"
+      },
+      "order": {
+        "title": "Konfirmasi Pesanan",
+        "description": "Konfirmasi detail pesanan, syarat pembayaran, dan persyaratan dokumentasi"
+      },
+      "production": {
+        "title": "Produksi & Kualitas",
+        "description": "Manufaktur dengan kontrol kualitas dan pengujian sesuai standar internasional"
+      },
+      "shipping": {
+        "title": "Pengiriman & Pengantaran",
+        "description": "Pengemasan profesional, dokumentasi, dan pengiriman dengan informasi pelacakan"
+      }
+    },
+    "terms": {
+      "title": "Syarat Pengiriman Fleksibel",
+      "subtitle": "Pilih syarat yang paling cocok untuk bisnis Anda",
+      "fob": {
+        "title": "Free on Board",
+        "description": "Barang diantar ke pelabuhan, pembeli menangani pengiriman internasional"
+      },
+      "cif": {
+        "title": "Cost, Insurance, Freight",
+        "description": "Harga termasuk biaya, asuransi, dan ongkos kirim ke pelabuhan tujuan"
+      },
+      "ddp": {
+        "title": "Delivered Duty Paid",
+        "description": "Layanan door-to-door lengkap termasuk semua bea dan pajak"
+      }
+    },
+    "cta": {
+      "title": "Siap Memperluas Pasar Anda?",
+      "description": "Bergabunglah dengan jaringan global distributor kami dan bawa solusi pertanian premium ke pasar Anda. Para ahli ekspor kami siap mendukung kesuksesan Anda."
+    },
+    "error": {
+      "title": "Gagal Memuat Pasar Ekspor",
+      "description": "Silakan coba refresh halaman atau hubungi dukungan."
+    }
+  },
+  "resources": {
+    "hero": {
+      "badge": "Pusat Pengetahuan",
+      "title": "Sumber Daya & Wawasan",
+      "description": "Pengetahuan ahli, temuan penelitian, dan panduan praktis untuk membantu Anda memaksimalkan produktivitas pertanian dan membuat keputusan yang tepat."
+    },
+    "categories": {
+      "all": "Semua Sumber Daya",
+      "research": "Penelitian",
+      "case-study": "Studi Kasus",
+      "guide": "Panduan"
+    },
+    "search": {
+      "placeholder": "Cari sumber daya..."
+    },
+    "featured": {
+      "title": "Sumber Daya Unggulan",
+      "subtitle": "Download dan panduan penting untuk kesuksesan pertanian"
+    },
+    "additional": {
+      "catalog": {
+        "title": "Katalog Produk Lengkap",
+        "description": "Unduh katalog produk komprehensif kami dengan spesifikasi dan aplikasi."
+      },
+      "application": {
+        "title": "Panduan Aplikasi",
+        "description": "Panduan aplikasi langkah demi langkah untuk hasil optimal."
+      },
+      "certification": {
+        "title": "Sertifikat & Kualitas",
+        "description": "Lihat sertifikat kualitas dan dokumen kepatuhan kami."
+      }
+    },
+    "blog": {
+      "title": "Artikel Terbaru"
+    },
+    "loading": "Memuat artikel...",
+    "results": "{{count}} artikel ditemukan",
+    "noResults": {
+      "title": "Tidak Ada Artikel Ditemukan",
+      "description": "Coba sesuaikan kriteria pencarian Anda atau jelajahi semua kategori untuk menemukan yang Anda cari.",
+      "clearFilters": "Hapus Filter"
+    },
+    "cta": {
+      "title": "Tetap Update dengan Wawasan Terbaru",
+      "description": "Berlangganan newsletter kami untuk mendapatkan temuan penelitian terbaru, panduan aplikasi, dan wawasan industri langsung ke kotak masuk Anda."
+    },
+    "error": {
+      "title": "Gagal Memuat Sumber Daya",
+      "description": "Silakan coba refresh halaman atau hubungi dukungan."
+    }
+  },
+  "blog": {
+    "readTime": "5 menit baca"
+  },
+  "about": {
+    "hero": {
+      "badge": "Sejak 1999 - Inovasi Pertanian",
+      "title": "Berkembang Bersama Sejak 1999",
+      "description": "Dari akar kami di Pollachi, Tamil Nadu – jantung pertanian India – kami telah tumbuh menjadi nama terpercaya dalam solusi pertanian, melayani distributor di lebih dari 50 negara."
+    },
+    "story": {
+      "title": "Kisah Kami",
+      "paragraph1": "Didirikan pada tahun 1999 di tanah subur Pollachi, Tamil Nadu, Sakthi Sai Biotech dimulai dengan visi sederhana namun kuat: merevolusi produktivitas pertanian melalui solusi inovatif berbasis sains.",
+      "paragraph2": "Selama bertahun-tahun, kami telah berkembang dari produsen lokal menjadi merek yang diakui secara internasional, menggabungkan kebijaksanaan pertanian tradisional dengan bioteknologi modern untuk menciptakan produk yang benar-benar membuat perbedaan dalam kesehatan tanaman dan kemakmuran petani.",
+      "paragraph3": "Hari ini, komitmen kami terhadap kualitas, inovasi, dan kesuksesan petani telah menjadikan kami mitra pilihan untuk distributor di seluruh dunia, dengan produk kami meningkatkan produktivitas pertanian di lebih dari 50 negara."
+    },
+    "achievements": {
+      "global": {
+        "title": "50+ Negara",
+        "description": "Kehadiran ekspor global di berbagai benua"
+      },
+      "quality": {
+        "title": "Bersertifikat ISO",
+        "description": "Sertifikasi sistem manajemen mutu"
+      },
+      "growth": {
+        "title": "25+ Tahun",
+        "description": "Pertumbuhan dan inovasi yang konsisten dalam pertanian"
+      },
+      "clients": {
+        "title": "5000+ Klien",
+        "description": "Dipercaya oleh distributor dan petani di seluruh dunia"
+      }
+    },
+    "timeline": {
+      "title": "Perjalanan Kami",
+      "subtitle": "Tonggak sejarah yang membentuk pertumbuhan dan inovasi kami",
+      "1999": {
+        "title": "Perusahaan Didirikan",
+        "description": "Memulai operasi di Pollachi dengan visi merevolusi input pertanian"
+      },
+      "2005": {
+        "title": "Inovasi Produk",
+        "description": "Mengembangkan rangkaian pertama formulasi mikronutrien yang ditingkatkan secara bio"
+      },
+      "2008": {
+        "title": "Ekspansi Internasional",
+        "description": "Mulai mengekspor ke pasar Ethiopia dan Indonesia"
+      },
+      "2012": {
+        "title": "Kemitraan Penelitian",
+        "description": "Menjalin kolaborasi dengan universitas pertanian untuk pengembangan produk"
+      },
+      "2015": {
+        "title": "Sertifikasi ISO",
+        "description": "Meraih sertifikasi ISO 9001:2015 untuk sistem manajemen mutu"
+      },
+      "2020": {
+        "title": "Transformasi Digital",
+        "description": "Meluncurkan platform digital untuk keterlibatan dan dukungan pelanggan yang lebih baik"
+      },
+      "2024": {
+        "title": "Kehadiran Global",
+        "description": "Berkembang ke 50+ negara dengan portofolio produk yang komprehensif"
+      }
+    },
+    "leadership": {
+      "title": "Kepemimpinan Kami",
+      "subtitle": "Pemimpin berpengalaman yang mendorong inovasi dan pertumbuhan",
+      "ceo": {
+        "role": "CEO & Pendiri",
+        "bio": "Pemimpin visioner dengan 25+ tahun dalam inovasi pertanian dan perdagangan internasional"
+      },
+      "cso": {
+        "role": "Chief Scientific Officer",
+        "bio": "PhD dalam Kimia Pertanian, memimpin inisiatif R&D dan pengembangan produk kami"
+      },
+      "cto": {
+        "role": "Kepala Perdagangan Internasional",
+        "bio": "Ahli dalam pasar pertanian global dan logistik ekspor dengan pengalaman 15+ tahun"
+      }
+    },
+    "values": {
+      "title": "Nilai-Nilai Kami",
+      "subtitle": "Prinsip-prinsip yang memandu misi dan visi kami",
+      "quality": {
+        "title": "Keunggulan Kualitas",
+        "description": "Komitmen terhadap standar kualitas tertinggi dalam semua produk dan layanan kami"
+      },
+      "innovation": {
+        "title": "Inovasi",
+        "description": "Penelitian dan pengembangan berkelanjutan untuk menciptakan solusi pertanian terdepan"
+      },
+      "sustainability": {
+        "title": "Keberlanjutan",
+        "description": "Praktik yang bertanggung jawab terhadap lingkungan untuk pertanian berkelanjutan"
+      },
+      "partnership": {
+        "title": "Kemitraan",
+        "description": "Membangun hubungan jangka panjang dengan pelanggan dan pemangku kepentingan"
+      }
+    },
+    "location": {
+      "title": "Kunjungi Kantor Pusat Kami",
+      "description": "Terletak di jantung wilayah pertanian Tamil Nadu, fasilitas kami menggabungkan pengetahuan tradisional dengan teknologi modern."
+    }
+  },
+  "contact": {
+    "hero": {
+      "badge": "Mari Terhubung",
+      "title": "Hubungi Kami",
+      "description": "Siap mengubah bisnis pertanian Anda? Para ahli kami di sini untuk membantu Anda menemukan solusi sempurna untuk pasar Anda."
+    },
+    "form": {
+      "title": "Kirimkan pesan kepada kami",
+      "subtitle": "Isi formulir di bawah ini dan kami akan menghubungi Anda secepatnya."
+    },
+    "address": {
+      "title": "Alamat"
+    },
+    "email": {
+      "title": "Email"
+    },
+    "phone": {
+      "title": "Telepon"
+    },
+    "hours": {
+      "title": "Jam Operasional"
+    },
+    "whatsapp": {
+      "title": "Dukungan Instan",
+      "subtitle": "Chat dengan kami di WhatsApp untuk bantuan segera"
+    },
+    "map": {
+      "title": "Integrasi Google Maps",
+      "subtitle": "Pollachi, Tamil Nadu"
+    },
+    "faq": {
+      "title": "Pertanyaan yang Sering Diajukan",
+      "subtitle": "Jawaban cepat untuk pertanyaan umum",
+      "shipping": {
+        "question": "Apa syarat pengiriman untuk pesanan internasional?",
+        "answer": "Kami menawarkan syarat pengiriman fleksibel termasuk FOB, CIF, dan DDP tergantung pada kebutuhan Anda. Waktu pengiriman bervariasi berdasarkan tujuan tetapi biasanya berkisar 2-6 minggu."
+      },
+      "minimum": {
+        "question": "Berapa kuantitas pesanan minimum?",
+        "answer": "Kuantitas pesanan minimum bervariasi berdasarkan produk. Hubungi kami untuk informasi MOQ spesifik dan diskon volume yang tersedia untuk pesanan dalam jumlah besar."
+      },
+      "certifications": {
+        "question": "Apakah Anda menyediakan sertifikat dan dokumentasi?",
+        "answer": "Ya, kami menyediakan dokumentasi lengkap termasuk sertifikat analisis, sertifikat fitosanitari, dan semua dokumentasi ekspor yang diperlukan."
+      },
+      "samples": {
+        "question": "Bisakah saya meminta sampel produk?",
+        "answer": "Ya, kami menyediakan sampel untuk distributor dan pembeli dalam jumlah besar yang memenuhi syarat. Permintaan sampel diproses dalam 3-5 hari kerja."
+      }
+    },
+    "success": {
+      "title": "Pesan Berhasil Dikirim",
+      "description": "Terima kasih atas pertanyaan Anda. Kami akan menghubungi Anda dalam 24 jam."
+    },
+    "error": {
+      "title": "Gagal Mengirim Pesan",
+      "description": "Silakan coba lagi atau hubungi kami langsung melalui telepon atau email.",
+      "privacy": {
+        "title": "Kebijakan Privasi Diperlukan",
+        "description": "Silakan setujui kebijakan privasi untuk melanjutkan."
+      }
+    }
+  },
+  "form": {
+    "name": "Nama Anda",
+    "namePlaceholder": "John Doe",
+    "company": "Nama Perusahaan",
+    "companyPlaceholder": "Perusahaan Ltd",
+    "email": "Alamat Email",
+    "emailPlaceholder": "john@example.com",
+    "phone": "Nomor Telepon",
+    "phonePlaceholder": "+62 812 3456 7890",
+    "country": "Negara",
+    "countryPlaceholder": "Pilih Negara",
+    "productInterest": "Minat Produk",
+    "productPlaceholder": "Pilih Kategori",
+    "message": "Pesan",
+    "messagePlaceholder": "Ceritakan tentang kebutuhan Anda, pasar target, dan bagaimana kami dapat membantu bisnis Anda berkembang...",
+    "privacy": "Saya setuju dengan kebijakan privasi dan syarat layanan. Saya menyetujui untuk dihubungi tentang produk pertanian dan peluang bisnis.",
+    "sending": "Mengirim...",
+    "submitting": "Mengirimkan..."
+  },
+  "quote": {
+    "title": "Minta Penawaran",
+    "success": {
+      "title": "Permintaan Penawaran Dikirim",
+      "description": "Terima kasih! Ahli kami akan segera menghubungi Anda."
+    },
+    "error": {
+      "title": "Pengiriman Gagal",
+      "description": "Silakan coba lagi atau hubungi kami langsung."
+    }
+  },
+  "chatbot": {
+    "welcome": "Halo! Saya AgriBot, asisten pertanian Anda. Bagaimana saya bisa membantu Anda dengan produk kami hari ini?",
+    "status": "Online sekarang",
+    "placeholder": "Ketik pertanyaan Anda...",
+    "error": "Saya mengalami kesulitan teknis. Silakan hubungi tim dukungan kami secara langsung untuk bantuan segera.",
+    "quickQuestions": "Pertanyaan cepat:",
+    "quick": {
+      "micronutrients": "Ceritakan tentang mikronutrien",
+      "bactericides": "Bakterisida apa yang Anda tawarkan?",
+      "export": "Apakah Anda mengekspor ke negara saya?",
+      "pricing": "Bagaimana cara mendapatkan informasi harga?"
+    }
+  },
+  "footer": {
+    "quickLinks": {
+      "title": "Tautan Cepat"
+    },
+    "products": {
+      "title": "Produk"
+    },
+    "newsletter": {
+      "title": "Newsletter",
+      "description": "Berlangganan untuk mendapatkan update produk baru dan wawasan pasar",
+      "placeholder": "Email Anda",
+      "subscribe": "Berlangganan"
+    },
+    "rights": "Hak cipta dilindungi",
+    "privacy": "Kebijakan Privasi",
+    "terms": "Syarat Layanan",
+    "sitemap": "Peta Situs"
+  },
+  "newsletter": {
+    "placeholder": "Masukkan email Anda"
+  },
+  "admin": {
+    "login": {
+      "title": "Login Admin",
+      "subtitle": "Akses dashboard admin Sakthi Sai Biotech",
+      "username": "Nama Pengguna",
+      "usernamePlaceholder": "Masukkan nama pengguna Anda",
+      "password": "Kata Sandi",
+      "passwordPlaceholder": "Masukkan kata sandi Anda",
+      "submit": "Masuk",
+      "signing": "Sedang Masuk...",
+      "demo": "Kredensial demo: admin / admin123",
+      "success": {
+        "title": "Login Berhasil",
+        "description": "Selamat datang di dashboard admin"
+      },
+      "error": {
+        "credentials": "Nama pengguna atau kata sandi tidak valid",
+        "general": "Login gagal. Silakan coba lagi."
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard Admin",
+    "welcome": "Selamat datang kembali, {{name}}",
+    "stats": {
+      "inquiries": "Total Pertanyaan",
+      "leads": "Lead Aktif",
+      "products": "Produk",
+      "countries": "Pasar Ekspor"
+    },
+    "quickActions": {
+      "title": "Aksi Cepat",
+      "manageCRM": "Kelola CRM",
+      "manageProducts": "Kelola Produk",
+      "manageLanguages": "Kelola Bahasa"
+    },
+    "pipeline": {
+      "title": "Ikhtisar Pipeline Lead",
+      "new": "Baru",
+      "contacted": "Dihubungi",
+      "quoted": "Diberi Penawaran",
+      "negotiation": "Negosiasi",
+      "converted": "Dikonversi",
+      "viewFull": "Lihat CRM Lengkap"
+    },
+    "activity": {
+      "title": "Aktivitas Terbaru",
+      "placeholder": "Pelacakan aktivitas akan diimplementasikan dalam pembaruan mendatang"
+    },
+    "error": {
+      "title": "Gagal Memuat Dashboard",
+      "description": "Silakan periksa koneksi Anda dan coba lagi."
+    }
+  },
+  "roles": {
+    "admin": "Administrator",
+    "manager": "Manajer"
+  },
+  "crm": {
+    "title": "Manajemen Hubungan Pelanggan",
+    "subtitle": "Kelola lead dan lacak interaksi pelanggan",
+    "addLead": "Tambah Lead",
+    "search": {
+      "placeholder": "Cari lead..."
+    },
+    "filter": {
+      "status": "Filter berdasarkan status",
+      "all": "Semua Status"
+    },
+    "status": {
+      "new": "Baru",
+      "contacted": "Dihubungi",
+      "quoted": "Diberi Penawaran",
+      "negotiation": "Negosiasi",
+      "converted": "Dikonversi",
+      "closed": "Ditutup"
+    },
+    "table": {
+      "name": "Nama",
+      "company": "Perusahaan",
+      "status": "Status",
+      "country": "Negara",
+      "created": "Dibuat",
+      "actions": "Aksi",
+      "empty": {
+        "title": "Tidak ada lead ditemukan",
+        "description": "Coba sesuaikan kriteria pencarian Anda atau tambahkan lead baru."
+      }
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Hapus"
+    },
+    "empty": "Tidak ada lead di tahap ini",
+    "success": {
+      "title": "Lead Diperbarui",
+      "description": "Lead telah berhasil diperbarui."
+    },
+    "error": {
+      "title": "Pembaruan Gagal",
+      "description": "Gagal memperbarui lead. Silakan coba lagi."
+    }
+  },
+  "languages": {
+    "title": "Manajer Bahasa",
+    "subtitle": "Kelola konten multibahasa di semua bahasa",
+    "search": {
+      "placeholder": "Cari terjemahan..."
+    },
+    "table": {
+      "title": "Kunci Terjemahan",
+      "keys": "kunci",
+      "key": "Kunci",
+      "actions": "Aksi",
+      "placeholder": "Masukkan terjemahan...",
+      "missing": "Terjemahan hilang",
+      "empty": {
+        "title": "Tidak ada terjemahan ditemukan",
+        "description": "Coba sesuaikan kriteria pencarian Anda atau tambahkan kunci terjemahan baru."
+      }
+    },
+    "help": {
+      "title": "Panduan Terjemahan",
+      "keyFormat": "Format Kunci",
+      "keyDescription": "Gunakan notasi titik untuk kunci bersarang:",
+      "interpolation": "Interpolasi Variabel",
+      "interpolationDescription": "Gunakan kurung kurawal ganda untuk variabel:",
+      "autoSync": "Perubahan otomatis disinkronkan dengan frontend"
+    },
+    "success": {
+      "title": "Terjemahan Diperbarui",
+      "description": "Terjemahan telah berhasil diperbarui."
+    },
+    "error": {
+      "title": "Pembaruan Gagal",
+      "description": "Gagal memperbarui terjemahan. Silakan coba lagi.",
+      "loadTitle": "Gagal Memuat Bahasa",
+      "loadDescription": "Silakan periksa koneksi Anda dan coba lagi."
+    }
+  },
+  "common": {
+    "cancel": "Batal",
+    "update": "Perbarui",
+    "create": "Buat"
+  }
+}

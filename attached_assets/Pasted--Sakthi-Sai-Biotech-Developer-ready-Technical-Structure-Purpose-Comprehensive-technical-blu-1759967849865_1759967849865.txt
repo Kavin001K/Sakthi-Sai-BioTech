@@ -1,0 +1,420 @@
+# Sakthi Sai Biotech — Developer-ready Technical Structure
+
+**Purpose:** Comprehensive technical blueprint for a $10,000-level multilingual B2B site (front-end, back-end, admin dashboard, CMS, lightweight CRM, localization, analytics, and integrations).
+
+---
+
+## Recommended Tech Stack
+
+* **Frontend:** Next.js (React) with TypeScript, Tailwind CSS, Framer Motion, react-i18next (or next-i18next) for localization, Lottie for animations.
+* **Backend / API:** Node.js + Express or NestJS with TypeScript.
+* **Database:** PostgreSQL (relational) **OR** MongoDB (document). Recommendation: **Postgres** for structured product/catalog data + relational integrity; use **MongoDB** for flexible CMS content if desired. This doc will provide schemas for both (Postgres primary examples).
+* **Auth:** JWT + refresh tokens; role-based access control (RBAC) for Admin and Staff.
+* **Storage:** AWS S3 (or DigitalOcean Spaces) for product images and assets.
+* **Search:** ElasticSearch (optional) or Postgres full-text search for product search.
+* **Queue / Background jobs:** BullMQ (Redis) for emails, CSV exports, translations processing.
+* **Email:** SendGrid / SES.
+* **CRM Integration:** Built-in minimal CRM tables + optional HubSpot/Zoho webhooks.
+* **CI/CD:** GitHub Actions → Deploy to Vercel (frontend) and Render / AWS ECS / Heroku (backend) / Railway.
+* **Monitoring & Logging:** Sentry, LogRocket (frontend), and DataDog / Papertrail for backend logs.
+
+---
+
+## Project Folder Structure (mono-repo recommended)
+
+```
+/monorepo-root
+├── apps
+│   ├── web/                      # Next.js frontend (TypeScript)
+│   └── admin/                    # React dashboard (can be part of web but often separate)
+├── packages
+│   ├── ui/                       # shared UI components, Tailwind config
+│   ├── api-client/               # shared API hooks / types
+│   └── i18n/                     # shared translation keys / helpers
+├── services
+│   ├── api/                      # backend service (Express/Nest)
+│   └── jobs/                     # background workers
+├── infra
+│   ├── deploy/                   # deployment scripts / terraform / kubernetes manifests
+│   └── docker/                   # Docker compose, Dockerfiles
+├── docs/
+└── README.md
+```
+
+---
+
+## Environment Variables (example)
+
+```
+# Backend
+PORT=4000
+NODE_ENV=production
+DATABASE_URL=postgres://user:pass@host:5432/dbname
+JWT_SECRET=very_secret
+JWT_REFRESH_SECRET=very_secret_refresh
+S3_BUCKET_NAME=sakthisaibiotech-assets
+S3_REGION=ap-south-1
+S3_ACCESS_KEY=xxx
+S3_SECRET_KEY=xxx
+SENDGRID_API_KEY=xxx
+REDIS_URL=redis://:pass@host:6379
+FRONTEND_URL=https://sakthisaibiotech.com
+ADMIN_FRONTEND_URL=https://admin.sakthisaibiotech.com
+```
+
+---
+
+## Database Schema (Postgres - main tables)
+
+> Use snake_case for table and column names. Add indexes on foreign keys and search columns.
+
+### 1. users
+
+| column        | type                           | notes         |
+| ------------- | ------------------------------ | ------------- |
+| id            | uuid (PK)                      | primary key   |
+| email         | varchar                        | unique        |
+| password_hash | varchar                        |               |
+| name          | varchar                        |               |
+| role          | enum('admin','staff','viewer') | RBAC          |
+| phone         | varchar                        | optional      |
+| created_at    | timestamptz                    | default now() |
+| updated_at    | timestamptz                    |               |
+
+### 2. companies (clients/distributors)
+
+| column         | type        | notes        |
+| -------------- | ----------- | ------------ |
+| id             | uuid (PK)   |              |
+| name           | varchar     | company name |
+| contact_person | varchar     |              |
+| phone          | varchar     |              |
+| email          | varchar     |              |
+| country        | varchar     | ISO code     |
+| city           | varchar     |              |
+| address        | text        |              |
+| gst_no         | varchar     | optional     |
+| created_at     | timestamptz |              |
+
+### 3. products
+
+| column           | type                                 | notes                                             |
+| ---------------- | ------------------------------------ | ------------------------------------------------- |
+| id               | uuid (PK)                            |                                                   |
+| sku              | varchar                              | unique                                            |
+| name             | varchar                              | indexed for search                                |
+| short_desc       | text                                 | marketing blurb                                   |
+| description      | text                                 | long form, HTML/Markdown                          |
+| categories       | varchar[]                            | array of categories or a join table if relational |
+| application      | text                                 | how to use                                        |
+| crop_suitability | varchar[]                            | target crops                                      |
+| packaging        | jsonb                                | sizes, pack weights                               |
+| specs            | jsonb                                | technical specs (pH, mixing rate etc.)            |
+| images           | jsonb                                | array of image URLs & meta                        |
+| is_featured      | boolean                              |                                                   |
+| status           | enum('draft','published','archived') |                                                   |
+| created_by       | uuid (FK users.id)                   |                                                   |
+| created_at       | timestamptz                          |                                                   |
+
+### 4. inquiries (leads)
+
+| column      | type                                                                      | notes                                 |
+| ----------- | ------------------------------------------------------------------------- | ------------------------------------- |
+| id          | uuid (PK)                                                                 |                                       |
+| name        | varchar                                                                   | lead name                             |
+| company     | varchar                                                                   |                                       |
+| email       | varchar                                                                   |                                       |
+| phone       | varchar                                                                   |                                       |
+| country     | varchar                                                                   |                                       |
+| source      | varchar                                                                   | e.g. contact-form, product-page, blog |
+| product_id  | uuid (FK products.id)                                                     | optional                              |
+| message     | text                                                                      |                                       |
+| assigned_to | uuid (FK users.id)                                                        | nullable                              |
+| status      | enum('new','contacted','quoted','negotiation','closed_won','closed_lost') |                                       |
+| lead_score  | int                                                                       | auto-calculated                       |
+| meta        | jsonb                                                                     | UTM / referrer data                   |
+| created_at  | timestamptz                                                               |                                       |
+
+### 5. blog_posts
+
+| column       | type                      | notes          |
+| ------------ | ------------------------- | -------------- |
+| id           | uuid                      |                |
+| slug         | varchar                   | unique         |
+| title        | varchar                   |                |
+| excerpt      | text                      |                |
+| content      | text                      | HTML/Markdown  |
+| cover_image  | varchar                   | URL            |
+| language     | varchar                   | 'en'/'id'/'am' |
+| tags         | varchar[]                 |                |
+| author_id    | uuid (FK users.id)        |                |
+| status       | enum('draft','published') |                |
+| published_at | timestamptz               |                |
+
+### 6. translations
+
+A flexible approach: store i18n strings in a translations table for dynamic UI text.
+
+| column     | type        | notes                  |      |      |
+| ---------- | ----------- | ---------------------- | ---- | ---- |
+| id         | serial      |                        |      |      |
+| namespace  | varchar     | e.g. 'products', 'nav' |      |      |
+| key        | varchar     | e.g. 'cta_get_quote'   |      |      |
+| language   | varchar     | 'en'                   | 'id' | 'am' |
+| value      | text        | localized string       |      |      |
+| updated_at | timestamptz |                        |      |      |
+
+### 7. audit_logs (basic)
+
+| column     | type        | notes                 |
+| ---------- | ----------- | --------------------- |
+| id         | uuid        |                       |
+| user_id    | uuid        |                       |
+| action     | varchar     | e.g. 'product_update' |
+| resource   | varchar     | 'product:uuid'        |
+| meta       | jsonb       | old/new snapshot      |
+| created_at | timestamptz |                       |
+
+### 8. activity_feed (CRM notes)
+
+| column     | type                   | notes |
+| ---------- | ---------------------- | ----- |
+| id         | uuid                   |       |
+| inquiry_id | uuid (FK inquiries.id) |       |
+| user_id    | uuid (FK users.id)     |       |
+| note       | text                   |       |
+| created_at | timestamptz            |       |
+
+---
+
+## Example Mongoose Schemas (if using MongoDB)
+
+> Include validations and text indexes for search.
+
+```js
+const ProductSchema = new Schema({
+  sku: { type: String, unique: true },
+  name: { type: String, text: true },
+  short_desc: String,
+  description: String,
+  categories: [String],
+  images: [{ url: String, alt: String }],
+  specs: Schema.Types.Mixed,
+  status: { type: String, default: 'published' }
+}, { timestamps: true });
+```
+
+---
+
+## API Design & Routes (RESTful)
+
+> Use versioning: `/api/v1/` and standard HTTP verbs. Protect admin routes with JWT + RBAC middleware.
+
+### Authentication
+
+* `POST /api/v1/auth/login` — body: `{ email, password }` -> returns `{ accessToken, refreshToken, user }`
+* `POST /api/v1/auth/refresh` — body: `{ refreshToken }` -> new `accessToken`
+* `POST /api/v1/auth/logout` — revoke refresh token
+* `POST /api/v1/auth/forgot-password` — send reset link
+* `POST /api/v1/auth/reset-password` — reset via token
+
+### Public (no auth)
+
+* `GET /api/v1/products` — query params: `?q=&category=&lang=&page=&limit=` return paginated results
+* `GET /api/v1/products/:id` — product details
+* `GET /api/v1/products/slug/:slug` — lookup by slug
+* `POST /api/v1/inquiries` — create lead (body: name, company, email, phone, product_id, country, message, utm)
+* `GET /api/v1/blog?lang=en` — list posts
+* `GET /api/v1/blog/:slug` — get post
+* `GET /api/v1/meta/translations?namespace=nav&lang=en` — get UI strings
+
+### Admin (auth required)
+
+* `GET /api/v1/admin/products` — list & filter
+
+* `POST /api/v1/admin/products` — create product (multipart/form-data for images)
+
+* `PUT /api/v1/admin/products/:id` — update product
+
+* `DELETE /api/v1/admin/products/:id` — soft delete
+
+* `GET /api/v1/admin/blog` — list posts
+
+* `POST /api/v1/admin/blog` — create post
+
+* `PUT /api/v1/admin/blog/:id` — update post
+
+* `DELETE /api/v1/admin/blog/:id` — delete
+
+* `GET /api/v1/admin/inquiries` — list leads (filters: status, assigned_to, date_range)
+
+* `GET /api/v1/admin/inquiries/:id` — get lead details
+
+* `PUT /api/v1/admin/inquiries/:id` — update status/assign
+
+* `POST /api/v1/admin/inquiries/:id/notes` — add CRM note
+
+* `GET /api/v1/admin/reports/leads` — export CSV
+
+* `GET /api/v1/admin/translations` — list translation keys
+
+* `PUT /api/v1/admin/translations/:id` — update translation
+
+* `GET /api/v1/admin/stats/overview` — dashboard metrics (pageViews, newLeads, topProducts)
+
+### Webhook / Integrations
+
+* `POST /api/v1/webhooks/hubspot` — accept Hubspot webhooks
+* `POST /api/v1/webhooks/payment` — receive payment updates if integrated
+
+---
+
+## Lead Flow (CRM) & Business Logic
+
+1. **Lead Capture:** Form on product page or contact page posts to `/api/v1/inquiries`.
+2. **Auto Enrichment:** Use reverse-geocoding or IP to detect country; optional enrichment via third-party APIs.
+3. **Lead Scoring:** score = base + (product_interest_weight) + (country_priority) + (utm_score). Save to `lead_score`.
+4. **Assignment:** Round-robin or rule-based assignment to staff. Notify assigned user via email + in-app notification.
+5. **Status Flow:** `new -> contacted -> quoted -> negotiation -> closed_won/closed_lost`.
+6. **Activity & Notes:** Sales team adds notes; all actions logged in `activity_feed`.
+7. **Exports:** Admin can export filtered leads to CSV.
+
+---
+
+## Localization (i18n)
+
+* Store UI strings in a `translations` table or JSON files. Structure example:
+
+```
+/locales
+  /en
+    common.json
+    nav.json
+  /id
+    common.json
+  /am
+    common.json
+```
+
+* Use `next-i18next` or `react-i18next` to load namespaces. Provide CMS admin UI to edit translations stored in DB.
+* Use `hreflang` tags and language-specific sitemaps for SEO.
+
+---
+
+## Admin Dashboard: Pages & Components
+
+* **Login / Auth**
+* **Dashboard / Overview:** KPIs, recent leads, quick actions
+* **Products Manager:** CRUD product, bulk import (CSV), image uploader
+* **Blog Manager:** Rich text (WYSIWYG) editor, scheduling, tag manager
+* **Leads & CRM:** list, filters, assign, activity notes, export
+* **Translations Manager:** edit UI strings per language
+* **Users & Roles:** manage admin/staff accounts
+* **Settings:** company profile (address, GST, banking info), payment terms
+* **Media Library:** S3 browser for images and assets
+
+---
+
+## Frontend - Component Patterns
+
+* **Reusable components:** Button, Input, Modal, Table, Card, Badge, Icon
+* **ProductCard:** image, short_desc, categories, CTA
+* **ProductModal:** full details + quick inquiry form (prefill product_id)
+* **Hero:** headline, subtext, animated background
+* **MapExport:** interactive SVG map with export routes and flags
+* **LanguageSwitcher:** persistent cookie/localStorage preference
+* **Notification System:** toast + in-app notifications (for admin)
+
+---
+
+## API Payload Examples
+
+**Create Inquiry**
+
+`POST /api/v1/inquiries`
+
+```json
+{
+  "name": "John Doe",
+  "company": "Agri Traders",
+  "email": "john@example.com",
+  "phone": "+2519xxxxxxx",
+  "country": "ET",
+  "product_id": "a1b2c3d4",
+  "message": "Need bulk quote for Spectrum Bactericide",
+  "utm": { "source": "google", "campaign": "search" }
+}
+```
+
+**Response**
+
+```json
+{ "id": "uuid", "status": "new", "assigned_to": null }
+```
+
+---
+
+## Security & Best Practices
+
+* Use HTTPS and secure cookies.
+* Rate-limit public endpoints (forms) and enable reCAPTCHA v3.
+* Parameterized queries / ORM to prevent SQL injection.
+* Input validation + sanitize HTML in blog content.
+* Secure S3 uploads with signed URLs.
+* Implement RBAC and audit logs.
+
+---
+
+## Performance & SEO
+
+* Use SSR or SSG for product pages (Next.js incremental static regeneration recommended).
+* Generate `sitemap.xml` and `robots.txt` automatically.
+* Optimize images (AVIF / WebP), use responsive `srcset`.
+* Prefetch critical data; lazy-load heavy sections (maps, Lottie animations).
+
+---
+
+## Testing Strategy
+
+* Unit tests for backend services (Jest + Supertest).
+* Integration tests for API endpoints.
+* E2E tests for critical flows (Cypress): inquiry submission, admin login, product CRUD.
+
+---
+
+## Deployment Checklist
+
+1. CI pipeline: run tests, lint, build artifacts.
+2. Push frontend to Vercel (or S3 + CloudFront). Use environment variables for production.
+3. Deploy backend as a container (Render / AWS ECS / Railway) with connection to DB and Redis.
+4. Setup cron/worker for background jobs and email queues.
+5. Configure domain, TLS certs (Let's Encrypt or managed), and CDN.
+
+---
+
+## Optional Enhancements (phase 2)
+
+* Multi-warehouse inventory visibility.
+* Distributor portal with order requests and pricing.
+* Advanced lead scoring with ML-based prioritization.
+* Payment integration for pro-forma invoices.
+* Chatbot with FAQ and lead capture.
+
+---
+
+## Next Steps / Deliverables
+
+1. Choose DB (Postgres vs Mongo) and confirm hosting provider.
+2. Finalize tech stack preferences (NestJS vs Express; Monorepo vs separate repos).
+3. Create API spec (OpenAPI / Swagger) and begin sprint planning.
+4. Build MVP: public product pages, inquiry form, admin login, product CRUD.
+
+---
+
+*If you want, I can now generate:*
+
+* A complete OpenAPI spec (YAML) for all routes listed above.
+* A sample `docker-compose.yml` + Dockerfiles for local dev.
+* Starter code snippets (Next.js pages + Express routes + sample migrations).
+
+Tell me which artifact you want next.

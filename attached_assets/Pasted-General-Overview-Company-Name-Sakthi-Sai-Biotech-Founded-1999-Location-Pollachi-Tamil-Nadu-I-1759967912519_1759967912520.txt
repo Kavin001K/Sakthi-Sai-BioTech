@@ -1,0 +1,235 @@
+General Overview
+
+Company Name: Sakthi Sai Biotech
+
+Founded: 1999
+
+Location: Pollachi, Tamil Nadu, India
+
+Industry: Agricultural Products Manufacturing & Export
+
+Export Markets: Ethiopia, Indonesia
+
+Leadership: Mathivanan Gowthamvignesh (CEO)
+
+Target Audience: B2B distributors, agri-dealers, farmers’ cooperatives, international trade buyers
+
+Primary Goals:
+
+Lead generation and distributor inquiries
+
+Product catalog showcase (non-eCommerce)
+
+Educational resources (blogs, research updates)
+
+Multilingual accessibility (English, Bahasa Indonesia, Amharic)
+
+Build brand trust and global credibility
+
+🎨 Front-End (UI/UX Design Requirements)
+
+Design Principles:
+
+Color psychology: Green (growth & agriculture), Blue (trust & stability), White (purity & clarity), Orange (CTA highlight).
+
+Modern, professional layout with large hero banners, micro-interactions, and smooth animations.
+
+Responsive across all devices (desktop, tablet, mobile).
+
+Typography: Sans-serif (clean, modern) – e.g., Poppins, Inter, or Lato.
+
+Visuals: Use agricultural product imagery, lush farm visuals, and micro-interactive icons.
+
+Pages & UI Elements:
+
+Home Page:
+
+Animated hero section with parallax scrolling or particle effects (e.g., crops swaying in the background).
+
+Quick-access CTAs: “Get a Quote,” “View Products,” “Contact Us.”
+
+Scrolling product highlights with fade-in animations.
+
+Trust indicators (certifications, partner logos) with slide transitions.
+
+About Us Page:
+
+Timeline animation of company history since 1999.
+
+Leadership profiles (hover effects with short bios).
+
+Animated map showing export countries (Ethiopia & Indonesia).
+
+Products Catalog:
+
+Filterable gallery layout with category tabs (Micronutrients, Bactericides, Growth Promoters, etc.).
+
+Hover animation showing short descriptions.
+
+Each product card clickable to open a detailed modal with product info, images, and inquiry form.
+
+Blog / Research Section:
+
+Grid layout with featured images.
+
+Blog articles load dynamically with fade transitions.
+
+“Read More” transitions using slide-in effects.
+
+Exports Page:
+
+Animated world map displaying export routes.
+
+Country flags with hover tooltips (localized contact details).
+
+Contact Page:
+
+Integrated Google Maps location pin.
+
+Contact form with floating label animations.
+
+WhatsApp chat widget + “Request Callback” CTA with hover pulse animation.
+
+Language Switcher:
+
+Top-right toggle (EN / ID / AM) with instant content translation (no page reload).
+
+All text stored in language JSON files for easy CMS editing.
+
+⚙️ Back-End (Admin & CMS)
+
+Tech Stack Recommendation:
+
+Front-End: React.js / Next.js with Tailwind CSS & Framer Motion for animations.
+
+Back-End: Node.js (Express) or NestJS for APIs.
+
+Database: MongoDB / PostgreSQL.
+
+CMS & CRM: Integrated Admin Dashboard with custom CMS + lightweight CRM system.
+
+Authentication: JWT-based secure login for admin and staff.
+
+Deployment: Cloud-based (AWS / Vercel / Render).
+
+Admin Dashboard Features:
+
+Secure Admin Login / Role-based Access (Admin, Staff).
+
+CMS Controls:
+
+Add/Edit/Delete products (with images, specifications, tags).
+
+Manage blog posts (create, edit, schedule posts).
+
+Edit homepage banners, text blocks, and translation files.
+
+Manage export market content.
+
+CRM Panel:
+
+Track incoming inquiries (lead name, email, company, country, product interest).
+
+Assign leads to team members.
+
+Status tracking (New / In Progress / Closed).
+
+Export leads to CSV/Excel.
+
+Built-in lead scoring and tagging system.
+
+Analytics Integration:
+
+Dashboard widgets for daily visitors, inquiries, top-performing products.
+
+Integration with Google Analytics & Search Console API.
+
+Language Manager:
+
+Dynamic control of multilingual content via editable text fields.
+
+Ability to add new languages easily.
+
+💬 Advanced Interactivity & Effects
+
+Use Framer Motion for entrance and scroll-triggered animations.
+
+Include smooth scroll, lazy loading, and Lottie animations for visuals.
+
+Animated counter (e.g., “25+ Years of Experience”) on the homepage.
+
+Hover-triggered gradient highlights for product cards.
+
+Animated success pop-up after form submission (“Thank you, our expert will contact you soon”).
+
+Dark/Light mode toggle for modern appeal.
+
+3D rotation effect for the company logo on hover (optional).
+
+🧩 Integrations & Tools
+
+CRM Integration: Built-in or API-compatible with HubSpot / Zoho CRM.
+
+Form Automation: Integrated with email + database storage.
+
+Newsletter Signup: Linked with Mailchimp API.
+
+SEO Optimization: Meta tag manager + sitemap auto-generator.
+
+Security: HTTPS, input sanitization, reCAPTCHA v3.
+
+Performance: Code-splitting, lazy loading, CDN for static assets.
+
+📋 Content Guidelines (for CMS)
+
+All product pages must have fields for:
+
+Title
+
+Image
+
+Description
+
+Crop suitability
+
+Application method
+
+Key benefits
+
+Safety instructions
+
+Inquiry button (links to CRM lead form).
+
+Blog posts must support:
+
+Rich text + image + video embeds.
+
+SEO metadata editor (title, description, keywords).
+
+Scheduled publishing.
+
+🧠 User Experience Psychology
+
+Leverage trust-based color psychology (green/blue tones).
+
+Use testimonials and case studies for social proof.
+
+Minimal friction lead forms (3–4 fields max).
+
+Ensure instant feedback (success messages, progress indicators).
+
+Guide users with clear visual hierarchy and CTA placement.
+
+🧾 Final Deliverables
+
+Fully functional multilingual B2B website with CMS + CRM.
+
+Admin dashboard with user management and analytics.
+
+Optimized front-end with animations, effects, and responsive layout.
+
+SEO-optimized structure with meta tags, sitemap, and analytics integration.
+
+Cloud deployment setup and documentation.
+
+Style guide (colors, fonts, component library).
