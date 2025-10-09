@@ -23,7 +23,7 @@ var MemStorage = class {
     this.users.set(adminId, {
       id: adminId,
       username: "admin",
-      password: "$2b$10$8vJ1qX9/KsZ8XzKgVf9Cx.ZxqY8dJ5kL2M3nB4cF6vG7hI9jK0lM2",
+      password: "$2b$10$rKpw/9tTOcVHdxhc93E/PeqJiAsdtcYaz.L8GVS4KyUnQGnk5G8S6",
       // hashed "admin123"
       role: "admin",
       email: "admin@sakthisaibiotech.com",
@@ -940,6 +940,7 @@ var vite_config_default = defineConfig({
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true
   },
+  publicDir: path.resolve(import.meta.dirname, "client/public"),
   server: {
     fs: {
       strict: true,
@@ -1060,12 +1061,8 @@ app.use((req, res, next) => {
   } else {
     serveStatic(app);
   }
-  const port = parseInt(process.env.PORT || "5000", 10);
-  server.listen({
-    port,
-    host: "0.0.0.0",
-    reusePort: true
-  }, () => {
+  const port = parseInt(process.env.PORT || "3000", 10);
+  server.listen(port, () => {
     log(`serving on port ${port}`);
   });
 })();
