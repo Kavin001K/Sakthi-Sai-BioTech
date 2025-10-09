@@ -80,21 +80,30 @@ export default function Products() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-primary/10 to-secondary/10">
-        <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
+      <section className="relative py-20 overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0 bg-mesh-gradient">
+          <div className="absolute inset-0 bg-dot-pattern opacity-40" />
+        </div>
+
+        <div className="container mx-auto px-4 lg:px-8 max-w-7xl relative z-10">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-6">
-              <Leaf className="w-5 h-5" />
+            <div className="inline-flex items-center space-x-2 bg-primary/10 backdrop-blur-sm text-primary px-4 py-2 rounded-full mb-6 animate-bounce-in border border-primary/20">
+              <Leaf className="w-5 h-5 animate-pulse-slow" />
               <span className="font-semibold">{t('products.hero.badge', 'Premium Agricultural Solutions')}</span>
             </div>
-            <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+            <h1 className="text-4xl lg:text-5xl font-bold mb-6 animate-fade-in">
               {t('products.hero.title', 'Our Product Range')}
             </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto animate-slide-up">
               {t('products.hero.description', 'Comprehensive agricultural solutions designed for optimal crop health and yield enhancement. Trusted by distributors in over 50 countries worldwide.')}
             </p>
           </div>
         </div>
+
+        {/* Decorative Elements */}
+        <div className="absolute top-10 left-10 w-20 h-20 bg-primary/10 rounded-full blur-3xl animate-pulse-slow" />
+        <div className="absolute bottom-10 right-10 w-32 h-32 bg-secondary/10 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1s' }} />
       </section>
 
       {/* Filters and Search */}
@@ -185,16 +194,27 @@ export default function Products() {
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredProducts.map((product) => (
-                <Card key={product.id} className="card-hover overflow-hidden border border-border group">
+              {filteredProducts.map((product, index) => (
+                <Card
+                  key={product.id}
+                  className="card-hover overflow-hidden border border-border group animate-fade-in"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
                   <div className="relative w-full h-48 overflow-hidden">
                     <img
                       src={product.imageUrl}
                       alt={product.name}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:rotate-2"
                       data-testid={`product-image-${product.id}`}
                     />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute bottom-4 left-4 right-4 transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                      <div className="flex gap-2">
+                        <div className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold text-primary">
+                          ✓ Premium Quality
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <CardContent className="p-6">
                     <Badge 

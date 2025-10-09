@@ -127,21 +127,29 @@ export default function About() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-primary/10 to-secondary/10">
-        <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
+      <section className="relative py-20 overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0 bg-gradient-animated opacity-20" />
+        <div className="absolute inset-0 bg-grid-pattern opacity-20" />
+
+        <div className="container mx-auto px-4 lg:px-8 max-w-7xl relative z-10">
           <div className="text-center mb-16">
-            <Badge className="bg-primary/10 text-primary border-primary/30 mb-6">
-              <Award className="w-4 h-4 mr-2" />
+            <Badge className="bg-primary/10 backdrop-blur-sm text-primary border-primary/30 mb-6 animate-bounce-in">
+              <Award className="w-4 h-4 mr-2 animate-pulse-slow" />
               {t('about.hero.badge', 'Since 1999 - Agricultural Innovation')}
             </Badge>
-            <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+            <h1 className="text-4xl lg:text-5xl font-bold mb-6 animate-fade-in">
               {t('about.hero.title', 'Growing Together Since 1999')}
             </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed animate-slide-up">
               {t('about.hero.description', 'From our roots in Pollachi, Tamil Nadu – India\'s agricultural heartland – we\'ve grown into a trusted name in agricultural solutions, serving distributors across 50+ countries.')}
             </p>
           </div>
         </div>
+
+        {/* Decorative floating elements */}
+        <div className="absolute top-20 left-10 w-24 h-24 bg-primary/10 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-20 right-10 w-32 h-32 bg-secondary/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
       </section>
 
       {/* Company Story */}
@@ -224,24 +232,38 @@ export default function About() {
 
             <div className="space-y-16">
               {timelineEvents.map((event, index) => (
-                <div key={index} className={`relative flex items-center ${
-                  event.position === 'right' ? 'lg:flex-row' : 'lg:flex-row-reverse'
-                } flex-col lg:gap-16`}>
+                <div
+                  key={index}
+                  className={`relative flex items-center ${
+                    event.position === 'right' ? 'lg:flex-row' : 'lg:flex-row-reverse'
+                  } flex-col lg:gap-16 animate-fade-in`}
+                  style={{ animationDelay: `${index * 0.2}s` }}
+                >
                   {/* Year Badge */}
-                  <div className="absolute left-1/2 transform -translate-x-1/2 lg:flex hidden items-center justify-center w-16 h-16 bg-primary text-primary-foreground rounded-full font-bold text-lg z-10">
+                  <div className="absolute left-1/2 transform -translate-x-1/2 lg:flex hidden items-center justify-center w-16 h-16 bg-primary text-primary-foreground rounded-full font-bold text-lg z-10 shadow-lg animate-scale-in" style={{ animationDelay: `${index * 0.2 + 0.1}s` }}>
                     {event.year}
                   </div>
 
                   {/* Content */}
-                  <Card className={`w-full lg:w-5/12 card-hover ${
+                  <Card className={`w-full lg:w-5/12 card-hover relative overflow-hidden ${
                     event.position === 'right' ? 'lg:ml-8' : 'lg:mr-8'
                   }`}>
-                    <CardContent className="p-6">
+                    {/* Animated border */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                    <CardContent className="p-6 relative z-10">
                       <div className="lg:hidden mb-4">
-                        <Badge className="bg-primary text-primary-foreground">{event.year}</Badge>
+                        <Badge className="bg-primary text-primary-foreground animate-pulse-slow">{event.year}</Badge>
                       </div>
-                      <h3 className="text-xl font-bold mb-3">{event.title}</h3>
-                      <p className="text-muted-foreground leading-relaxed">{event.description}</p>
+                      <div className="flex items-start gap-3">
+                        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                          <Clock className="w-6 h-6 text-primary" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="text-xl font-bold mb-3">{event.title}</h3>
+                          <p className="text-muted-foreground leading-relaxed">{event.description}</p>
+                        </div>
+                      </div>
                     </CardContent>
                   </Card>
 

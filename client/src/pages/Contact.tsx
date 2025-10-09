@@ -115,21 +115,30 @@ export default function Contact() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-primary/10 to-secondary/10">
-        <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
+      <section className="relative py-20 overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10">
+          <div className="absolute inset-0 bg-mesh-gradient opacity-50" />
+        </div>
+
+        <div className="container mx-auto px-4 lg:px-8 max-w-7xl relative z-10">
           <div className="text-center">
-            <Badge className="bg-primary/10 text-primary border-primary/30 mb-6">
-              <MessageCircle className="w-4 h-4 mr-2" />
+            <Badge className="bg-primary/10 backdrop-blur-sm text-primary border-primary/30 mb-6 animate-bounce-in">
+              <MessageCircle className="w-4 h-4 mr-2 animate-pulse-slow" />
               {t('contact.hero.badge', 'Let\'s Connect')}
             </Badge>
-            <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+            <h1 className="text-4xl lg:text-5xl font-bold mb-6 animate-fade-in">
               {t('contact.hero.title', 'Get in Touch')}
             </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto animate-slide-up">
               {t('contact.hero.description', 'Ready to transform your agricultural business? Our experts are here to help you find the perfect solutions for your market.')}
             </p>
           </div>
         </div>
+
+        {/* Decorative elements */}
+        <div className="absolute top-10 right-10 w-24 h-24 bg-primary/10 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-10 left-10 w-32 h-32 bg-accent/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1.5s' }} />
       </section>
 
       {/* Contact Form & Info */}
@@ -137,11 +146,13 @@ export default function Contact() {
         <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <Card className="shadow-xl">
+            <Card className="shadow-xl card-hover animate-slide-in-left">
               <CardHeader>
                 <CardTitle className="text-2xl flex items-center gap-2">
-                  <Send className="w-6 h-6 text-primary" />
-                  {t('contact.form.title', 'Send us a message')}
+                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <Send className="w-6 h-6 text-primary" />
+                  </div>
+                  <span>{t('contact.form.title', 'Send us a message')}</span>
                 </CardTitle>
                 <p className="text-muted-foreground">
                   {t('contact.form.subtitle', 'Fill out the form below and we\'ll get back to you as soon as possible.')}
@@ -305,10 +316,11 @@ export default function Contact() {
             </Card>
 
             {/* Contact Information */}
-            <div className="space-y-8">
+            <div className="space-y-8 animate-slide-in-right">
               {/* Google Maps */}
-              <Card className="overflow-hidden">
-                <div className="w-full h-64 bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+              <Card className="overflow-hidden card-hover">
+                <div className="w-full h-64 bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center relative">
+                  <div className="absolute inset-0 bg-dot-pattern opacity-20" />
                   <div className="text-center">
                     <MapPin className="w-12 h-12 text-primary mx-auto mb-3" />
                     <p className="text-muted-foreground font-medium">{t('contact.map.title', 'Google Maps Integration')}</p>
