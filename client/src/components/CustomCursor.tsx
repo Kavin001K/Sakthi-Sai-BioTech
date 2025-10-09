@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react';
 
 export default function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
-  const ringRef = useRef<HTMLDivElement>(null);
   const positionRef = useRef({ x: 0, y: 0 });
   const isPointerRef = useRef(false);
   const isClickingRef = useRef(false);
@@ -33,10 +32,9 @@ export default function CustomCursor() {
     };
 
     const updateStyles = () => {
-      if (!dotRef.current || !ringRef.current) return;
+      if (!dotRef.current) return;
 
       const dot = dotRef.current;
-      const ring = ringRef.current;
 
       // Update dot classes
       if (isClickingRef.current) {
@@ -49,32 +47,15 @@ export default function CustomCursor() {
         dot.style.transform = 'scale(1)';
         dot.style.backgroundColor = 'hsl(145, 63%, 42%)'; // primary
       }
-
-      // Update ring classes
-      if (isPointerRef.current) {
-        ring.style.transform = 'scale(1.8)';
-        ring.style.borderColor = 'hsl(145, 63%, 42%)';
-        ring.style.opacity = '0.5';
-      } else if (isClickingRef.current) {
-        ring.style.transform = 'scale(0.75)';
-        ring.style.borderColor = 'hsl(20, 90%, 55%)';
-        ring.style.opacity = '0.5';
-      } else {
-        ring.style.transform = 'scale(1)';
-        ring.style.borderColor = 'hsl(145, 63%, 42%)';
-        ring.style.opacity = '0.5';
-      }
     };
 
     const animate = () => {
-      if (dotRef.current && ringRef.current) {
+      if (dotRef.current) {
         const { x, y } = positionRef.current;
 
         // Direct style manipulation for maximum performance
         dotRef.current.style.left = `${x}px`;
         dotRef.current.style.top = `${y}px`;
-        ringRef.current.style.left = `${x}px`;
-        ringRef.current.style.top = `${y}px`;
       }
 
       rafId = requestAnimationFrame(animate);
@@ -130,21 +111,6 @@ export default function CustomCursor() {
           transition: transform 0.15s cubic-bezier(0.33, 1, 0.68, 1),
                       background-color 0.15s ease;
         }
-
-        .custom-cursor-ring {
-          position: fixed;
-          width: 32px;
-          height: 32px;
-          margin: -16px 0 0 -16px;
-          border: 2px solid;
-          border-radius: 50%;
-          pointer-events: none;
-          z-index: 9998;
-          will-change: transform;
-          transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1),
-                      border-color 0.2s ease,
-                      opacity 0.2s ease;
-        }
       `}</style>
 
       <div
@@ -152,16 +118,6 @@ export default function CustomCursor() {
         className="custom-cursor-dot"
         style={{
           backgroundColor: 'hsl(145, 63%, 42%)',
-          transform: 'scale(1)',
-        }}
-      />
-
-      <div
-        ref={ringRef}
-        className="custom-cursor-ring"
-        style={{
-          borderColor: 'hsl(145, 63%, 42%)',
-          opacity: '0.5',
           transform: 'scale(1)',
         }}
       />
