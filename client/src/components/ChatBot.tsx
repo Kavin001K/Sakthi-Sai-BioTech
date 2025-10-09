@@ -220,17 +220,30 @@ export default function ChatBot() {
       )}
 
       {/* Toggle Button */}
-      <Button
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-40 bg-primary hover:bg-primary/90 text-primary-foreground w-14 h-14 rounded-full shadow-2xl transition-all hover:scale-110"
-        data-testid="chatbot-toggle"
-      >
-        {isOpen ? (
-          <X className="w-6 h-6" />
-        ) : (
-          <MessageCircle className="w-6 h-6" />
+      <div className="fixed bottom-6 right-6 z-40 group">
+        <Button
+          onClick={() => setIsOpen(!isOpen)}
+          className="bg-gradient-to-br from-primary via-green-600 to-primary text-primary-foreground w-14 h-14 rounded-full shadow-2xl hover:shadow-primary/50 transition-all duration-300 hover:scale-110 hover:rotate-12 relative overflow-hidden"
+          data-testid="chatbot-toggle"
+        >
+          {/* Shine effect */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+
+          {isOpen ? (
+            <X className="w-6 h-6 relative z-10" />
+          ) : (
+            <MessageCircle className="w-6 h-6 relative z-10 animate-bounce-slow" />
+          )}
+        </Button>
+
+        {/* Pulsing ring */}
+        {!isOpen && (
+          <div className="absolute inset-0 rounded-full border-2 border-primary animate-pulse-ring"></div>
         )}
-      </Button>
+
+        {/* Glow effect */}
+        <div className="absolute inset-0 -z-10 rounded-full bg-primary opacity-50 blur-xl group-hover:opacity-75 transition-opacity"></div>
+      </div>
     </>
   );
 }
