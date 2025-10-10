@@ -1,33 +1,40 @@
 import { useParallax } from '@/hooks/useScrollAnimation';
-import { ReactNode } from 'react';
+import { ReactNode, memo } from 'react';
 
 interface ParallaxSectionProps {
   children: ReactNode;
   speed?: number;
   className?: string;
   direction?: 'up' | 'down' | 'left' | 'right';
+  disabled?: boolean;
 }
 
-export default function ParallaxSection({
+const ParallaxSection = memo(function ParallaxSection({
   children,
   speed = 0.5,
   className = '',
   direction = 'up',
+  disabled = false,
 }: ParallaxSectionProps) {
   const { elementRef, offset } = useParallax(speed);
+
+  // Disable on mobile for performance
+  if (disabled || (typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches)) {
+    return <div className={className}>{children}</div>;
+  }
 
   const getTransform = () => {
     switch (direction) {
       case 'up':
-        return `translateY(${-offset}px)`;
+        return `translate3d(0, ${-offset}px, 0)`;
       case 'down':
-        return `translateY(${offset}px)`;
+        return `translate3d(0, ${offset}px, 0)`;
       case 'left':
-        return `translateX(${-offset}px)`;
+        return `translate3d(${-offset}px, 0, 0)`;
       case 'right':
-        return `translateX(${offset}px)`;
+        return `translate3d(${offset}px, 0, 0)`;
       default:
-        return `translateY(${-offset}px)`;
+        return `translate3d(0, ${-offset}px, 0)`;
     }
   };
 
@@ -36,7 +43,6 @@ export default function ParallaxSection({
       <div
         style={{
           transform: getTransform(),
-          transition: 'transform 0.1s ease-out',
           willChange: 'transform',
         }}
       >
@@ -44,7 +50,9 @@ export default function ParallaxSection({
       </div>
     </div>
   );
-}
+});
+
+export default ParallaxSection;
 
 interface ParallaxBackgroundProps {
   imageUrl: string;
@@ -54,7 +62,7 @@ interface ParallaxBackgroundProps {
   overlayOpacity?: number;
 }
 
-export function ParallaxBackground({
+export const ParallaxBackground = memo(function ParallaxBackground({
   imageUrl,
   className = '',
   children,
@@ -62,6 +70,27 @@ export function ParallaxBackground({
   overlayOpacity = 0.5,
 }: ParallaxBackgroundProps) {
   const { elementRef, offset } = useParallax(speed);
+
+  // Disable on mobile
+  if (typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches) {
+    return (
+      <div className={`relative overflow-hidden ${className}`}>
+        <div
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: `url(${imageUrl})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+        <div
+          className="absolute inset-0 z-10 bg-black"
+          style={{ opacity: overlayOpacity }}
+        />
+        <div className="relative z-20">{children}</div>
+      </div>
+    );
+  }
 
   return (
     <div ref={elementRef} className={`relative overflow-hidden ${className}`}>
@@ -72,8 +101,7 @@ export function ParallaxBackground({
           backgroundImage: `url(${imageUrl})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          transform: `translateY(${offset}px)`,
-          transition: 'transform 0.1s ease-out',
+          transform: `translate3d(0, ${offset}px, 0)`,
           willChange: 'transform',
           scale: '1.2', // Prevents gaps when scrolling
         }}
@@ -89,4 +117,4 @@ export function ParallaxBackground({
       <div className="relative z-20">{children}</div>
     </div>
   );
-}
+});

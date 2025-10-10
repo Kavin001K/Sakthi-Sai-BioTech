@@ -1,67 +1,88 @@
-import { useRef, useState, ReactNode, MouseEvent } from 'react';
+import { useRef, ReactNode, useCallback, useEffect } from 'react';
 
 interface TiltCardProps {
   children: ReactNode;
   className?: string;
   maxTilt?: number;
+  disabled?: boolean;
 }
 
 export default function TiltCard({
   children,
   className = '',
-  maxTilt = 10,
+  maxTilt = 8,
+  disabled = false,
 }: TiltCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [transform, setTransform] = useState({ rotateX: 0, rotateY: 0 });
-  const [glare, setGlare] = useState({ x: 50, y: 50, opacity: 0 });
+  const rafRef = useRef<number>();
 
-  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (!cardRef.current || disabled) return;
 
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    // Cancel previous animation frame
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
+    }
 
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
+    rafRef.current = requestAnimationFrame(() => {
+      if (!cardRef.current) return;
 
-    const rotateX = ((y - centerY) / centerY) * -maxTilt;
-    const rotateY = ((x - centerX) / centerX) * maxTilt;
+      const rect = cardRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
 
-    setTransform({ rotateX, rotateY });
-    setGlare({
-      x: (x / rect.width) * 100,
-      y: (y / rect.height) * 100,
-      opacity: 0.3,
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = ((y - centerY) / centerY) * -maxTilt;
+      const rotateY = ((x - centerX) / centerX) * maxTilt;
+
+      // Direct DOM manipulation for performance
+      cardRef.current.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
     });
-  };
+  }, [maxTilt, disabled]);
 
-  const handleMouseLeave = () => {
-    setTransform({ rotateX: 0, rotateY: 0 });
-    setGlare({ x: 50, y: 50, opacity: 0 });
-  };
+  const handleMouseLeave = useCallback(() => {
+    if (!cardRef.current || disabled) return;
+
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
+    }
+
+    cardRef.current.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+  }, [disabled]);
+
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!card || disabled) return;
+
+    card.addEventListener('mousemove', handleMouseMove as any);
+    card.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      card.removeEventListener('mousemove', handleMouseMove as any);
+      card.removeEventListener('mouseleave', handleMouseLeave);
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
+  }, [handleMouseMove, handleMouseLeave, disabled]);
+
+  // Disable on mobile/touch devices
+  if (typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <div
       ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
       className={`relative ${className}`}
       style={{
-        transform: `perspective(1000px) rotateX(${transform.rotateX}deg) rotateY(${transform.rotateY}deg)`,
-        transition: 'transform 0.1s ease-out',
         transformStyle: 'preserve-3d',
+        transition: 'transform 0.2s cubic-bezier(0.23, 1, 0.32, 1)',
+        willChange: 'transform',
       }}
     >
-      {/* Glare effect */}
-      <div
-        className="absolute inset-0 pointer-events-none rounded-inherit z-10"
-        style={{
-          background: `radial-gradient(circle at ${glare.x}% ${glare.y}%, rgba(255, 255, 255, ${glare.opacity}) 0%, transparent 50%)`,
-          transition: 'opacity 0.3s ease-out',
-        }}
-      />
-
       {children}
     </div>
   );
