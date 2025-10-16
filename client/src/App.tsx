@@ -27,6 +27,7 @@ import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
 import ChatBot from "@/components/ChatBot";
 import CustomCursor from "@/components/CustomCursor";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 function Router() {
   return (
@@ -38,14 +39,40 @@ function Router() {
       <Route path="/contact" component={Contact} />
       <Route path="/resources" component={Resources} />
       <Route path="/exports" component={Exports} />
-      
-      {/* Admin routes */}
+
+      {/* Admin login (public) */}
       <Route path="/admin/login" component={AdminLogin} />
-      <Route path="/admin/dashboard" component={AdminDashboard} />
-      <Route path="/admin/crm" component={AdminCRM} />
-      <Route path="/admin/languages" component={AdminLanguageManager} />
-      <Route path="/admin/products" component={AdminProductManager} />
-      
+
+      {/* Protected admin routes */}
+      <Route path="/admin/dashboard">
+        {() => (
+          <ProtectedRoute>
+            <AdminDashboard />
+          </ProtectedRoute>
+        )}
+      </Route>
+      <Route path="/admin/crm">
+        {() => (
+          <ProtectedRoute>
+            <AdminCRM />
+          </ProtectedRoute>
+        )}
+      </Route>
+      <Route path="/admin/languages">
+        {() => (
+          <ProtectedRoute>
+            <AdminLanguageManager />
+          </ProtectedRoute>
+        )}
+      </Route>
+      <Route path="/admin/products">
+        {() => (
+          <ProtectedRoute>
+            <AdminProductManager />
+          </ProtectedRoute>
+        )}
+      </Route>
+
       {/* Fallback */}
       <Route component={NotFound} />
     </Switch>
