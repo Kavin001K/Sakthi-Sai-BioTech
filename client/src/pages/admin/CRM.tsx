@@ -2,11 +2,12 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import * as XLSX from 'xlsx';
-import { 
-  Users, 
-  Plus, 
-  Search, 
-  Filter, 
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Users,
+  Plus,
+  Search,
+  Filter,
   MoreHorizontal,
   User,
   Mail,
@@ -17,18 +18,24 @@ import {
   Calendar,
   Edit,
   Trash2,
-  Download
+  Download,
+  MessageSquare,
+  Send,
+  TrendingUp,
+  Activity,
+  Sparkles
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Select, 
-  SelectContent, 
-  SelectItem, 
-  SelectTrigger, 
-  SelectValue 
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
 } from "@/components/ui/select";
 import {
   DropdownMenu,
@@ -332,23 +339,69 @@ export default function AdminCRM() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="border-b border-border bg-card/50">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center justify-between mb-6">
+      {/* Enhanced Header with Gradient */}
+      <div className="relative border-b border-border overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10">
+          <div className="absolute inset-0 bg-mesh-gradient opacity-30" />
+        </div>
+
+        {/* Decorative Elements */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-secondary/5 rounded-full blur-3xl animate-pulse-slow" />
+
+        <div className="relative container mx-auto px-4 py-8">
+          <motion.div
+            className="flex items-center justify-between mb-6"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <div>
-              <h1 className="text-3xl font-bold flex items-center gap-2">
-                <Users className="w-8 h-8" />
+              <h1 className="text-3xl md:text-4xl font-bold flex items-center gap-3">
+                <motion.div
+                  animate={{ rotate: [0, 10, -10, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                >
+                  <Users className="w-8 h-8 md:w-10 md:h-10 text-primary" />
+                </motion.div>
                 {t('crm.title', 'Customer Relationship Management')}
               </h1>
-              <p className="text-muted-foreground mt-1">
+              <p className="text-muted-foreground mt-2 flex items-center gap-2">
+                <Activity className="w-4 h-4" />
                 {t('crm.subtitle', 'Manage leads and track customer interactions')}
               </p>
+
+              {/* Quick Stats */}
+              <motion.div
+                className="flex gap-4 mt-4"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                <div className="flex items-center gap-2 text-sm">
+                  <TrendingUp className="w-4 h-4 text-green-500" />
+                  <span className="font-semibold">{filteredLeads.length}</span>
+                  <span className="text-muted-foreground">Total Leads</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <Sparkles className="w-4 h-4 text-yellow-500" />
+                  <span className="font-semibold">
+                    {filteredLeads.filter(l => l.status === 'new').length}
+                  </span>
+                  <span className="text-muted-foreground">New</span>
+                </div>
+              </motion.div>
             </div>
-            <div className="flex items-center gap-2">
+
+            <motion.div
+              className="flex items-center gap-2"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+            >
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" data-testid="export-button">
+                  <Button variant="outline" className="card-hover" data-testid="export-button">
                     <Download className="w-4 h-4 mr-2" />
                     {t('crm.export.button', 'Export')}
                   </Button>
@@ -364,12 +417,12 @@ export default function AdminCRM() {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Button className="bg-primary" data-testid="add-lead-button">
+              <Button className="bg-primary card-hover" data-testid="add-lead-button">
                 <Plus className="w-4 h-4 mr-2" />
                 {t('crm.addLead', 'Add Lead')}
               </Button>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Filters */}
           <div className="space-y-4">
@@ -483,41 +536,66 @@ export default function AdminCRM() {
         {isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {Array.from({ length: 5 }).map((_, i) => (
-              <Card key={i} className="animate-pulse">
-                <CardHeader>
-                  <div className="h-6 bg-muted rounded" />
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="h-20 bg-muted rounded" />
-                  <div className="h-20 bg-muted rounded" />
-                </CardContent>
-              </Card>
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <Card className="animate-pulse">
+                  <CardHeader>
+                    <div className="h-6 bg-gradient-to-r from-muted via-muted/50 to-muted rounded animate-shimmer" />
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="h-20 bg-gradient-to-r from-muted via-muted/50 to-muted rounded animate-shimmer" />
+                    <div className="h-20 bg-gradient-to-r from-muted via-muted/50 to-muted rounded animate-shimmer" />
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
           </div>
         ) : view === "kanban" ? (
           /* Kanban View */
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
-            {leadStatuses.map(status => (
-              <Card key={status.value} className="flex flex-col">
-                <CardHeader className="pb-3">
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-sm font-semibold flex items-center gap-2">
-                      <div className={`w-3 h-3 rounded-full ${status.color}`} />
-                      {status.label}
-                    </CardTitle>
-                    <Badge variant="secondary" data-testid={`kanban-count-${status.value}`}>
-                      {groupedLeads[status.value]?.length || 0}
-                    </Badge>
-                  </div>
-                </CardHeader>
-                <CardContent className="flex-1 space-y-3">
-                  {groupedLeads[status.value]?.map(lead => (
-                    <Card
-                      key={lead.id}
-                      className="card-hover cursor-pointer border border-border/50"
-                      data-testid={`lead-card-${lead.id}`}
-                      onClick={() => handleOpenLeadModal(lead)}
-                    >
+            {leadStatuses.map((status, statusIndex) => (
+              <motion.div
+                key={status.value}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: statusIndex * 0.1 }}
+              >
+                <Card className="flex flex-col h-full">
+                  <CardHeader className="pb-3">
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-sm font-semibold flex items-center gap-2">
+                        <motion.div
+                          className={`w-3 h-3 rounded-full ${status.color}`}
+                          animate={{ scale: [1, 1.2, 1] }}
+                          transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                        />
+                        {status.label}
+                      </CardTitle>
+                      <Badge variant="secondary" data-testid={`kanban-count-${status.value}`}>
+                        {groupedLeads[status.value]?.length || 0}
+                      </Badge>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="flex-1 space-y-3">
+                    <AnimatePresence mode="popLayout">
+                      {groupedLeads[status.value]?.map((lead, index) => (
+                        <motion.div
+                          key={lead.id}
+                          layout
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.8 }}
+                          transition={{ delay: index * 0.05 }}
+                        >
+                          <Card
+                            className="group card-hover cursor-pointer border border-border/50 hover:border-primary/50 hover:shadow-lg transition-all duration-300"
+                            data-testid={`lead-card-${lead.id}`}
+                            onClick={() => handleOpenLeadModal(lead)}
+                          >
                       <CardContent className="p-4">
                         <div className="space-y-2">
                           <div className="flex items-center justify-between">
@@ -581,6 +659,55 @@ export default function AdminCRM() {
                             <span className="text-primary font-medium">#{lead.score}</span>
                           </div>
 
+                          {/* Quick Actions - Show on hover */}
+                          <motion.div
+                            className="flex gap-1 mt-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                            initial={{ opacity: 0, y: -10 }}
+                            whileHover={{ opacity: 1, y: 0 }}
+                          >
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              className="text-xs h-7 px-2 hover:bg-blue-500 hover:text-white"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                window.open(`mailto:${lead.email}`, '_blank');
+                              }}
+                              title="Send Email"
+                            >
+                              <Mail className="w-3 h-3" />
+                            </Button>
+                            {lead.phone && (
+                              <>
+                                <Button
+                                  size="sm"
+                                  variant="ghost"
+                                  className="text-xs h-7 px-2 hover:bg-green-500 hover:text-white"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    const phone = lead.phone?.replace(/[^0-9]/g, '');
+                                    window.open(`https://wa.me/${phone}`, '_blank');
+                                  }}
+                                  title="WhatsApp"
+                                >
+                                  <MessageSquare className="w-3 h-3" />
+                                </Button>
+                                <Button
+                                  size="sm"
+                                  variant="ghost"
+                                  className="text-xs h-7 px-2 hover:bg-purple-500 hover:text-white"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    window.open(`tel:${lead.phone}`, '_blank');
+                                  }}
+                                  title="Call"
+                                >
+                                  <Phone className="w-3 h-3" />
+                                </Button>
+                              </>
+                            )}
+                          </motion.div>
+
                           {/* Status change buttons */}
                           <div className="flex flex-wrap gap-1 mt-2">
                             {leadStatuses.filter(s => s.value !== lead.status).slice(0, 2).map(nextStatus => (
@@ -588,8 +715,11 @@ export default function AdminCRM() {
                                 key={nextStatus.value}
                                 size="sm"
                                 variant="outline"
-                                className="text-xs h-6 px-2"
-                                onClick={() => handleStatusChange(lead.id, nextStatus.value)}
+                                className="text-xs h-6 px-2 hover:scale-105 transition-transform"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleStatusChange(lead.id, nextStatus.value);
+                                }}
                                 data-testid={`move-to-${nextStatus.value}-${lead.id}`}
                               >
                                 → {nextStatus.label}
@@ -599,41 +729,63 @@ export default function AdminCRM() {
                         </div>
                       </CardContent>
                     </Card>
-                  ))}
-                  
+                        </motion.div>
+                      ))}
+                    </AnimatePresence>
+
                   {groupedLeads[status.value]?.length === 0 && (
-                    <div className="text-center py-8 text-muted-foreground">
-                      <Users className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                    <motion.div
+                      className="text-center py-8 text-muted-foreground"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.3 }}
+                    >
+                      <motion.div
+                        animate={{ y: [0, -10, 0] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      >
+                        <Users className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                      </motion.div>
                       <p className="text-sm">{t('crm.empty', 'No leads in this stage')}</p>
-                    </div>
+                    </motion.div>
                   )}
                 </CardContent>
               </Card>
+              </motion.div>
             ))}
           </div>
         ) : (
           /* Table View */
-          <Card>
-            <CardContent className="p-0">
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="border-b border-border">
-                    <tr>
-                      <th className="text-left p-4 font-semibold">{t('crm.table.name', 'Name')}</th>
-                      <th className="text-left p-4 font-semibold">{t('crm.table.company', 'Company')}</th>
-                      <th className="text-left p-4 font-semibold">{t('crm.table.status', 'Status')}</th>
-                      <th className="text-left p-4 font-semibold">{t('crm.table.country', 'Country')}</th>
-                      <th className="text-left p-4 font-semibold">{t('crm.table.created', 'Created')}</th>
-                      <th className="text-left p-4 font-semibold">{t('crm.table.actions', 'Actions')}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filteredLeads.map(lead => (
-                      <tr
-                        key={lead.id}
-                        className="border-b border-border hover:bg-muted/50 cursor-pointer"
-                        onClick={() => handleOpenLeadModal(lead)}
-                      >
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Card className="shadow-lg">
+              <CardContent className="p-0">
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead className="border-b border-border bg-muted/30">
+                      <tr>
+                        <th className="text-left p-4 font-semibold">{t('crm.table.name', 'Name')}</th>
+                        <th className="text-left p-4 font-semibold">{t('crm.table.company', 'Company')}</th>
+                        <th className="text-left p-4 font-semibold">{t('crm.table.status', 'Status')}</th>
+                        <th className="text-left p-4 font-semibold">{t('crm.table.country', 'Country')}</th>
+                        <th className="text-left p-4 font-semibold">{t('crm.table.created', 'Created')}</th>
+                        <th className="text-left p-4 font-semibold">{t('crm.table.actions', 'Actions')}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredLeads.map((lead, index) => (
+                        <motion.tr
+                          key={lead.id}
+                          className="border-b border-border hover:bg-muted/50 cursor-pointer transition-colors"
+                          onClick={() => handleOpenLeadModal(lead)}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.05 }}
+                          whileHover={{ scale: 1.01 }}
+                        >
                         <td className="p-4">
                           <div>
                             <div className="font-medium">{lead.name}</div>
@@ -681,25 +833,36 @@ export default function AdminCRM() {
                             </DropdownMenuContent>
                           </DropdownMenu>
                         </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              
-              {filteredLeads.length === 0 && (
-                <div className="text-center py-16">
-                  <Users className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                  <h3 className="text-lg font-semibold mb-2">
-                    {t('crm.table.empty.title', 'No leads found')}
-                  </h3>
-                  <p className="text-muted-foreground">
-                    {t('crm.table.empty.description', 'Try adjusting your search criteria or add new leads.')}
-                  </p>
+                        </motion.tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-              )}
-            </CardContent>
-          </Card>
+
+                {filteredLeads.length === 0 && (
+                  <motion.div
+                    className="text-center py-16"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    <motion.div
+                      animate={{ rotate: [0, 10, -10, 0] }}
+                      transition={{ duration: 3, repeat: Infinity }}
+                    >
+                      <Users className="w-12 h-12 mx-auto mb-4 opacity-50 text-primary" />
+                    </motion.div>
+                    <h3 className="text-lg font-semibold mb-2">
+                      {t('crm.table.empty.title', 'No leads found')}
+                    </h3>
+                    <p className="text-muted-foreground">
+                      {t('crm.table.empty.description', 'Try adjusting your search criteria or add new leads.')}
+                    </p>
+                  </motion.div>
+                )}
+              </CardContent>
+            </Card>
+          </motion.div>
         )}
       </div>
 
