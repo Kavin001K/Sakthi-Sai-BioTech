@@ -4,6 +4,24 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import * as XLSX from 'xlsx';
 import { motion, AnimatePresence } from "framer-motion";
 import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+  DragOverlay,
+  DragStartEvent,
+} from '@dnd-kit/core';
+import {
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+  useSortable,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import {
   Users,
   Plus,
   Search,
@@ -23,7 +41,8 @@ import {
   Send,
   TrendingUp,
   Activity,
-  Sparkles
+  Sparkles,
+  GripVertical
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -84,6 +103,19 @@ export default function AdminCRM() {
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
+  const [activeDragId, setActiveDragId] = useState<string | null>(null);
+
+  // Drag and drop sensors
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   // Fetch leads
   const { data: leads = [], isLoading, error } = useQuery<Lead[]>({
@@ -172,6 +204,192 @@ export default function AdminCRM() {
       id: leadId,
       data: { status: newStatus }
     });
+  };
+
+  // Drag and drop handlers
+  const handleDragStart = (event: DragStartEvent) => {
+    setActiveDragId(event.active.id as string);
+  };
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (!over) {
+      setActiveDragId(null);
+      return;
+    }
+
+    const leadId = active.id as string;
+    const newStatus = over.id as string;
+
+    // Find the lead's current status
+    const lead = leads.find(l => l.id === leadId);
+
+    if (lead && lead.status !== newStatus && leadStatuses.some(s => s.value === newStatus)) {
+      handleStatusChange(leadId, newStatus);
+
+      toast({
+        title: "Lead Status Updated",
+        description: `Lead moved to ${leadStatuses.find(s => s.value === newStatus)?.label}`,
+      });
+    }
+
+    setActiveDragId(null);
+  };
+
+  // Get active drag lead for overlay
+  const activeLead = leads.find(l => l.id === activeDragId);
+
+  // Draggable Lead Card Component
+  const DraggableLeadCard = ({ lead }: { lead: Lead }) => {
+    const {
+      attributes,
+      listeners,
+      setNodeRef,
+      transform,
+      transition,
+      isDragging,
+    } = useSortable({ id: lead.id });
+
+    const style = {
+      transform: CSS.Transform.toString(transform),
+      transition,
+      opacity: isDragging ? 0.5 : 1,
+    };
+
+    return (
+      <div ref={setNodeRef} style={style} {...attributes}>
+        <Card
+          className="group card-hover cursor-pointer border border-border/50 hover:border-primary/50 hover:shadow-lg transition-all duration-300"
+          data-testid={`lead-card-${lead.id}`}
+          onClick={() => handleOpenLeadModal(lead)}
+        >
+          <CardContent className="p-4">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <h4 className="font-semibold text-sm truncate flex-1" title={lead.name}>
+                  {lead.name}
+                </h4>
+                <div className="flex items-center gap-1">
+                  {/* Drag Handle */}
+                  <div
+                    {...listeners}
+                    className="cursor-grab active:cursor-grabbing p-1 hover:bg-muted rounded opacity-0 group-hover:opacity-100 transition-opacity"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <GripVertical className="w-4 h-4 text-muted-foreground" />
+                  </div>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-6 w-6 p-0"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <MoreHorizontal className="w-4 h-4" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem
+                        data-testid={`edit-lead-${lead.id}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleOpenLeadModal(lead);
+                        }}
+                      >
+                        <Edit className="w-4 h-4 mr-2" />
+                        {t('crm.actions.edit', 'Edit')}
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        className="text-destructive"
+                        data-testid={`delete-lead-${lead.id}`}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Trash2 className="w-4 h-4 mr-2" />
+                        {t('crm.actions.delete', 'Delete')}
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
+              </div>
+
+              <p className="text-xs text-muted-foreground truncate" title={lead.company}>
+                {lead.company}
+              </p>
+
+              <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                <MapPin className="w-3 h-3" />
+                <span>{lead.country}</span>
+              </div>
+
+              {lead.productInterest && (
+                <Badge variant="outline" className="text-xs">
+                  {lead.productInterest}
+                </Badge>
+              )}
+
+              <div className="flex items-center justify-between text-xs text-muted-foreground">
+                <div className="flex items-center gap-1">
+                  <Calendar className="w-3 h-3" />
+                  <span>{formatDate(lead.createdAt)}</span>
+                </div>
+                <span className="text-primary font-medium">#{lead.score}</span>
+              </div>
+
+              {/* Quick Actions */}
+              <motion.div
+                className="flex gap-1 mt-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                initial={{ opacity: 0, y: -10 }}
+                whileHover={{ opacity: 1, y: 0 }}
+              >
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="text-xs h-7 px-2 hover:bg-blue-500 hover:text-white"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    window.open(`mailto:${lead.email}`, '_blank');
+                  }}
+                  title="Send Email"
+                >
+                  <Mail className="w-3 h-3" />
+                </Button>
+                {lead.phone && (
+                  <>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="text-xs h-7 px-2 hover:bg-green-500 hover:text-white"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const phone = lead.phone?.replace(/[^0-9]/g, '');
+                        window.open(`https://wa.me/${phone}`, '_blank');
+                      }}
+                      title="WhatsApp"
+                    >
+                      <MessageSquare className="w-3 h-3" />
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="text-xs h-7 px-2 hover:bg-purple-500 hover:text-white"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open(`tel:${lead.phone}`, '_blank');
+                      }}
+                      title="Call"
+                    >
+                      <Phone className="w-3 h-3" />
+                    </Button>
+                  </>
+                )}
+              </motion.div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
   };
 
   const formatDate = (dateString: string) => {
@@ -555,16 +773,27 @@ export default function AdminCRM() {
             ))}
           </div>
         ) : view === "kanban" ? (
-          /* Kanban View */
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
-            {leadStatuses.map((status, statusIndex) => (
-              <motion.div
-                key={status.value}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: statusIndex * 0.1 }}
-              >
-                <Card className="flex flex-col h-full">
+          /* Kanban View with Drag & Drop - Fixed grid to accommodate all 6 statuses */
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+              {leadStatuses.map((status, statusIndex) => (
+                <motion.div
+                  key={status.value}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: statusIndex * 0.1 }}
+                >
+                  <SortableContext
+                    id={status.value}
+                    items={groupedLeads[status.value]?.map(l => l.id) || []}
+                    strategy={verticalListSortingStrategy}
+                  >
+                    <Card className="flex flex-col h-full" id={status.value}>
                   <CardHeader className="pb-3">
                     <div className="flex items-center justify-between">
                       <CardTitle className="text-sm font-semibold flex items-center gap-2">
@@ -580,7 +809,7 @@ export default function AdminCRM() {
                       </Badge>
                     </div>
                   </CardHeader>
-                  <CardContent className="flex-1 space-y-3">
+                  <CardContent className="flex-1 space-y-3" data-droppable-id={status.value}>
                     <AnimatePresence mode="popLayout">
                       {groupedLeads[status.value]?.map((lead, index) => (
                         <motion.div
@@ -591,144 +820,7 @@ export default function AdminCRM() {
                           exit={{ opacity: 0, scale: 0.8 }}
                           transition={{ delay: index * 0.05 }}
                         >
-                          <Card
-                            className="group card-hover cursor-pointer border border-border/50 hover:border-primary/50 hover:shadow-lg transition-all duration-300"
-                            data-testid={`lead-card-${lead.id}`}
-                            onClick={() => handleOpenLeadModal(lead)}
-                          >
-                      <CardContent className="p-4">
-                        <div className="space-y-2">
-                          <div className="flex items-center justify-between">
-                            <h4 className="font-semibold text-sm truncate" title={lead.name}>
-                              {lead.name}
-                            </h4>
-                            <DropdownMenu>
-                              <DropdownMenuTrigger asChild>
-                                <Button
-                                  variant="ghost"
-                                  size="sm"
-                                  className="h-6 w-6 p-0"
-                                  onClick={(e) => e.stopPropagation()}
-                                >
-                                  <MoreHorizontal className="w-4 h-4" />
-                                </Button>
-                              </DropdownMenuTrigger>
-                              <DropdownMenuContent align="end">
-                                <DropdownMenuItem
-                                  data-testid={`edit-lead-${lead.id}`}
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleOpenLeadModal(lead);
-                                  }}
-                                >
-                                  <Edit className="w-4 h-4 mr-2" />
-                                  {t('crm.actions.edit', 'Edit')}
-                                </DropdownMenuItem>
-                                <DropdownMenuItem
-                                  className="text-destructive"
-                                  data-testid={`delete-lead-${lead.id}`}
-                                  onClick={(e) => e.stopPropagation()}
-                                >
-                                  <Trash2 className="w-4 h-4 mr-2" />
-                                  {t('crm.actions.delete', 'Delete')}
-                                </DropdownMenuItem>
-                              </DropdownMenuContent>
-                            </DropdownMenu>
-                          </div>
-                          
-                          <p className="text-xs text-muted-foreground truncate" title={lead.company}>
-                            {lead.company}
-                          </p>
-                          
-                          <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                            <MapPin className="w-3 h-3" />
-                            <span>{lead.country}</span>
-                          </div>
-                          
-                          {lead.productInterest && (
-                            <Badge variant="outline" className="text-xs">
-                              {lead.productInterest}
-                            </Badge>
-                          )}
-                          
-                          <div className="flex items-center justify-between text-xs text-muted-foreground">
-                            <div className="flex items-center gap-1">
-                              <Calendar className="w-3 h-3" />
-                              <span>{formatDate(lead.createdAt)}</span>
-                            </div>
-                            <span className="text-primary font-medium">#{lead.score}</span>
-                          </div>
-
-                          {/* Quick Actions - Show on hover */}
-                          <motion.div
-                            className="flex gap-1 mt-2 opacity-0 group-hover:opacity-100 transition-opacity"
-                            initial={{ opacity: 0, y: -10 }}
-                            whileHover={{ opacity: 1, y: 0 }}
-                          >
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              className="text-xs h-7 px-2 hover:bg-blue-500 hover:text-white"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                window.open(`mailto:${lead.email}`, '_blank');
-                              }}
-                              title="Send Email"
-                            >
-                              <Mail className="w-3 h-3" />
-                            </Button>
-                            {lead.phone && (
-                              <>
-                                <Button
-                                  size="sm"
-                                  variant="ghost"
-                                  className="text-xs h-7 px-2 hover:bg-green-500 hover:text-white"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    const phone = lead.phone?.replace(/[^0-9]/g, '');
-                                    window.open(`https://wa.me/${phone}`, '_blank');
-                                  }}
-                                  title="WhatsApp"
-                                >
-                                  <MessageSquare className="w-3 h-3" />
-                                </Button>
-                                <Button
-                                  size="sm"
-                                  variant="ghost"
-                                  className="text-xs h-7 px-2 hover:bg-purple-500 hover:text-white"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    window.open(`tel:${lead.phone}`, '_blank');
-                                  }}
-                                  title="Call"
-                                >
-                                  <Phone className="w-3 h-3" />
-                                </Button>
-                              </>
-                            )}
-                          </motion.div>
-
-                          {/* Status change buttons */}
-                          <div className="flex flex-wrap gap-1 mt-2">
-                            {leadStatuses.filter(s => s.value !== lead.status).slice(0, 2).map(nextStatus => (
-                              <Button
-                                key={nextStatus.value}
-                                size="sm"
-                                variant="outline"
-                                className="text-xs h-6 px-2 hover:scale-105 transition-transform"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  handleStatusChange(lead.id, nextStatus.value);
-                                }}
-                                data-testid={`move-to-${nextStatus.value}-${lead.id}`}
-                              >
-                                → {nextStatus.label}
-                              </Button>
-                            ))}
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
+                          <DraggableLeadCard lead={lead} />
                         </motion.div>
                       ))}
                     </AnimatePresence>
@@ -750,10 +842,29 @@ export default function AdminCRM() {
                     </motion.div>
                   )}
                 </CardContent>
-              </Card>
-              </motion.div>
-            ))}
-          </div>
+                    </Card>
+                  </SortableContext>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Drag Overlay */}
+            <DragOverlay>
+              {activeLead ? (
+                <Card className="opacity-90 shadow-2xl border-2 border-primary rotate-3">
+                  <CardContent className="p-4">
+                    <div className="space-y-2">
+                      <h4 className="font-semibold text-sm">{activeLead.name}</h4>
+                      <p className="text-xs text-muted-foreground">{activeLead.company}</p>
+                      <Badge variant="outline" className="text-xs">
+                        {activeLead.country}
+                      </Badge>
+                    </div>
+                  </CardContent>
+                </Card>
+              ) : null}
+            </DragOverlay>
+          </DndContext>
         ) : (
           /* Table View */
           <motion.div
