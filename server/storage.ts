@@ -112,7 +112,7 @@ export class MemStorage implements IStorage {
         name: "Zinc Sulphate Heptahydrate",
         category: "micronutrients",
         description: "High-quality zinc supplement for crops. Corrects zinc deficiency and improves crop yield. Essential for enzyme systems and protein synthesis in plants.",
-        imageUrl: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=800",
+        imageUrl: "/one.jpeg",
         suitableCrops: ["Rice", "Wheat", "Maize", "Cotton", "Sugarcane", "Vegetables"],
         packingSizes: ["1 kg", "5 kg", "25 kg", "50 kg"],
         specifications: {
@@ -127,7 +127,7 @@ export class MemStorage implements IStorage {
         name: "Ferrous Sulphate",
         category: "micronutrients",
         description: "Premium iron supplement preventing chlorosis. Enhances photosynthesis and improves fruit quality. Critical for chlorophyll formation.",
-        imageUrl: "https://images.unsplash.com/photo-1592501558881-bbf35bc7e3f2?w=800",
+        imageUrl: "/two.jpeg",
         suitableCrops: ["Citrus", "Apple", "Grapes", "Rice", "Vegetables", "Ornamentals"],
         packingSizes: ["1 kg", "5 kg", "25 kg", "50 kg"],
         specifications: {
@@ -142,7 +142,7 @@ export class MemStorage implements IStorage {
         name: "Manganese Sulphate",
         category: "micronutrients",
         description: "Essential manganese supplement for enzyme activation. Promotes healthy growth and disease resistance.",
-        imageUrl: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800",
+        imageUrl: "/three.jpeg",
         suitableCrops: ["Cereals", "Legumes", "Fruits", "Vegetables", "Oil seeds"],
         packingSizes: ["1 kg", "5 kg", "25 kg"],
         specifications: {
@@ -156,7 +156,7 @@ export class MemStorage implements IStorage {
         name: "Copper Sulphate",
         category: "micronutrients",
         description: "High-grade copper supplement with fungicidal properties. Enhances lignin formation and improves crop immunity.",
-        imageUrl: "https://images.unsplash.com/photo-1615811361523-6bd03d7748e7?w=800",
+        imageUrl: "/four.jpeg",
         suitableCrops: ["Wheat", "Rice", "Fruits", "Vegetables", "Plantation crops"],
         packingSizes: ["500g", "1 kg", "5 kg", "25 kg"],
         specifications: {
@@ -170,7 +170,7 @@ export class MemStorage implements IStorage {
         name: "Boron Fertilizer",
         category: "micronutrients",
         description: "Premium boron supplement for reproductive growth. Essential for flowering, fruiting, and seed development.",
-        imageUrl: "https://images.unsplash.com/photo-1592894672532-28a683f33a89?w=800",
+        imageUrl: "/five.jpeg",
         suitableCrops: ["Cotton", "Groundnut", "Sunflower", "Fruits", "Vegetables"],
         packingSizes: ["500g", "1 kg", "5 kg"],
         specifications: {
@@ -184,7 +184,7 @@ export class MemStorage implements IStorage {
         name: "Magnesium Sulphate",
         category: "micronutrients",
         description: "Epsom salt for magnesium supplementation. Boosts chlorophyll production and enzyme activation.",
-        imageUrl: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800",
+        imageUrl: "/six.jpeg",
         suitableCrops: ["All crops", "Vegetables", "Fruits", "Ornamentals"],
         packingSizes: ["1 kg", "5 kg", "25 kg", "50 kg"],
         specifications: {
@@ -198,7 +198,7 @@ export class MemStorage implements IStorage {
         name: "NPK Complex with Micronutrients",
         category: "bio-fertilizers",
         description: "Balanced NPK with essential micronutrients. Complete nutrition for all growth stages.",
-        imageUrl: "https://images.unsplash.com/photo-1628689469838-524a4a973b8e?w=800",
+        imageUrl: "/seven.jpeg",
         suitableCrops: ["All crops", "Field crops", "Horticulture"],
         packingSizes: ["1 kg", "10 kg", "25 kg", "50 kg"],
         specifications: {
@@ -212,7 +212,7 @@ export class MemStorage implements IStorage {
         name: "Calcium Nitrate",
         category: "micronutrients",
         description: "Premium calcium and nitrogen source. Prevents blossom end rot and improves fruit quality.",
-        imageUrl: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800",
+        imageUrl: "/one.jpeg",
         suitableCrops: ["Tomato", "Pepper", "Fruits", "Greenhouse crops"],
         packingSizes: ["1 kg", "5 kg", "25 kg"],
         specifications: {
@@ -226,7 +226,7 @@ export class MemStorage implements IStorage {
         name: "Azotobacter Bio-fertilizer",
         category: "bio-fertilizers",
         description: "Nitrogen-fixing bacteria for sustainable agriculture. Reduces chemical fertilizer dependency.",
-        imageUrl: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800",
+        imageUrl: "/two.jpeg",
         suitableCrops: ["Rice", "Wheat", "Maize", "Vegetables", "Cotton"],
         packingSizes: ["250g", "500g", "1 kg"],
         specifications: {
@@ -240,7 +240,7 @@ export class MemStorage implements IStorage {
         name: "Humic Acid Granules",
         category: "growth-promoters",
         description: "Organic growth promoter improving nutrient uptake. Enhances soil fertility and root development.",
-        imageUrl: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800",
+        imageUrl: "/three.jpeg",
         suitableCrops: ["All crops", "Vegetables", "Fruits"],
         packingSizes: ["1 kg", "5 kg", "25 kg"],
         specifications: {
@@ -254,7 +254,7 @@ export class MemStorage implements IStorage {
         name: "Seaweed Extract",
         category: "growth-promoters",
         description: "Natural plant growth stimulant. Rich in cytokinins, auxins, and micronutrients.",
-        imageUrl: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800",
+        imageUrl: "/four.jpeg",
         suitableCrops: ["All crops", "Vegetables", "Fruits", "Ornamentals"],
         packingSizes: ["250ml", "500ml", "1L", "5L"],
         specifications: {
@@ -268,7 +268,7 @@ export class MemStorage implements IStorage {
         name: "Amino Acid Complex",
         category: "growth-promoters",
         description: "Free amino acids for stress recovery. Improves plant metabolism and yield quality.",
-        imageUrl: "https://images.unsplash.com/photo-1628689469838-524a4a973b8e?w=800",
+        imageUrl: "/five.jpeg",
         suitableCrops: ["All crops", "Stress conditions"],
         packingSizes: ["250ml", "500ml", "1L"],
         specifications: {
