@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
+import SEO from "@/components/SEO";
 
 export default function About() {
   const { t } = useTranslation();
@@ -126,6 +127,15 @@ export default function About() {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="About Us"
+        description="Learn about Sakthi Sai Biotech, our mission, vision, and our commitment to sustainable and organic agriculture from Pollachi, Coimbatore."
+        ogTitle="About Us - Sakthi Sai Biotech"
+        ogDescription="Learn about our mission, vision, and commitment to sustainable and organic agriculture."
+        ogUrl="https://sakthisaibiotech.com/about"
+        ogImage="https://sakthisaibiotech.com/images/about-us-preview.png"
+        twitterImage="https://sakthisaibiotech.com/images/about-us-preview.png"
+      />
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
         {/* Animated Background */}

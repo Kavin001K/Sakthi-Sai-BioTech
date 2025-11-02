@@ -21,6 +21,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "wouter";
+import SEO from "@/components/SEO";
 
 interface BlogPost {
   id: string;
@@ -124,6 +125,15 @@ export default function Resources() {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Resources & Guides"
+        description="Find helpful resources, guides, and articles on organic farming, crop management, and using our bio-products effectively."
+        ogTitle="Resources & Guides - Sakthi Sai Biotech"
+        ogDescription="Helpful resources, guides, and articles on organic farming and crop management."
+        ogUrl="https://sakthisaibiotech.com/resources"
+        ogImage="https://sakthisaibiotech.com/images/resources-preview.png"
+        twitterImage="https://sakthisaibiotech.com/images/resources-preview.png"
+      />
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-primary/10 to-secondary/10">
         <div className="container mx-auto px-4 lg:px-8 max-w-7xl">

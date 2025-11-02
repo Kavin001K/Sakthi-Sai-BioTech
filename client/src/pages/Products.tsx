@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import QuoteModal from "@/components/QuoteModal";
 import AnimatedSection from "@/components/AnimatedSection";
 import TiltCard from "@/components/TiltCard";
+import SEO from "@/components/SEO";
 
 interface Product {
   id: string;
@@ -77,6 +78,15 @@ export default function Products() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SEO
+        title="Our Products"
+        description="Explore our range of bio-fertilizers, bio-pesticides, plant growth promoters, and organic agricultural products."
+        ogTitle="Our Products - Sakthi Sai Biotech"
+        ogDescription="Explore our range of bio-fertilizers, bio-pesticides, plant growth promoters, and organic agricultural products."
+        ogUrl="https://sakthisaibiotech.com/products"
+        ogImage="https://sakthisaibiotech.com/images/product-preview.png"
+        twitterImage="https://sakthisaibiotech.com/images/product-preview.png"
+      />
       {/* Hero Section */}
       <section className="relative py-24 overflow-hidden bg-gradient-to-b from-background to-transparent">
         <div className="absolute inset-0 bg-grid-pattern-dark opacity-5" />

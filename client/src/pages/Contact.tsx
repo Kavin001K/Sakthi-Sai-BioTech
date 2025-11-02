@@ -10,6 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
+import SEO from "@/components/SEO";
 
 export default function Contact() {
   const { t } = useTranslation();
@@ -114,6 +115,15 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Contact Us"
+        description="Get in touch with Sakthi Sai Biotech. Find our address in Pollachi, Coimbatore, phone number, and email for inquiries."
+        ogTitle="Contact Us - Sakthi Sai Biotech"
+        ogDescription="Get in touch with Sakthi Sai Biotech. Find our address, phone number, and email for inquiries."
+        ogUrl="https://sakthisaibiotech.com/contact"
+        ogImage="https://sakthisaibiotech.com/images/contact-preview.png"
+        twitterImage="https://sakthisaibiotech.com/images/contact-preview.png"
+      />
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
         {/* Animated Background */}

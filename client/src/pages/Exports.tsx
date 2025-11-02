@@ -18,6 +18,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import QuoteModal from "@/components/QuoteModal";
 import { useState } from "react";
+import SEO from "@/components/SEO";
 
 interface ExportMarket {
   id: string;
@@ -135,6 +136,15 @@ export default function Exports() {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Exports"
+        description="Information on our international exports of high-quality bio-agricultural products. Learn about our global partners and export capabilities."
+        ogTitle="Exports - Sakthi Sai Biotech"
+        ogDescription="Information on our international exports of high-quality bio-agricultural products."
+        ogUrl="https://sakthisaibiotech.com/exports"
+        ogImage="https://sakthisaibiotech.com/images/exports-preview.png"
+        twitterImage="https://sakthisaibiotech.com/images/exports-preview.png"
+      />
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-primary/10 to-secondary/10">
         <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
