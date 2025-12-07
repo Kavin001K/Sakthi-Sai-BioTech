@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import { Link, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { Menu, X, Globe, Sun, Moon, Sprout } from "lucide-react";
@@ -142,8 +143,8 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Navigation Overlay */}
-        {isMobileMenuOpen && (
-          <div className="fixed inset-0 z-50 bg-background lg:hidden animate-in slide-in-from-top-10 duration-200 overflow-y-auto">
+        {isMobileMenuOpen && createPortal(
+          <div className="fixed inset-0 z-[100] bg-background lg:hidden animate-in slide-in-from-top-10 duration-200 overflow-y-auto">
             <div className="container mx-auto px-4 py-6 h-full flex flex-col">
               <div className="flex justify-end mb-8">
                 <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(false)}>
@@ -172,7 +173,8 @@ export default function Navbar() {
                 </div>
               </nav>
             </div>
-          </div>
+          </div>,
+          document.body
         )}
       </div>
     </header>

@@ -187,17 +187,17 @@ export default function Home() {
       />
       <CustomCursor />
       <section className="relative min-h-screen flex items-center overflow-hidden">
-        <BackgroundVideo src="/Bg.mp4" overlayOpacity={0.7} />
+        <BackgroundVideo src="/Bg.mp4" overlayOpacity={0.8} />
         <div className="container mx-auto px-4 lg:px-8 max-w-7xl relative z-10">
           <div className="max-w-4xl opacity-0 animate-[fadeIn_1s_ease-out_0.5s_forwards]">
-            <Badge className="glass-morphism px-4 py-2 mb-6 text-sm font-semibold border-0">
-              <Award className="w-4 h-4 mr-2 text-primary" />
+            <Badge className="glass-morphism px-4 py-2 mb-6 text-sm font-semibold border-0 bg-black/40 text-white backdrop-blur-md">
+              <Award className="w-4 h-4 mr-2 text-primary-foreground" />
               {t('hero.badge', 'Trusted Since 1999 | Exporting to 50+ Countries')}
             </Badge>
-            <h1 className="text-4xl md:text-6xl lg:text-8xl font-bold text-white mb-6 leading-tight shadow-text-strong">
+            <h1 className="text-4xl md:text-6xl lg:text-8xl font-bold text-white mb-6 leading-tight drop-shadow-2xl">
               {t('hero.title', 'Advanced Agricultural Solutions')}
             </h1>
-            <p className="text-lg md:text-xl text-white/80 mb-10 leading-relaxed max-w-3xl">
+            <p className="text-lg md:text-xl text-gray-50 font-medium mb-10 leading-relaxed max-w-3xl drop-shadow-lg">
               {t('hero.description', 'Premium micronutrients, bactericides, and growth promoters trusted by distributors worldwide.')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -208,7 +208,7 @@ export default function Home() {
                 </Button>
               </MagneticButton>
               <MagneticButton>
-                <Button asChild variant="outline" size="lg" className="glass-morphism border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50">
+                <Button asChild variant="outline" size="lg" className="bg-black/40 backdrop-blur-md border-2 border-white/50 text-white hover:bg-black/60 hover:border-white transition-all duration-300">
                   <Link href="/products">
                     <Box className="w-5 h-5 mr-2" />
                     {t('cta.viewProducts', 'View Products')}
