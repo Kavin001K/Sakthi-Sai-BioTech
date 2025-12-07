@@ -41,6 +41,7 @@ export default function SEO({
     <Helmet>
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
+      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
       {keywords && <meta name="keywords" content={keywords.join(', ')} />}
       {finalCanonicalUrl && <link rel="canonical" href={finalCanonicalUrl} />}
 

@@ -120,6 +120,70 @@ export default function Home() {
           'organic pesticides'
         ]}
         canonicalUrl="https://sakthisaibiotech.com/"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://sakthisaibiotech.com/#organization",
+              "name": "Sakthi Sai Biotech",
+              "url": "https://sakthisaibiotech.com/",
+              "logo": "https://sakthisaibiotech.com/logo.svg",
+              "sameAs": [
+                "https://www.facebook.com/sakthisaibiotech",
+                "https://twitter.com/sakthisaibiotech",
+                "https://www.linkedin.com/company/sakthisaibiotech"
+              ],
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+91-4259-223344",
+                "contactType": "customer service",
+                "areaServed": ["IN", "ET", "ID", "ZA", "GH", "KE"],
+                "availableLanguage": ["en", "ta"]
+              }
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://sakthisaibiotech.com/#website",
+              "url": "https://sakthisaibiotech.com/",
+              "name": "Sakthi Sai Biotech",
+              "description": "Leading manufacturer of organic agricultural inputs, bio-fertilizers, and plant growth promoters.",
+              "publisher": {
+                "@id": "https://sakthisaibiotech.com/#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://sakthisaibiotech.com/resources?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "LocalBusiness",
+              "parentOrganization": {
+                "@id": "https://sakthisaibiotech.com/#organization"
+              },
+              "name": "Sakthi Sai Biotech",
+              "image": "https://sakthisaibiotech.com/logo.svg",
+              "telephone": "+91-4259-223344",
+              "email": "info@sakthisaibiotech.com",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Pollachi Main Road",
+                "addressLocality": "Pollachi",
+                "addressRegion": "Tamil Nadu",
+                "postalCode": "642001",
+                "addressCountry": "IN"
+              },
+              "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": "10.6609",
+                "longitude": "77.0048"
+              },
+              "url": "https://sakthisaibiotech.com",
+              "priceRange": "$$"
+            }
+          ]
+        }}
       />
       <CustomCursor />
       <section className="relative min-h-screen flex items-center overflow-hidden">
