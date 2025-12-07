@@ -38,10 +38,11 @@ export default function Products() {
 
   const categories = useMemo(() => [
     { id: 'all', name: t('products.categories.all', 'All Products'), icon: '📦' },
+    { id: 'plant-growth-promotor', name: t('products.categories.plant-growth-promotor', 'Plant Growth Promotor'), icon: '🌱' },
+    { id: 'bactericide-fungicide', name: t('products.categories.bactericide-fungicide', 'Bactericide Fungicide'), icon: '🛡️' },
     { id: 'micronutrients', name: t('products.categories.micronutrients', 'Micronutrients'), icon: '🧪' },
-    { id: 'bactericides', name: t('products.categories.bactericides', 'Bactericides'), icon: '🛡️' },
-    { id: 'growth-promoters', name: t('products.categories.growth-promoters', 'Growth Promoters'), icon: '🌱' },
-    { id: 'bio-fertilizers', name: t('products.categories.bio-fertilizers', 'Bio-Fertilizers'), icon: '🌿' },
+    { id: 'liquid-fertilizer', name: t('products.categories.liquid-fertilizer', 'Liquid Fertilizer'), icon: '💧' },
+    { id: 'pesticides', name: t('products.categories.pesticides', 'Pesticides'), icon: '🦟' },
   ], [t]);
 
   const filteredProducts = useMemo(() => {
@@ -203,7 +204,7 @@ export default function Products() {
                         <p className="text-muted-foreground text-sm mb-5 line-clamp-3">
                           {product.description}
                         </p>
-                        
+
                         <div className="space-y-3 mb-6 text-sm">
                           <div className="flex items-center">
                             <Wind className="w-4 h-4 text-primary mr-3 flex-shrink-0" />

@@ -7,12 +7,12 @@ import { insertLeadSchema, insertProductSchema, insertBlogPostSchema, insertInqu
 import { processChatbotQuery, generateProductSuggestions } from "./services/openai";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  
+
   // Auth routes
   app.post("/api/auth/login", async (req, res) => {
     try {
       const { username, password } = req.body;
-      
+
       if (!username || !password) {
         return res.status(400).json({ message: "Username and password required" });
       }
@@ -28,15 +28,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const token = generateToken(user);
-      res.json({ 
-        token, 
-        user: { 
-          id: user.id, 
-          username: user.username, 
-          role: user.role, 
-          email: user.email, 
-          name: user.name 
-        } 
+      res.json({
+        token,
+        user: {
+          id: user.id,
+          username: user.username,
+          role: user.role,
+          email: user.email,
+          name: user.name
+        }
       });
     } catch (error) {
       console.error("Login error:", error);
@@ -52,7 +52,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/products", async (req, res) => {
     try {
       const category = req.query.category as string;
-      const products = category 
+      const products = category
         ? await storage.getProductsByCategory(category)
         : await storage.getProducts();
       res.json(products);
@@ -126,7 +126,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/inquiries", async (req, res) => {
     try {
       const validatedData = insertInquirySchema.parse(req.body);
-      
+
+      // Extract lead data from inquiry
+      // Extract lead data from inquiry
       // Extract lead data from inquiry
       const leadData = {
         name: validatedData.data.name || '',
@@ -144,7 +146,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Create lead first
       const lead = await storage.createLead(leadData);
-      
+
       // Create inquiry linked to lead
       const inquiry = await storage.createInquiry({
         ...validatedData,
@@ -162,7 +164,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/chatbot/query", async (req, res) => {
     try {
       const { query, context } = req.body;
-      
+
       if (!query) {
         return res.status(400).json({ message: "Query is required" });
       }
@@ -178,7 +180,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/chatbot/suggestions", async (req, res) => {
     try {
       const { query } = req.body;
-      
+
       if (!query) {
         return res.status(400).json({ message: "Query is required" });
       }
@@ -240,12 +242,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { id } = req.params;
       const updateData = req.body;
-      
+
       const updatedLead = await storage.updateLead(id, updateData);
       if (!updatedLead) {
         return res.status(404).json({ message: "Lead not found" });
       }
-      
+
       res.json(updatedLead);
     } catch (error) {
       console.error("Update lead error:", error);
@@ -278,12 +280,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { id } = req.params;
       const updateData = req.body;
-      
+
       const updatedProduct = await storage.updateProduct(id, updateData);
       if (!updatedProduct) {
         return res.status(404).json({ message: "Product not found" });
       }
-      
+
       res.json(updatedProduct);
     } catch (error) {
       console.error("Update product error:", error);
@@ -294,7 +296,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/admin/translations", authenticateToken, authorizeRole("admin", "marketing_manager"), async (req, res) => {
     try {
       const translations = await storage.getTranslations();
-      
+
       // Group by key for easier management
       const grouped = translations.reduce((acc, t) => {
         if (!acc[t.key]) {
@@ -303,7 +305,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         acc[t.key][t.language] = t.value;
         return acc;
       }, {} as Record<string, Record<string, string>>);
-      
+
       res.json(grouped);
     } catch (error) {
       console.error("Get admin translations error:", error);
@@ -315,11 +317,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { key, language } = req.params;
       const { value } = req.body;
-      
+
       if (!value) {
         return res.status(400).json({ message: "Value is required" });
       }
-      
+
       const translation = await storage.updateTranslation(key, language, value);
       res.json(translation);
     } catch (error) {
@@ -341,11 +343,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/admin/blog-posts", authenticateToken, authorizeRole("admin", "marketing_manager"), async (req, res) => {
     try {
       const validatedData = insertBlogPostSchema.parse(req.body);
-      const postData = { 
-        ...validatedData, 
-        authorId: (req as AuthRequest).user!.id 
+      const postData = {
+        ...validatedData,
+        authorId: (req as AuthRequest).user!.id
       };
-      
+
       const post = await storage.createBlogPost(postData);
       res.status(201).json(post);
     } catch (error) {

@@ -1,7 +1,7 @@
-import { 
-  type User, 
-  type InsertUser, 
-  type Product, 
+import {
+  type User,
+  type InsertUser,
+  type Product,
   type InsertProduct,
   type Lead,
   type InsertLead,
@@ -23,7 +23,7 @@ export interface IStorage {
   getUserByEmail(email: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
   updateUser(id: string, user: Partial<InsertUser>): Promise<User | undefined>;
-  
+
   // Products
   getProducts(): Promise<Product[]>;
   getProduct(id: string): Promise<Product | undefined>;
@@ -31,7 +31,7 @@ export interface IStorage {
   createProduct(product: InsertProduct): Promise<Product>;
   updateProduct(id: string, product: Partial<InsertProduct>): Promise<Product | undefined>;
   deleteProduct(id: string): Promise<boolean>;
-  
+
   // Leads
   getLeads(): Promise<Lead[]>;
   getLead(id: string): Promise<Lead | undefined>;
@@ -39,7 +39,7 @@ export interface IStorage {
   getLeadsByAssignee(userId: string): Promise<Lead[]>;
   createLead(lead: InsertLead): Promise<Lead>;
   updateLead(id: string, lead: Partial<InsertLead>): Promise<Lead | undefined>;
-  
+
   // Blog Posts
   getBlogPosts(): Promise<BlogPost[]>;
   getPublishedBlogPosts(): Promise<BlogPost[]>;
@@ -48,18 +48,18 @@ export interface IStorage {
   createBlogPost(post: InsertBlogPost): Promise<BlogPost>;
   updateBlogPost(id: string, post: Partial<InsertBlogPost>): Promise<BlogPost | undefined>;
   deleteBlogPost(id: string): Promise<boolean>;
-  
+
   // Translations
   getTranslations(): Promise<Translation[]>;
   getTranslationsByLanguage(language: string): Promise<Translation[]>;
   createTranslation(translation: InsertTranslation): Promise<Translation>;
   updateTranslation(key: string, language: string, value: string): Promise<Translation | undefined>;
-  
+
   // Inquiries
   getInquiries(): Promise<Inquiry[]>;
   createInquiry(inquiry: InsertInquiry): Promise<Inquiry>;
   updateInquiry(id: string, processed: boolean): Promise<Inquiry | undefined>;
-  
+
   // Export Markets
   getExportMarkets(): Promise<ExportMarket[]>;
   getActiveExportMarkets(): Promise<ExportMarket[]>;
@@ -109,175 +109,117 @@ export class MemStorage implements IStorage {
   private initializeProducts() {
     const products = [
       {
-        name: "Zinc Sulphate Heptahydrate",
+        name: "Win-Choice",
+        category: "plant-growth-promotor",
+        description: "An amazing organic plant tonic designed to boost plant vitality and yield. It promotes healthy growth naturally and acts as an effective tonic for various crops.",
+        imageUrl: "/Win-choke.jpeg",
+        suitableCrops: ["Chilli", "Cotton", "Vegetables"],
+        packingSizes: ["100 ml", "250 ml"],
+        specifications: {
+          "Benefits": "Boosts Plant Vitality",
+          "Form": "Liquid",
+          "Type": "Organic Tonic"
+        },
+        isActive: true,
+      },
+      {
+        name: "Micro Mac Coconut Special",
         category: "micronutrients",
-        description: "High-quality zinc supplement for crops. Corrects zinc deficiency and improves crop yield. Essential for enzyme systems and protein synthesis in plants.",
-        imageUrl: "/one.jpeg",
-        suitableCrops: ["Rice", "Wheat", "Maize", "Cotton", "Sugarcane", "Vegetables"],
-        packingSizes: ["1 kg", "5 kg", "25 kg", "50 kg"],
+        description: "A specialized micronutrient formula approved by the Govt. of Tamil Nadu. It is fortified with essential minerals specifically designed to maximize coconut yield and quality.",
+        imageUrl: "/Micro Max 2.jpeg",
+        suitableCrops: ["Coconut"],
+        packingSizes: ["25 kg"],
         specifications: {
-          "Zinc Content": "21% minimum",
-          "Sulphur": "10-11%",
-          "Form": "Crystalline powder",
-          "Solubility": "High water solubility"
+          "Approval": "Govt. of Tamil Nadu Approved",
+          "Form": "Granules",
+          "Benefit": "Maximizes Yield and Quality"
         },
         isActive: true,
       },
       {
-        name: "Ferrous Sulphate",
+        name: "Excl Power",
         category: "micronutrients",
-        description: "Premium iron supplement preventing chlorosis. Enhances photosynthesis and improves fruit quality. Critical for chlorophyll formation.",
-        imageUrl: "/two.jpeg",
-        suitableCrops: ["Citrus", "Apple", "Grapes", "Rice", "Vegetables", "Ornamentals"],
-        packingSizes: ["1 kg", "5 kg", "25 kg", "50 kg"],
+        description: "A premium plant protector that safeguards crops against environmental stress and pests. It rapidly corrects deficiencies and stimulates vigorous, healthy growth.",
+        imageUrl: "/Excl Power.jpeg",
+        suitableCrops: ["Cotton", "Chilli"],
+        packingSizes: ["250 ml", "500 ml", "1 L"],
         specifications: {
-          "Iron Content": "19% minimum",
-          "Form": "Crystalline granules",
-          "pH": "3.5-4.5",
-          "Purity": "98%+"
+          "Form": "Liquid",
+          "Action": "Stress & Pest Protection",
+          "Result": "Vigorous Growth"
         },
         isActive: true,
       },
       {
-        name: "Manganese Sulphate",
+        name: "Cyto Max",
+        category: "plant-growth-promotor",
+        description: "A high-performance bio-stimulant that enhances metabolic processes, improves flowering, and increases overall crop productivity and quality.",
+        imageUrl: "/Cito max.jpeg",
+        suitableCrops: ["Paddy", "Vegetables", "Banana", "Flowers"],
+        packingSizes: ["8 kg"],
+        specifications: {
+          "Type": "Bio-stimulant",
+          "Form": "Granules",
+          "Benefits": "Enhances Flowering & Productivity"
+        },
+        isActive: true,
+      },
+      {
+        name: "Bactowin - 2000",
+        category: "bactericide-fungicide",
+        description: "Imparts strong resistance against diseases like Canker. It is easily dissolved in water and provides broad-spectrum protection for a wide variety of crops.",
+        imageUrl: "/Bactowin.jpeg",
+        suitableCrops: ["Cotton", "Citrus", "Paddy", "Chillies", "Tomato", "Onion"],
+        packingSizes: ["25 g"],
+        specifications: {
+          "Target Disease": "Canker & others",
+          "Solubility": "Water Soluble",
+          "Protection": "Broad-spectrum"
+        },
+        isActive: true,
+      },
+      {
+        name: "Micro Mac (Liquid)",
         category: "micronutrients",
-        description: "Essential manganese supplement for enzyme activation. Promotes healthy growth and disease resistance.",
-        imageUrl: "/three.jpeg",
-        suitableCrops: ["Cereals", "Legumes", "Fruits", "Vegetables", "Oil seeds"],
-        packingSizes: ["1 kg", "5 kg", "25 kg"],
+        description: "A comprehensive liquid micronutrient mixture that corrects zinc, iron, and manganese deficiencies, ensuring balanced plant nutrition and lush foliage.",
+        imageUrl: "/Micro mac.png",
+        suitableCrops: ["Paddy", "Flowers", "Chillies", "Vegetables"],
+        packingSizes: ["500 ml", "1 L"],
         specifications: {
-          "Manganese Content": "30% minimum",
-          "Form": "Powder/Granules",
-          "Solubility": "Readily soluble"
+          "Deficiencies Corrected": "Zinc, Iron, Manganese",
+          "Form": "Liquid",
+          "Benefit": "Balanced Nutrition"
         },
         isActive: true,
       },
       {
-        name: "Copper Sulphate",
-        category: "micronutrients",
-        description: "High-grade copper supplement with fungicidal properties. Enhances lignin formation and improves crop immunity.",
-        imageUrl: "/four.jpeg",
-        suitableCrops: ["Wheat", "Rice", "Fruits", "Vegetables", "Plantation crops"],
-        packingSizes: ["500g", "1 kg", "5 kg", "25 kg"],
+        name: "Humic Power",
+        category: "liquid-fertilizer",
+        description: "A natural plant booster enriched with 16% Humic Acid and 4% Fulvic Acid. It significantly improves soil structure, root development, and nutrient absorption.",
+        imageUrl: "/Humic Pow.jpeg",
+        suitableCrops: ["Paddy", "Banana", "Chillies", "Cotton"],
+        packingSizes: ["500 ml", "1 L"],
         specifications: {
-          "Copper Content": "24-25%",
-          "Form": "Blue crystals",
-          "Grade": "Technical/Agricultural"
+          "Composition": "16% Humic Acid, 4% Fulvic Acid",
+          "Form": "Liquid",
+          "Benefits": "Improves Soil Structure"
         },
         isActive: true,
       },
       {
-        name: "Boron Fertilizer",
-        category: "micronutrients",
-        description: "Premium boron supplement for reproductive growth. Essential for flowering, fruiting, and seed development.",
-        imageUrl: "/five.jpeg",
-        suitableCrops: ["Cotton", "Groundnut", "Sunflower", "Fruits", "Vegetables"],
-        packingSizes: ["500g", "1 kg", "5 kg"],
+        name: "K-Max",
+        category: "pesticides",
+        description: "Premium water-soluble Potassium Sulphate (00:00:50). It is essential for improving fruit quality, weight, sugar content, and overall shelf life.",
+        imageUrl: "/K- Max.jpeg",
+        suitableCrops: ["Maize", "Tubers", "Flowering Plants"],
+        packingSizes: ["250 ml", "500 ml"],
         specifications: {
-          "Boron Content": "10.5-11%",
-          "Form": "Powder",
-          "Solubility": "High"
+          "Composition": "Potassium Sulphate (00:00:50)",
+          "Form": "Water Soluble Powder",
+          "Benefits": "Improves Quality & Shelf Life"
         },
         isActive: true,
       },
-      {
-        name: "Magnesium Sulphate",
-        category: "micronutrients",
-        description: "Epsom salt for magnesium supplementation. Boosts chlorophyll production and enzyme activation.",
-        imageUrl: "/six.jpeg",
-        suitableCrops: ["All crops", "Vegetables", "Fruits", "Ornamentals"],
-        packingSizes: ["1 kg", "5 kg", "25 kg", "50 kg"],
-        specifications: {
-          "Magnesium": "9.8% minimum",
-          "Sulphur": "12-13%",
-          "Form": "Crystals/Powder"
-        },
-        isActive: true,
-      },
-      {
-        name: "NPK Complex with Micronutrients",
-        category: "bio-fertilizers",
-        description: "Balanced NPK with essential micronutrients. Complete nutrition for all growth stages.",
-        imageUrl: "/seven.jpeg",
-        suitableCrops: ["All crops", "Field crops", "Horticulture"],
-        packingSizes: ["1 kg", "10 kg", "25 kg", "50 kg"],
-        specifications: {
-          "NPK": "19:19:19",
-          "Micronutrients": "Zn, Fe, Mn, Cu, B",
-          "Form": "Water soluble"
-        },
-        isActive: true,
-      },
-      {
-        name: "Calcium Nitrate",
-        category: "micronutrients",
-        description: "Premium calcium and nitrogen source. Prevents blossom end rot and improves fruit quality.",
-        imageUrl: "/one.jpeg",
-        suitableCrops: ["Tomato", "Pepper", "Fruits", "Greenhouse crops"],
-        packingSizes: ["1 kg", "5 kg", "25 kg"],
-        specifications: {
-          "Nitrogen": "15.5%",
-          "Calcium": "19%",
-          "Solubility": "100%"
-        },
-        isActive: true,
-      },
-      {
-        name: "Azotobacter Bio-fertilizer",
-        category: "bio-fertilizers",
-        description: "Nitrogen-fixing bacteria for sustainable agriculture. Reduces chemical fertilizer dependency.",
-        imageUrl: "/two.jpeg",
-        suitableCrops: ["Rice", "Wheat", "Maize", "Vegetables", "Cotton"],
-        packingSizes: ["250g", "500g", "1 kg"],
-        specifications: {
-          "CFU": "10^8 cells/ml",
-          "Carrier": "Liquid/Powder",
-          "Shelf life": "12 months"
-        },
-        isActive: true,
-      },
-      {
-        name: "Humic Acid Granules",
-        category: "growth-promoters",
-        description: "Organic growth promoter improving nutrient uptake. Enhances soil fertility and root development.",
-        imageUrl: "/three.jpeg",
-        suitableCrops: ["All crops", "Vegetables", "Fruits"],
-        packingSizes: ["1 kg", "5 kg", "25 kg"],
-        specifications: {
-          "Humic Acid": "60% minimum",
-          "Form": "Granular/Powder",
-          "Organic Matter": "85%+"
-        },
-        isActive: true,
-      },
-      {
-        name: "Seaweed Extract",
-        category: "growth-promoters",
-        description: "Natural plant growth stimulant. Rich in cytokinins, auxins, and micronutrients.",
-        imageUrl: "/four.jpeg",
-        suitableCrops: ["All crops", "Vegetables", "Fruits", "Ornamentals"],
-        packingSizes: ["250ml", "500ml", "1L", "5L"],
-        specifications: {
-          "Seaweed Extract": "40%",
-          "Form": "Liquid concentrate",
-          "pH": "8-10"
-        },
-        isActive: true,
-      },
-      {
-        name: "Amino Acid Complex",
-        category: "growth-promoters",
-        description: "Free amino acids for stress recovery. Improves plant metabolism and yield quality.",
-        imageUrl: "/five.jpeg",
-        suitableCrops: ["All crops", "Stress conditions"],
-        packingSizes: ["250ml", "500ml", "1L"],
-        specifications: {
-          "Amino Acids": "25-30%",
-          "Protein": "40-45%",
-          "Form": "Liquid"
-        },
-        isActive: true,
-      }
     ];
 
     products.forEach(product => {
@@ -447,7 +389,7 @@ export class MemStorage implements IStorage {
       { key: "hero.title", language: "en", value: "Advanced Agricultural Solutions for Global Growth" },
       { key: "hero.title", language: "id", value: "Solusi Pertanian Canggih untuk Pertumbuhan Global" },
       { key: "hero.title", language: "am", value: "የላቀ የግብርና መፍትሄዎች ለአለም አቀፍ እድገት" },
-      
+
       { key: "hero.description", language: "en", value: "Premium micronutrients, bactericides, and growth promoters trusted by distributors worldwide. Quality manufacturing from Pollachi, Tamil Nadu." },
       { key: "hero.description", language: "id", value: "Mikronutrien premium, bakterisida, dan promotor pertumbuhan yang dipercaya oleh distributor di seluruh dunia. Manufaktur berkualitas dari Pollachi, Tamil Nadu." },
       { key: "hero.description", language: "am", value: "በዓለም አቀፍ ተከፋፋዮች የሚታመኑ ከፍተኛ ጥራት ያላቸው ማይክሮ ንጥረ ነገሮች፣ ባክቴሪያ ገዳዮች እና የእድገት አበረታች። ከፖላቺ፣ ታሚል ናዱ ጥራት አምራች።" },
@@ -508,7 +450,7 @@ export class MemStorage implements IStorage {
   async updateUser(id: string, userUpdate: Partial<InsertUser>): Promise<User | undefined> {
     const user = this.users.get(id);
     if (!user) return undefined;
-    
+
     const updatedUser = { ...user, ...userUpdate };
     this.users.set(id, updatedUser);
     return updatedUser;
@@ -541,7 +483,7 @@ export class MemStorage implements IStorage {
   async updateProduct(id: string, productUpdate: Partial<InsertProduct>): Promise<Product | undefined> {
     const product = this.products.get(id);
     if (!product) return undefined;
-    
+
     const updatedProduct = { ...product, ...productUpdate };
     this.products.set(id, updatedProduct);
     return updatedProduct;
@@ -553,7 +495,7 @@ export class MemStorage implements IStorage {
 
   // Lead methods
   async getLeads(): Promise<Lead[]> {
-    return Array.from(this.leads.values()).sort((a, b) => 
+    return Array.from(this.leads.values()).sort((a, b) =>
       new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime()
     );
   }
@@ -585,11 +527,11 @@ export class MemStorage implements IStorage {
   async updateLead(id: string, leadUpdate: Partial<InsertLead>): Promise<Lead | undefined> {
     const lead = this.leads.get(id);
     if (!lead) return undefined;
-    
-    const updatedLead = { 
-      ...lead, 
-      ...leadUpdate, 
-      updatedAt: new Date() 
+
+    const updatedLead = {
+      ...lead,
+      ...leadUpdate,
+      updatedAt: new Date()
     };
     this.leads.set(id, updatedLead);
     return updatedLead;
@@ -597,7 +539,7 @@ export class MemStorage implements IStorage {
 
   // Blog methods
   async getBlogPosts(): Promise<BlogPost[]> {
-    return Array.from(this.blogPosts.values()).sort((a, b) => 
+    return Array.from(this.blogPosts.values()).sort((a, b) =>
       new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime()
     );
   }
@@ -631,11 +573,11 @@ export class MemStorage implements IStorage {
   async updateBlogPost(id: string, postUpdate: Partial<InsertBlogPost>): Promise<BlogPost | undefined> {
     const post = this.blogPosts.get(id);
     if (!post) return undefined;
-    
-    const updatedPost = { 
-      ...post, 
-      ...postUpdate, 
-      updatedAt: new Date() 
+
+    const updatedPost = {
+      ...post,
+      ...postUpdate,
+      updatedAt: new Date()
     };
     this.blogPosts.set(id, updatedPost);
     return updatedPost;
@@ -668,13 +610,13 @@ export class MemStorage implements IStorage {
   async updateTranslation(key: string, language: string, value: string): Promise<Translation | undefined> {
     const translation = Array.from(this.translations.values())
       .find(t => t.key === key && t.language === language);
-    
+
     if (!translation) return undefined;
-    
-    const updatedTranslation = { 
-      ...translation, 
-      value, 
-      updatedAt: new Date() 
+
+    const updatedTranslation = {
+      ...translation,
+      value,
+      updatedAt: new Date()
     };
     this.translations.set(translation.id, updatedTranslation);
     return updatedTranslation;
@@ -682,7 +624,7 @@ export class MemStorage implements IStorage {
 
   // Inquiry methods
   async getInquiries(): Promise<Inquiry[]> {
-    return Array.from(this.inquiries.values()).sort((a, b) => 
+    return Array.from(this.inquiries.values()).sort((a, b) =>
       new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime()
     );
   }
@@ -701,7 +643,7 @@ export class MemStorage implements IStorage {
   async updateInquiry(id: string, processed: boolean): Promise<Inquiry | undefined> {
     const inquiry = this.inquiries.get(id);
     if (!inquiry) return undefined;
-    
+
     const updatedInquiry = { ...inquiry, processed };
     this.inquiries.set(id, updatedInquiry);
     return updatedInquiry;
@@ -726,7 +668,7 @@ export class MemStorage implements IStorage {
   async updateExportMarket(id: string, marketUpdate: Partial<InsertExportMarket>): Promise<ExportMarket | undefined> {
     const market = this.exportMarkets.get(id);
     if (!market) return undefined;
-    
+
     const updatedMarket = { ...market, ...marketUpdate };
     this.exportMarkets.set(id, updatedMarket);
     return updatedMarket;

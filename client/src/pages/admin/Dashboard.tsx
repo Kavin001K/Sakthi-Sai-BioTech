@@ -121,6 +121,28 @@ const calculateKPIs = (stats: DashboardStats | undefined, leads: any[] = []) => 
   };
 };
 
+interface Lead {
+  id: string;
+  name: string;
+  email: string;
+  phone: string | null;
+  company: string;
+  country: string;
+  productInterest: string | null;
+  message: string | null;
+  source: string;
+  status: string;
+  assignedTo: string | null;
+  utmSource: string | null;
+  utmMedium: string | null;
+  utmCampaign: string | null;
+  score: number;
+  tags: string[] | null;
+  notes: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export default function AdminDashboard() {
   const { t } = useTranslation();
   const { user } = useAuth();
@@ -138,7 +160,7 @@ export default function AdminDashboard() {
   });
 
   // Fetch leads for detailed calculations
-  const { data: leads = [] } = useQuery({
+  const { data: leads = [] } = useQuery<Lead[]>({
     queryKey: ['/api/admin/leads'],
     staleTime: 30 * 1000,
   });
@@ -414,9 +436,8 @@ export default function AdminDashboard() {
                       <div className={`w-14 h-14 rounded-xl ${stat.bgColor} flex items-center justify-center group-hover:scale-110 transition-transform`}>
                         <stat.icon className={`w-7 h-7 ${stat.color}`} />
                       </div>
-                      <div className={`flex items-center text-sm font-semibold px-3 py-1 rounded-full ${
-                        stat.changeType === 'positive' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'
-                      }`}>
+                      <div className={`flex items-center text-sm font-semibold px-3 py-1 rounded-full ${stat.changeType === 'positive' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'
+                        }`}>
                         {stat.changeType === 'positive' ? (
                           <ArrowUpRight className="w-4 h-4 mr-1" />
                         ) : (
@@ -490,12 +511,12 @@ export default function AdminDashboard() {
                   <AreaChart data={monthlyTrendData}>
                     <defs>
                       <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#22C55E" stopOpacity={0.8}/>
-                        <stop offset="95%" stopColor="#22C55E" stopOpacity={0}/>
+                        <stop offset="5%" stopColor="#22C55E" stopOpacity={0.8} />
+                        <stop offset="95%" stopColor="#22C55E" stopOpacity={0} />
                       </linearGradient>
                       <linearGradient id="colorLeads" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#0288D1" stopOpacity={0.8}/>
-                        <stop offset="95%" stopColor="#0288D1" stopOpacity={0}/>
+                        <stop offset="5%" stopColor="#0288D1" stopOpacity={0.8} />
+                        <stop offset="95%" stopColor="#0288D1" stopOpacity={0} />
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
@@ -597,10 +618,10 @@ export default function AdminDashboard() {
                       count,
                       fill:
                         stage === 'new' ? '#3B82F6' :
-                        stage === 'contacted' ? '#F59E0B' :
-                        stage === 'quoted' ? '#F97316' :
-                        stage === 'negotiation' ? '#8B5CF6' :
-                        '#22C55E'
+                          stage === 'contacted' ? '#F59E0B' :
+                            stage === 'quoted' ? '#F97316' :
+                              stage === 'negotiation' ? '#8B5CF6' :
+                                '#22C55E'
                     }))}
                   >
                     <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
@@ -757,12 +778,37 @@ export default function AdminDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {[
-                    { action: 'New lead received', name: 'Ahmed Hassan (Ethiopia)', time: '5 mins ago', type: 'lead' },
-                    { action: 'Product inquiry', name: 'Micronutrients - Bulk Order', time: '23 mins ago', type: 'inquiry' },
-                    { action: 'Lead converted', name: 'Budi Santoso (Indonesia)', time: '1 hour ago', type: 'converted' },
-                    { action: 'New contact form', name: 'John Smith - Export Query', time: '2 hours ago', type: 'contact' },
-                  ].map((activity, index) => (
+                  {useMemo(() => {
+                    const activities = leads.flatMap((lead: any) => {
+                      const items = [
+                        {
+                          action: 'New lead received',
+                          name: `${lead.name} (${lead.country})`,
+                          time: new Date(lead.createdAt),
+                          type: 'lead'
+                        }
+                      ];
+
+                      if (lead.status === 'converted') {
+                        items.push({
+                          action: 'Lead converted',
+                          name: `${lead.name} - Converted`,
+                          time: new Date(lead.updatedAt || lead.createdAt), // Fallback if updatedAt is missing
+                          type: 'converted'
+                        });
+                      }
+
+                      return items;
+                    });
+
+                    return activities
+                      .sort((a, b) => b.time.getTime() - a.time.getTime())
+                      .slice(0, 5)
+                      .map(activity => ({
+                        ...activity,
+                        timeStr: activity.time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                      }));
+                  }, [leads]).map((activity, index) => (
                     <motion.div
                       key={index}
                       initial={{ opacity: 0, x: -20 }}
@@ -771,25 +817,28 @@ export default function AdminDashboard() {
                       className="flex items-center justify-between p-4 rounded-lg border border-border hover:bg-muted/50 transition-colors cursor-pointer"
                     >
                       <div className="flex items-center gap-4">
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                          activity.type === 'lead' ? 'bg-blue-100 text-blue-600' :
-                          activity.type === 'inquiry' ? 'bg-orange-100 text-orange-600' :
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${activity.type === 'lead' ? 'bg-blue-100 text-blue-600' :
                           activity.type === 'converted' ? 'bg-green-100 text-green-600' :
-                          'bg-purple-100 text-purple-600'
-                        }`}>
+                            'bg-purple-100 text-purple-600'
+                          }`}>
                           {activity.type === 'lead' && <Users className="w-5 h-5" />}
-                          {activity.type === 'inquiry' && <Package className="w-5 h-5" />}
                           {activity.type === 'converted' && <DollarSign className="w-5 h-5" />}
-                          {activity.type === 'contact' && <Mail className="w-5 h-5" />}
                         </div>
                         <div>
                           <p className="font-medium text-sm">{activity.action}</p>
                           <p className="text-xs text-muted-foreground">{activity.name}</p>
                         </div>
                       </div>
-                      <span className="text-xs text-muted-foreground">{activity.time}</span>
+                      <span className="text-xs text-muted-foreground">{activity.timeStr}</span>
                     </motion.div>
                   ))}
+
+                  {leads.length === 0 && (
+                    <div className="text-center py-8 text-muted-foreground">
+                      <Activity className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                      <p>No recent activity</p>
+                    </div>
+                  )}
                 </div>
               </CardContent>
             </Card>

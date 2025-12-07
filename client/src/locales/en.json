@@ -73,10 +73,10 @@
     "categories": {
       "all": "All Products",
       "micronutrients": "Micronutrients",
-      "bactericides": "Bactericides",
-      "growth-promoters": "Growth Promoters",
-      "bio-fertilizers": "Bio-Fertilizers",
-      "plant-tonics": "Plant Tonics"
+      "plant-growth-promotor": "Plant Growth Promotor",
+      "bactericide-fungicide": "Bactericide Fungicide",
+      "liquid-fertilizer": "Liquid Fertilizer",
+      "pesticides": "Pesticides"
     },
     "suitableFor": "Suitable for",
     "packingSizes": "Packing",

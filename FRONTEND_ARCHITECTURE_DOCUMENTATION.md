@@ -38,7 +38,7 @@ The project implements a multi-application architecture where a single backend A
           └──────────────────────┼──────────────────────┼──────────────────────┘
                                  │                      │
                     ┌─────────────▼─────────────────────▼─────────────┐
-                    │           Shared Backend API                     │
+                    │           Shared Backend API                    │
                     │         (Flask/Python)                          │
                     └─────────────────────┬───────────────────────────┘
                                           │

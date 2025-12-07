@@ -12,9 +12,10 @@ import { apiRequest } from "@/lib/queryClient";
 interface QuoteModalProps {
   isOpen: boolean;
   onClose: () => void;
+  initialProduct?: string;
 }
 
-export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
+export default function QuoteModal({ isOpen, onClose, initialProduct }: QuoteModalProps) {
   const { t } = useTranslation();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -25,7 +26,7 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
     phone: "",
     country: "",
     productInterest: "",
-    message: "",
+    message: initialProduct ? `Inquiry about: ${initialProduct}` : "",
   });
 
   const handleInputChange = (field: string, value: string) => {
@@ -231,8 +232,8 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
             />
           </div>
 
-          <Button 
-            type="submit" 
+          <Button
+            type="submit"
             disabled={isSubmitting}
             className="w-full bg-accent hover:bg-accent/90 text-accent-foreground py-4 rounded-lg font-semibold text-lg"
             data-testid="quote-form-submit"

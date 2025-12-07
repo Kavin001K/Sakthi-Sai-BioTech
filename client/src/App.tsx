@@ -11,6 +11,7 @@ import "./lib/i18n"; // Initialize i18n
 // Import pages
 import Home from "@/pages/Home";
 import Products from "@/pages/Products";
+import ProductDetail from "@/pages/ProductDetail";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 import Resources from "@/pages/Resources";
@@ -36,6 +37,7 @@ function Router() {
       {/* Public routes */}
       <Route path="/" component={Home} />
       <Route path="/products" component={Products} />
+      <Route path="/products/:id" component={ProductDetail} />
       <Route path="/about" component={About} />
       <Route path="/contact" component={Contact} />
       <Route path="/resources" component={Resources} />

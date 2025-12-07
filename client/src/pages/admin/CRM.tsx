@@ -93,7 +93,7 @@ export default function AdminCRM() {
   const { t } = useTranslation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
-  
+
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [assignedFilter, setAssignedFilter] = useState("all");
@@ -415,6 +415,11 @@ export default function AdminCRM() {
     setSelectedLead(null);
   };
 
+  const handleAddLead = () => {
+    setSelectedLead(null);
+    setIsModalOpen(true);
+  };
+
   const handleExportToExcel = () => {
     if (filteredLeads.length === 0) {
       toast({
@@ -635,7 +640,11 @@ export default function AdminCRM() {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Button className="bg-primary card-hover" data-testid="add-lead-button">
+              <Button
+                className="bg-primary card-hover"
+                data-testid="add-lead-button"
+                onClick={handleAddLead}
+              >
                 <Plus className="w-4 h-4 mr-2" />
                 {t('crm.addLead', 'Add Lead')}
               </Button>
@@ -794,54 +803,54 @@ export default function AdminCRM() {
                     strategy={verticalListSortingStrategy}
                   >
                     <Card className="flex flex-col h-full" id={status.value}>
-                  <CardHeader className="pb-3">
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="text-sm font-semibold flex items-center gap-2">
-                        <motion.div
-                          className={`w-3 h-3 rounded-full ${status.color}`}
-                          animate={{ scale: [1, 1.2, 1] }}
-                          transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-                        />
-                        {status.label}
-                      </CardTitle>
-                      <Badge variant="secondary" data-testid={`kanban-count-${status.value}`}>
-                        {groupedLeads[status.value]?.length || 0}
-                      </Badge>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="flex-1 space-y-3" data-droppable-id={status.value}>
-                    <AnimatePresence mode="popLayout">
-                      {groupedLeads[status.value]?.map((lead, index) => (
-                        <motion.div
-                          key={lead.id}
-                          layout
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.8 }}
-                          transition={{ delay: index * 0.05 }}
-                        >
-                          <DraggableLeadCard lead={lead} />
-                        </motion.div>
-                      ))}
-                    </AnimatePresence>
+                      <CardHeader className="pb-3">
+                        <div className="flex items-center justify-between">
+                          <CardTitle className="text-sm font-semibold flex items-center gap-2">
+                            <motion.div
+                              className={`w-3 h-3 rounded-full ${status.color}`}
+                              animate={{ scale: [1, 1.2, 1] }}
+                              transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                            />
+                            {status.label}
+                          </CardTitle>
+                          <Badge variant="secondary" data-testid={`kanban-count-${status.value}`}>
+                            {groupedLeads[status.value]?.length || 0}
+                          </Badge>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="flex-1 space-y-3" data-droppable-id={status.value}>
+                        <AnimatePresence mode="popLayout">
+                          {groupedLeads[status.value]?.map((lead, index) => (
+                            <motion.div
+                              key={lead.id}
+                              layout
+                              initial={{ opacity: 0, scale: 0.8 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              exit={{ opacity: 0, scale: 0.8 }}
+                              transition={{ delay: index * 0.05 }}
+                            >
+                              <DraggableLeadCard lead={lead} />
+                            </motion.div>
+                          ))}
+                        </AnimatePresence>
 
-                  {groupedLeads[status.value]?.length === 0 && (
-                    <motion.div
-                      className="text-center py-8 text-muted-foreground"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.3 }}
-                    >
-                      <motion.div
-                        animate={{ y: [0, -10, 0] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                      >
-                        <Users className="w-8 h-8 mx-auto mb-2 opacity-50" />
-                      </motion.div>
-                      <p className="text-sm">{t('crm.empty', 'No leads in this stage')}</p>
-                    </motion.div>
-                  )}
-                </CardContent>
+                        {groupedLeads[status.value]?.length === 0 && (
+                          <motion.div
+                            className="text-center py-8 text-muted-foreground"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.3 }}
+                          >
+                            <motion.div
+                              animate={{ y: [0, -10, 0] }}
+                              transition={{ duration: 2, repeat: Infinity }}
+                            >
+                              <Users className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                            </motion.div>
+                            <p className="text-sm">{t('crm.empty', 'No leads in this stage')}</p>
+                          </motion.div>
+                        )}
+                      </CardContent>
                     </Card>
                   </SortableContext>
                 </motion.div>
@@ -897,53 +906,53 @@ export default function AdminCRM() {
                           transition={{ delay: index * 0.05 }}
                           whileHover={{ scale: 1.01 }}
                         >
-                        <td className="p-4">
-                          <div>
-                            <div className="font-medium">{lead.name}</div>
-                            <div className="text-sm text-muted-foreground">{lead.email}</div>
-                          </div>
-                        </td>
-                        <td className="p-4">{lead.company}</td>
-                        <td className="p-4">
-                          <Badge className={`${getStatusBadge(lead.status).color} text-white`}>
-                            {getStatusBadge(lead.status).label}
-                          </Badge>
-                        </td>
-                        <td className="p-4">{lead.country}</td>
-                        <td className="p-4 text-sm text-muted-foreground">
-                          {formatDate(lead.createdAt)}
-                        </td>
-                        <td className="p-4">
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                onClick={(e) => e.stopPropagation()}
-                              >
-                                <MoreHorizontal className="w-4 h-4" />
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuItem
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  handleOpenLeadModal(lead);
-                                }}
-                              >
-                                <Edit className="w-4 h-4 mr-2" />
-                                {t('crm.actions.edit', 'Edit')}
-                              </DropdownMenuItem>
-                              <DropdownMenuItem
-                                className="text-destructive"
-                                onClick={(e) => e.stopPropagation()}
-                              >
-                                <Trash2 className="w-4 h-4 mr-2" />
-                                {t('crm.actions.delete', 'Delete')}
-                              </DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </td>
+                          <td className="p-4">
+                            <div>
+                              <div className="font-medium">{lead.name}</div>
+                              <div className="text-sm text-muted-foreground">{lead.email}</div>
+                            </div>
+                          </td>
+                          <td className="p-4">{lead.company}</td>
+                          <td className="p-4">
+                            <Badge className={`${getStatusBadge(lead.status).color} text-white`}>
+                              {getStatusBadge(lead.status).label}
+                            </Badge>
+                          </td>
+                          <td className="p-4">{lead.country}</td>
+                          <td className="p-4 text-sm text-muted-foreground">
+                            {formatDate(lead.createdAt)}
+                          </td>
+                          <td className="p-4">
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={(e) => e.stopPropagation()}
+                                >
+                                  <MoreHorizontal className="w-4 h-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end">
+                                <DropdownMenuItem
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleOpenLeadModal(lead);
+                                  }}
+                                >
+                                  <Edit className="w-4 h-4 mr-2" />
+                                  {t('crm.actions.edit', 'Edit')}
+                                </DropdownMenuItem>
+                                <DropdownMenuItem
+                                  className="text-destructive"
+                                  onClick={(e) => e.stopPropagation()}
+                                >
+                                  <Trash2 className="w-4 h-4 mr-2" />
+                                  {t('crm.actions.delete', 'Delete')}
+                                </DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </td>
                         </motion.tr>
                       ))}
                     </tbody>

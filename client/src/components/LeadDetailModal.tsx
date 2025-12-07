@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
@@ -32,8 +32,8 @@ import {
   MessageSquare,
   Save,
   X,
-  ExternalLink,
-  Send,
+  Plus,
+  Send
 } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -72,8 +72,34 @@ export default function LeadDetailModal({ lead, isOpen, onClose }: LeadDetailMod
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  const [editedLead, setEditedLead] = useState<Partial<Lead>>(lead || {});
+  // Initialize with defaults for creation mode
+  const [editedLead, setEditedLead] = useState<Partial<Lead>>({
+    name: "",
+    email: "",
+    status: "new",
+    source: "manual",
+    company: "",
+    country: "",
+    ...lead
+  });
+
   const [newNote, setNewNote] = useState("");
+
+  // Reset state when lead prop changes
+  useEffect(() => {
+    if (lead) {
+      setEditedLead(lead);
+    } else {
+      setEditedLead({
+        name: "",
+        email: "",
+        status: "new",
+        source: "manual",
+        company: "Unknown Company",
+        country: "Unknown",
+      });
+    }
+  }, [lead, isOpen]);
 
   const updateLeadMutation = useMutation({
     mutationFn: async (data: Partial<Lead>) => {
@@ -97,25 +123,56 @@ export default function LeadDetailModal({ lead, isOpen, onClose }: LeadDetailMod
     },
   });
 
-  if (!lead) return null;
+  const createLeadMutation = useMutation({
+    mutationFn: async (data: Partial<Lead>) => {
+      // Use inquiry endpoint to create a lead
+      const response = await apiRequest('POST', '/api/inquiries', {
+        ...data,
+        message: data.notes || "Manual Entry",
+      });
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/leads'] });
+      toast({
+        title: "Lead Created",
+        description: "New lead has been successfully added.",
+      });
+      onClose();
+    },
+    onError: () => {
+      toast({
+        title: "Creation Failed",
+        description: "Failed to create lead.",
+        variant: "destructive",
+      });
+    }
+  });
 
   const handleSave = () => {
-    updateLeadMutation.mutate(editedLead);
+    if (lead) {
+      updateLeadMutation.mutate(editedLead);
+    } else {
+      createLeadMutation.mutate(editedLead);
+    }
   };
 
   const handleWhatsApp = () => {
+    if (!lead) return;
     const message = encodeURIComponent(`Hello ${lead.name}, thank you for your inquiry about ${lead.productInterest || 'our products'}. How can we assist you further?`);
     const phone = lead.phone?.replace(/[^0-9]/g, '');
     window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
   };
 
   const handleEmail = () => {
+    if (!lead) return;
     const subject = encodeURIComponent(`Re: Your inquiry about ${lead.productInterest || 'our products'}`);
     const body = encodeURIComponent(`Dear ${lead.name},\n\nThank you for your interest in Sakthi Sai Biotech products.\n\nBest regards,\nSakthi Sai Biotech Team`);
     window.open(`mailto:${lead.email}?subject=${subject}&body=${body}`, '_blank');
   };
 
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString?: string) => {
+    if (!dateString) return 'N/A';
     return new Date(dateString).toLocaleString('en-US', {
       year: 'numeric',
       month: 'long',
@@ -125,24 +182,35 @@ export default function LeadDetailModal({ lead, isOpen, onClose }: LeadDetailMod
     });
   };
 
+  const isSaving = updateLeadMutation.isPending || createLeadMutation.isPending;
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl flex items-center gap-2">
-            <User className="w-6 h-6 text-primary" />
-            {lead.name}
+            {lead ? (
+              <>
+                <User className="w-6 h-6 text-primary" />
+                {lead.name}
+              </>
+            ) : (
+              <>
+                <Plus className="w-6 h-6 text-primary" />
+                Create New Lead
+              </>
+            )}
           </DialogTitle>
           <DialogDescription>
-            Lead Details & Management
+            {lead ? "Lead Details & Management" : "Enter information for the new lead"}
           </DialogDescription>
         </DialogHeader>
 
         <Tabs defaultValue="details" className="mt-4">
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="details">Details</TabsTrigger>
-            <TabsTrigger value="notes">Notes & Follow-up</TabsTrigger>
-            <TabsTrigger value="activity">Activity</TabsTrigger>
+            <TabsTrigger value="notes" disabled={!lead}>Notes & Follow-up</TabsTrigger>
+            <TabsTrigger value="activity" disabled={!lead}>Activity</TabsTrigger>
           </TabsList>
 
           {/* Details Tab */}
@@ -160,8 +228,9 @@ export default function LeadDetailModal({ lead, isOpen, onClose }: LeadDetailMod
                     Full Name
                   </Label>
                   <Input
-                    value={editedLead.name || lead.name}
+                    value={editedLead.name || ""}
                     onChange={(e) => setEditedLead({ ...editedLead, name: e.target.value })}
+                    placeholder="John Doe"
                   />
                 </div>
 
@@ -172,18 +241,21 @@ export default function LeadDetailModal({ lead, isOpen, onClose }: LeadDetailMod
                   </Label>
                   <div className="flex gap-2">
                     <Input
-                      value={editedLead.email || lead.email}
+                      value={editedLead.email || ""}
                       onChange={(e) => setEditedLead({ ...editedLead, email: e.target.value })}
                       className="flex-1"
+                      placeholder="email@example.com"
                     />
-                    <Button
-                      size="icon"
-                      variant="outline"
-                      onClick={handleEmail}
-                      title="Send Email"
-                    >
-                      <Send className="w-4 h-4" />
-                    </Button>
+                    {lead && (
+                      <Button
+                        size="icon"
+                        variant="outline"
+                        onClick={handleEmail}
+                        title="Send Email"
+                      >
+                        <Send className="w-4 h-4" />
+                      </Button>
+                    )}
                   </div>
                 </div>
 
@@ -194,11 +266,12 @@ export default function LeadDetailModal({ lead, isOpen, onClose }: LeadDetailMod
                   </Label>
                   <div className="flex gap-2">
                     <Input
-                      value={editedLead.phone || lead.phone || ''}
+                      value={editedLead.phone || ""}
                       onChange={(e) => setEditedLead({ ...editedLead, phone: e.target.value })}
                       className="flex-1"
+                      placeholder="+1 234 567 890"
                     />
-                    {lead.phone && (
+                    {lead?.phone && (
                       <Button
                         size="icon"
                         variant="outline"
@@ -218,8 +291,9 @@ export default function LeadDetailModal({ lead, isOpen, onClose }: LeadDetailMod
                     Company
                   </Label>
                   <Input
-                    value={editedLead.company || lead.company}
+                    value={editedLead.company || ""}
                     onChange={(e) => setEditedLead({ ...editedLead, company: e.target.value })}
+                    placeholder="Company Name"
                   />
                 </div>
 
@@ -229,8 +303,9 @@ export default function LeadDetailModal({ lead, isOpen, onClose }: LeadDetailMod
                     Country
                   </Label>
                   <Input
-                    value={editedLead.country || lead.country}
+                    value={editedLead.country || ""}
                     onChange={(e) => setEditedLead({ ...editedLead, country: e.target.value })}
+                    placeholder="Country"
                   />
                 </div>
 
@@ -240,8 +315,9 @@ export default function LeadDetailModal({ lead, isOpen, onClose }: LeadDetailMod
                     Product Interest
                   </Label>
                   <Input
-                    value={editedLead.productInterest || lead.productInterest || ''}
+                    value={editedLead.productInterest || ""}
                     onChange={(e) => setEditedLead({ ...editedLead, productInterest: e.target.value })}
+                    placeholder="Micronutrients"
                   />
                 </div>
               </div>
@@ -251,7 +327,7 @@ export default function LeadDetailModal({ lead, isOpen, onClose }: LeadDetailMod
                 <div>
                   <Label className="mb-2">Status</Label>
                   <Select
-                    value={editedLead.status || lead.status}
+                    value={editedLead.status || "new"}
                     onValueChange={(value) => setEditedLead({ ...editedLead, status: value })}
                   >
                     <SelectTrigger>
@@ -271,7 +347,7 @@ export default function LeadDetailModal({ lead, isOpen, onClose }: LeadDetailMod
                 <div>
                   <Label className="mb-2">Assigned To</Label>
                   <Select
-                    value={editedLead.assignedTo || lead.assignedTo || 'unassigned'}
+                    value={editedLead.assignedTo || 'unassigned'}
                     onValueChange={(value) => setEditedLead({ ...editedLead, assignedTo: value === 'unassigned' ? null : value })}
                   >
                     <SelectTrigger>
@@ -287,8 +363,20 @@ export default function LeadDetailModal({ lead, isOpen, onClose }: LeadDetailMod
                 </div>
               </div>
 
-              {/* Original Message */}
-              {lead.message && (
+              {/* Description/Notes for New Lead */}
+              {!lead && (
+                <div className="mt-6">
+                  <Label className="mb-2">Initial Notes</Label>
+                  <Textarea
+                    value={editedLead.notes || ""}
+                    onChange={(e) => setEditedLead({ ...editedLead, notes: e.target.value })}
+                    placeholder="Enter initial lead details or notes..."
+                  />
+                </div>
+              )}
+
+              {/* Original Message (Only for existing) */}
+              {lead && lead.message && (
                 <div className="mt-6">
                   <Label className="mb-2">Original Message</Label>
                   <Textarea
@@ -300,7 +388,7 @@ export default function LeadDetailModal({ lead, isOpen, onClose }: LeadDetailMod
               )}
 
               {/* UTM Parameters */}
-              {(lead.utmSource || lead.utmMedium || lead.utmCampaign) && (
+              {lead && (lead.utmSource || lead.utmMedium || lead.utmCampaign) && (
                 <div className="mt-6 p-4 bg-muted/30 rounded-lg">
                   <h4 className="font-semibold mb-2">Source Tracking</h4>
                   <div className="grid grid-cols-3 gap-4 text-sm">
@@ -327,98 +415,105 @@ export default function LeadDetailModal({ lead, isOpen, onClose }: LeadDetailMod
               )}
 
               {/* Metadata */}
-              <div className="mt-6 flex items-center justify-between text-sm text-muted-foreground">
-                <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4" />
-                  <span>Created: {formatDate(lead.createdAt)}</span>
+              {lead && (
+                <div className="mt-6 flex items-center justify-between text-sm text-muted-foreground">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="w-4 h-4" />
+                    <span>Created: {formatDate(lead.createdAt)}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span>Score: </span>
+                    <Badge variant="secondary">{lead.score}</Badge>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span>Score: </span>
-                  <Badge variant="secondary">{lead.score}</Badge>
-                </div>
-              </div>
+              )}
             </motion.div>
           </TabsContent>
 
           {/* Notes & Follow-up Tab */}
           <TabsContent value="notes" className="space-y-4">
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div>
-                <Label className="mb-2">Add New Note</Label>
-                <Textarea
-                  placeholder="Add notes about this lead..."
-                  value={newNote}
-                  onChange={(e) => setNewNote(e.target.value)}
-                  className="min-h-[100px]"
-                />
-                <Button className="mt-2" onClick={() => {
-                  setEditedLead({
-                    ...editedLead,
-                    notes: (editedLead.notes || lead.notes || '') + '\n\n' + `[${new Date().toLocaleString()}] ${newNote}`
-                  });
-                  setNewNote('');
-                }}>
-                  <Save className="w-4 h-4 mr-2" />
-                  Add Note
-                </Button>
-              </div>
-
-              {(editedLead.notes || lead.notes) && (
-                <div className="mt-6">
-                  <Label className="mb-2">Previous Notes</Label>
-                  <div className="p-4 bg-muted/30 rounded-lg whitespace-pre-wrap">
-                    {editedLead.notes || lead.notes}
-                  </div>
+            {/* Only show if lead exists */}
+            {lead && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div>
+                  <Label className="mb-2">Add New Note</Label>
+                  <Textarea
+                    placeholder="Add notes about this lead..."
+                    value={newNote}
+                    onChange={(e) => setNewNote(e.target.value)}
+                    className="min-h-[100px]"
+                  />
+                  <Button className="mt-2" onClick={() => {
+                    setEditedLead({
+                      ...editedLead,
+                      notes: (editedLead.notes || lead.notes || '') + '\n\n' + `[${new Date().toLocaleString()}] ${newNote}`
+                    });
+                    setNewNote('');
+                  }}>
+                    <Save className="w-4 h-4 mr-2" />
+                    Add Note
+                  </Button>
                 </div>
-              )}
 
-              <div className="mt-6">
-                <Label className="mb-2">Set Follow-up Date</Label>
-                <Input
-                  type="datetime-local"
-                  className="max-w-md"
-                />
-                <Button className="mt-2">
-                  <Calendar className="w-4 h-4 mr-2" />
-                  Schedule Follow-up
-                </Button>
-              </div>
-            </motion.div>
+                {(editedLead.notes || lead.notes) && (
+                  <div className="mt-6">
+                    <Label className="mb-2">Previous Notes</Label>
+                    <div className="p-4 bg-muted/30 rounded-lg whitespace-pre-wrap">
+                      {editedLead.notes || lead.notes}
+                    </div>
+                  </div>
+                )}
+
+                <div className="mt-6">
+                  <Label className="mb-2">Set Follow-up Date</Label>
+                  <Input
+                    type="datetime-local"
+                    className="max-w-md"
+                  />
+                  <Button className="mt-2">
+                    <Calendar className="w-4 h-4 mr-2" />
+                    Schedule Follow-up
+                  </Button>
+                </div>
+              </motion.div>
+            )}
           </TabsContent>
 
           {/* Activity Tab */}
           <TabsContent value="activity" className="space-y-4">
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="space-y-4">
-                <div className="p-4 border-l-4 border-blue-500 bg-blue-50 dark:bg-blue-950/30">
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium">Lead Created</span>
-                    <span className="text-sm text-muted-foreground">{formatDate(lead.createdAt)}</span>
+            {lead && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="space-y-4">
+                  <div className="p-4 border-l-4 border-blue-500 bg-blue-50 dark:bg-blue-950/30">
+                    <div className="flex items-center justify-between">
+                      <span className="font-medium">Lead Created</span>
+                      <span className="text-sm text-muted-foreground">{formatDate(lead.createdAt)}</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      From: {lead.source}
+                    </p>
                   </div>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    From: {lead.source}
-                  </p>
-                </div>
 
-                <div className="p-4 border-l-4 border-green-500 bg-green-50 dark:bg-green-950/30">
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium">Status Updated</span>
-                    <span className="text-sm text-muted-foreground">{formatDate(lead.updatedAt)}</span>
+                  <div className="p-4 border-l-4 border-green-500 bg-green-50 dark:bg-green-950/30">
+                    <div className="flex items-center justify-between">
+                      <span className="font-medium">Status Updated</span>
+                      <span className="text-sm text-muted-foreground">{formatDate(lead.updatedAt)}</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Current status: <Badge>{lead.status}</Badge>
+                    </p>
                   </div>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    Current status: <Badge>{lead.status}</Badge>
-                  </p>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            )}
           </TabsContent>
         </Tabs>
 
@@ -428,9 +523,9 @@ export default function LeadDetailModal({ lead, isOpen, onClose }: LeadDetailMod
             <X className="w-4 h-4 mr-2" />
             Cancel
           </Button>
-          <Button onClick={handleSave} disabled={updateLeadMutation.isPending}>
+          <Button onClick={handleSave} disabled={isSaving}>
             <Save className="w-4 h-4 mr-2" />
-            {updateLeadMutation.isPending ? 'Saving...' : 'Save Changes'}
+            {isSaving ? 'Saving...' : (lead ? 'Save Changes' : 'Create Lead')}
           </Button>
         </div>
       </DialogContent>
