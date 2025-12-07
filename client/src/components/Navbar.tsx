@@ -42,19 +42,19 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
       <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3 group">
-            <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-              <Sprout className="w-6 h-6 text-primary-foreground" />
+          <Link href="/" className="flex items-center space-x-2 lg:space-x-3 group min-w-0">
+            <div className="w-10 h-10 lg:w-12 lg:h-12 bg-primary rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-200">
+              <Sprout className="w-5 h-5 lg:w-6 lg:h-6 text-primary-foreground" />
             </div>
-            <div>
-              <h1 className="text-xl font-bold text-foreground">
+            <div className="truncate">
+              <h1 className="text-lg lg:text-xl font-bold text-foreground leading-tight">
                 {t('company.name', 'Sakthi Sai Biotech')}
               </h1>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-[10px] lg:text-xs text-muted-foreground">
                 {t('company.since', 'Since 1999')}
               </p>
             </div>
