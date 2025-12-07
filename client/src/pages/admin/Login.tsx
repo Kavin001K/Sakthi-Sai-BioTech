@@ -208,16 +208,7 @@ export default function AdminLogin() {
               </motion.div>
             </motion.form>
 
-            <motion.div
-              className="mt-8 text-center"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8 }}
-            >
-              <p className="text-xs text-muted-foreground bg-muted/30 py-2 px-4 rounded-full inline-block border border-border/50">
-                {t('admin.login.demo', 'Demo Access: admin / admin123')}
-              </p>
-            </motion.div>
+
           </CardContent>
         </Card>
 

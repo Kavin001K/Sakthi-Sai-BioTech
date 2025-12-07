@@ -82,14 +82,14 @@ export class MemStorage implements IStorage {
 
   private initializeDefaultData() {
     // Create default admin user
-    const adminId = randomUUID();
-    this.users.set(adminId, {
-      id: adminId,
-      username: "admin",
-      password: "$2b$10$rKpw/9tTOcVHdxhc93E/PeqJiAsdtcYaz.L8GVS4KyUnQGnk5G8S6", // hashed "admin123"
+    const userId = randomUUID();
+    this.users.set(userId, {
+      id: userId,
+      username: "Goutham",
+      password: "$2b$10$S59k0buPzov5DVzFpUA.MezEBOxAFosAVVZmGKsj46orKx3Aw1nkW", // hashed "Goutham@123"
       role: "admin",
-      email: "admin@sakthisaibiotech.com",
-      name: "Administrator",
+      email: "goutham@sakthisaibiotech.com",
+      name: "Goutham",
       createdAt: new Date(),
     });
 
