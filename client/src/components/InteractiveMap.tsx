@@ -176,49 +176,73 @@ export default function InteractiveMap() {
                 }}
             />
 
-            {/* Distributor UI Overlay (Left) */}
-            <div className="absolute top-1/2 -translate-y-1/2 left-4 md:left-12 z-20 flex flex-col gap-3">
-                <h3 className="text-lg font-bold text-primary mb-2 uppercase tracking-widest pl-2 border-l-2 border-primary">
+            {/* Distributor UI Overlay (Responsive) */}
+            <div className={`
+                absolute z-20 flex gap-3
+                /* Mobile: Horizontal Scroll at Top */
+                top-4 left-0 right-0 px-4 overflow-x-auto no-scrollbar flex-row items-start
+                /* Desktop: Vertical List at Left Center */
+                md:top-1/2 md:-translate-y-1/2 md:left-12 md:right-auto md:px-0 md:overflow-visible md:flex-col md:items-stretch
+            `}>
+                <h3 className="text-lg font-bold text-primary mb-2 uppercase tracking-widest pl-2 border-l-2 border-primary md:block hidden">
                     Active Hubs
                 </h3>
                 {locations.map((loc) => (
                     <button
                         key={loc.id}
                         onClick={() => handleLocationClick(loc)}
-                        className={`text-left px-4 py-3 rounded-xl border backdrop-blur-md transition-all duration-300 w-64 group/item cursor-pointer
+                        className={`text-left rounded-xl border backdrop-blur-md transition-all duration-300 group/item cursor-pointer flex-shrink-0
+                            /* Mobile Sizing */
+                            w-40 p-3 text-sm
+                            /* Desktop Sizing */
+                            md:w-64 md:p-3 md:text-base
                             ${focusedLocation?.id === loc.id
                                 ? 'bg-primary/20 border-primary text-white shadow-[0_0_20px_rgba(0,255,100,0.3)] scale-105'
                                 : 'bg-black/40 border-white/10 text-white/70 hover:bg-white/10 hover:border-white/30'
                             }`}
                     >
                         <div className="flex items-center justify-between">
-                            <span className="font-semibold">{loc.name}</span>
-                            {focusedLocation?.id === loc.id && <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />}
+                            <span className="font-semibold truncate">{loc.name}</span>
+                            {focusedLocation?.id === loc.id && <div className="w-2 h-2 rounded-full bg-primary animate-pulse flex-shrink-0 ml-2" />}
                         </div>
                         {focusedLocation?.id === loc.id && (
-                            <div className="mt-2 text-xs text-blue-200 animate-fade-in">
-                                {loc.stats.volume} • {loc.region}
+                            <div className="mt-1 md:mt-2 text-xs text-blue-200 animate-fade-in truncate">
+                                {loc.stats.volume}
                             </div>
                         )}
                     </button>
                 ))}
             </div>
 
-            {/* Info Card Overlay (Bottom Right) */}
+            {/* Info Card Overlay (Responsive) */}
             {focusedLocation && (
-                <Card className="absolute bottom-8 right-8 z-20 w-80 bg-black/60 backdrop-blur-xl border-primary/50 text-white shadow-2xl animate-slide-up">
+                <Card className={`
+                    absolute z-30 bg-black/80 backdrop-blur-xl border-primary/50 text-white shadow-2xl animate-slide-up
+                    /* Mobile: Bottom Sheet */
+                    bottom-0 left-0 right-0 w-full rounded-t-xl rounded-b-none border-x-0 border-b-0
+                    /* Desktop: Float Bottom Right */
+                    md:bottom-8 md:right-8 md:w-80 md:rounded-xl md:border
+                `}>
                     <div className="p-6">
-                        <div className="flex items-center gap-3 mb-4">
-                            <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
-                                <MapPin className="w-6 h-6" />
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
+                                    <MapPin className="w-6 h-6" />
+                                </div>
+                                <div>
+                                    <h4 className="font-bold text-lg">{focusedLocation.name}</h4>
+                                    <p className="text-sm text-blue-300">{focusedLocation.region}</p>
+                                </div>
                             </div>
-                            <div>
-                                <h4 className="font-bold text-lg">{focusedLocation.name}</h4>
-                                <p className="text-sm text-blue-300">{focusedLocation.region}</p>
-                            </div>
+                            <button
+                                onClick={(e) => { e.stopPropagation(); setFocusedLocation(null); }}
+                                className="md:hidden p-2 text-white/50 hover:text-white"
+                            >
+                                ✕
+                            </button>
                         </div>
 
-                        <p className="text-sm text-gray-300 mb-4 leading-relaxed border-b border-white/10 pb-4">
+                        <p className="text-sm text-gray-300 mb-4 leading-relaxed border-b border-white/10 pb-4 line-clamp-2 md:line-clamp-none">
                             {focusedLocation.description}
                         </p>
 
