@@ -138,8 +138,8 @@ export default function Contact() {
           "@type": "LocalBusiness",
           "name": "Sakthi Sai Biotech",
           "image": "https://sakthisaibiotech.com/logo.png",
-          "telephone": "+91-1234567890",
-          "email": "info@sakthisaibiotech.com",
+          "telephone": "+91 98946 97707",
+          "email": "contact@sakthisaibiotech.com",
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "Pollachi Main Road",
@@ -410,13 +410,8 @@ export default function Contact() {
                     <div>
                       <h4 className="font-semibold mb-2">{t('contact.email.title', 'Email')}</h4>
                       <p className="text-muted-foreground">
-                        <a href="mailto:info@sakthisaibiotech.com" className="hover:text-secondary transition-colors">
-                          info@sakthisaibiotech.com
-                        </a>
-                      </p>
-                      <p className="text-muted-foreground">
-                        <a href="mailto:export@sakthisaibiotech.com" className="hover:text-secondary transition-colors">
-                          export@sakthisaibiotech.com
+                        <a href="mailto:contact@sakthisaibiotech.com" className="hover:text-secondary transition-colors">
+                          contact@sakthisaibiotech.com
                         </a>
                       </p>
                     </div>
@@ -428,8 +423,7 @@ export default function Contact() {
                     </div>
                     <div>
                       <h4 className="font-semibold mb-2">{t('contact.phone.title', 'Phone')}</h4>
-                      <p className="text-muted-foreground">+91 XXXX XXXXXX</p>
-                      <p className="text-muted-foreground">+91 XXXX XXXXXX</p>
+                      <p className="text-muted-foreground">+91 98946 97707</p>
                     </div>
                   </div>
 

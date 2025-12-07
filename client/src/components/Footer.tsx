@@ -116,7 +116,7 @@ export default function Footer() {
               </div>
               <div className="flex items-start space-x-3 text-muted-foreground">
                 <Phone className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                <p className="text-sm">+91 12345 67890</p>
+                <p className="text-sm">+91 98946 97707</p>
               </div>
             </div>
           </div>

@@ -143,7 +143,7 @@ export default function Navbar() {
 
         {/* Mobile Navigation Overlay */}
         {isMobileMenuOpen && (
-          <div className="fixed inset-0 z-50 bg-background/95 backdrop-blur-md lg:hidden animate-in slide-in-from-top-10 duration-200">
+          <div className="fixed inset-0 z-50 bg-background lg:hidden animate-in slide-in-from-top-10 duration-200 overflow-y-auto">
             <div className="container mx-auto px-4 py-6 h-full flex flex-col">
               <div className="flex justify-end mb-8">
                 <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(false)}>

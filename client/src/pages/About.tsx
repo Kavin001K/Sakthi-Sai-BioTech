@@ -160,7 +160,7 @@ export default function About() {
           ],
           "contactPoint": {
             "@type": "ContactPoint",
-            "telephone": "+91-1234567890",
+            "telephone": "+91 98946 97707",
             "contactType": "sales",
             "areaServed": ["IN", "ET", "ID", "ZA"],
             "availableLanguage": ["en", "ta"]

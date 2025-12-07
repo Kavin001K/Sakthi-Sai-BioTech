@@ -136,7 +136,7 @@ export default function Home() {
               ],
               "contactPoint": {
                 "@type": "ContactPoint",
-                "telephone": "+91-4259-223344",
+                "telephone": "+91 98946 97707",
                 "contactType": "customer service",
                 "areaServed": ["IN", "ET", "ID", "ZA", "GH", "KE"],
                 "availableLanguage": ["en", "ta"]
@@ -164,8 +164,8 @@ export default function Home() {
               },
               "name": "Sakthi Sai Biotech",
               "image": "https://sakthisaibiotech.com/logo.svg",
-              "telephone": "+91-4259-223344",
-              "email": "info@sakthisaibiotech.com",
+              "telephone": "+91 98946 97707",
+              "email": "contact@sakthisaibiotech.com",
               "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "Pollachi Main Road",
