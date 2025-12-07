@@ -3,7 +3,7 @@ import { createServer, type Server } from "http";
 import bcrypt from "bcrypt";
 import { storage } from "./storage";
 import { authenticateToken, generateToken, authorizeRole, type AuthRequest } from "./middleware/auth";
-import { insertLeadSchema, insertProductSchema, insertBlogPostSchema, insertInquirySchema } from "@shared/schema";
+import { insertProductSchema, insertBlogPostSchema, insertInquirySchema } from "@shared/schema";
 import { processChatbotQuery, generateProductSuggestions } from "./services/openai";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -122,13 +122,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Blog routes
+  app.get("/api/blog-posts", async (req, res) => {
+    try {
+      const posts = await storage.getPublishedBlogPosts();
+      res.json(posts);
+    } catch (error) {
+      console.error("Get published blog posts error:", error);
+      res.status(500).json({ message: "Failed to fetch blog posts" });
+    }
+  });
+
+  app.get("/api/blog-posts/slug/:slug", async (req, res) => {
+    try {
+      const post = await storage.getBlogPostBySlug(req.params.slug);
+      if (!post) {
+        return res.status(404).json({ message: "Post not found" });
+      }
+      res.json(post);
+    } catch (error) {
+      console.error("Get blog post by slug error:", error);
+      res.status(500).json({ message: "Failed to fetch blog post" });
+    }
+  });
+
   // Contact and inquiry routes
   app.post("/api/inquiries", async (req, res) => {
     try {
       const validatedData = insertInquirySchema.parse(req.body);
 
-      // Extract lead data from inquiry
-      // Extract lead data from inquiry
       // Extract lead data from inquiry
       const leadData = {
         name: validatedData.data.name || '',

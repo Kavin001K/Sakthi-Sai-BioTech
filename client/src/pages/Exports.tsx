@@ -1,11 +1,11 @@
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
-import { 
-  Globe, 
-  MapPin, 
-  Truck, 
-  FileText, 
-  CreditCard, 
+import {
+  Globe,
+  MapPin,
+  Truck,
+  FileText,
+  CreditCard,
   Headphones,
   Ship,
   Package,
@@ -19,6 +19,8 @@ import { Button } from "@/components/ui/button";
 import QuoteModal from "@/components/QuoteModal";
 import { useState } from "react";
 import SEO from "@/components/SEO";
+import InteractiveMap from "@/components/InteractiveMap";
+import SpaceBackground from "@/components/SpaceBackground";
 
 interface ExportMarket {
   id: string;
@@ -135,10 +137,21 @@ export default function Exports() {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      <SpaceBackground />
       <SEO
-        title="Exports"
+        title="Global Exports - International Agricultural Trade"
         description="Information on our international exports of high-quality bio-agricultural products. Learn about our global partners and export capabilities."
+        keywords={[
+          'agricultural exports India',
+          'global bio-fertilizer supplier',
+          'international bio-tech trade',
+          'export markets Africa Asia',
+          'agricultural logistics',
+          'FOB CIF agricultural export',
+          'wholesale bio-pesticides'
+        ]}
+        canonicalUrl="https://sakthisaibiotech.com/exports"
         ogTitle="Exports - Sakthi Sai Biotech"
         ogDescription="Information on our international exports of high-quality bio-agricultural products."
         ogUrl="https://sakthisaibiotech.com/exports"
@@ -183,31 +196,34 @@ export default function Exports() {
         </div>
       </section>
 
-      {/* World Map Placeholder */}
-      <section className="py-16 bg-background">
-        <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
+      {/* World Map */}
+      <section className="py-16 bg-background relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+        <div className="container mx-auto px-4 lg:px-8 max-w-7xl relative z-10">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">
               {t('exports.map.title', 'Our Global Presence')}
             </h2>
             <p className="text-muted-foreground">
-              {t('exports.map.subtitle', 'Interactive map showing export routes and market presence')}
+              {t('exports.map.subtitle', 'Interactive visualization of our export network across 50+ countries')}
             </p>
           </div>
 
-          <Card className="shadow-2xl border-primary/10">
-            <CardContent className="p-8">
-              <div className="aspect-video bg-gradient-to-br from-primary/5 to-secondary/5 rounded-lg flex items-center justify-center">
-                <div className="text-center">
-                  <Globe className="w-20 h-20 text-primary mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">{t('exports.map.interactive', 'Interactive World Map')}</h3>
-                  <p className="text-muted-foreground">
-                    {t('exports.map.description', 'Comprehensive visualization of export routes and market distribution')}
-                  </p>
-                </div>
+          <div className="flex justify-center items-center min-h-[600px] w-full bg-gradient-to-ob from-background to-secondary/5 rounded-3xl border border-primary/10 relative overflow-hidden">
+            <InteractiveMap />
+
+            {/* Overlay stats/legend */}
+            <div className="absolute bottom-8 left-8 p-4 glass-morphism rounded-xl border border-primary/20 hidden md:block">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-3 h-3 rounded-full bg-primary/80 animate-pulse" />
+                <span className="text-sm font-semibold">Active Distributorship</span>
               </div>
-            </CardContent>
-          </Card>
+              <div className="flex items-center gap-3">
+                <div className="w-3 h-3 rounded-full bg-white/20" />
+                <span className="text-sm text-muted-foreground">Prospective Market</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -329,7 +345,7 @@ export default function Exports() {
           <div className="relative max-w-6xl mx-auto">
             {/* Process Timeline */}
             <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-border -translate-y-1/2" />
-            
+
             <div className="grid lg:grid-cols-5 gap-8">
               {exportProcess.map((step, index) => (
                 <div key={index} className="relative">
@@ -339,17 +355,17 @@ export default function Exports() {
                       <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg relative z-10">
                         {step.step}
                       </div>
-                      
+
                       {/* Step Icon */}
                       <step.icon className="w-8 h-8 text-primary mx-auto mb-4" />
-                      
+
                       <h3 className="font-semibold mb-3">{step.title}</h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">
                         {step.description}
                       </p>
                     </CardContent>
                   </Card>
-                  
+
                   {/* Arrow for mobile */}
                   {index < exportProcess.length - 1 && (
                     <div className="lg:hidden flex justify-center my-4">
@@ -429,9 +445,9 @@ export default function Exports() {
       </section>
 
       {/* Quote Modal */}
-      <QuoteModal 
-        isOpen={isQuoteModalOpen} 
-        onClose={() => setIsQuoteModalOpen(false)} 
+      <QuoteModal
+        isOpen={isQuoteModalOpen}
+        onClose={() => setIsQuoteModalOpen(false)}
       />
     </div>
   );

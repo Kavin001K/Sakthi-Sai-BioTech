@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { LogIn, Shield, AlertCircle, KeyRound, Leaf } from "lucide-react";
@@ -13,7 +13,7 @@ import { motion } from "framer-motion";
 export default function AdminLogin() {
   const { t } = useTranslation();
   const [, setLocation] = useLocation();
-  const { login } = useAuth();
+  const { login, isAuthenticated } = useAuth();
   const { toast } = useToast();
 
   const [formData, setFormData] = useState({
@@ -22,6 +22,12 @@ export default function AdminLogin() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      setLocation('/admin/dashboard');
+    }
+  }, [isAuthenticated, setLocation]);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({
@@ -44,7 +50,7 @@ export default function AdminLogin() {
           title: t('admin.login.success.title', 'Login Successful'),
           description: t('admin.login.success.description', 'Welcome to the admin dashboard'),
         });
-        setLocation('/admin/dashboard');
+        // Redirection handled by useEffect
       } else {
         setError(t('admin.login.error.credentials', 'Invalid username or password'));
       }

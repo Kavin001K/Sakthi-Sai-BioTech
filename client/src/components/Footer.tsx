@@ -43,7 +43,7 @@ export default function Footer() {
 
   return (
     <AnimatedSection animation="fade-in-up">
-      <footer className="glass-morphism mt-24 py-16 text-foreground">
+      <footer className="glass-morphism mt-12 md:mt-24 py-12 md:py-16 text-foreground">
         <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
             <div className="space-y-6">
@@ -106,18 +106,18 @@ export default function Footer() {
             </div>
 
             <div className="space-y-4">
-                <h4 className="text-lg font-bold">{t('contact.address.title', 'Our Location')}</h4>
-                <div className="flex items-start space-x-3 text-muted-foreground">
-                  <MapPin className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                  <p className="text-sm leading-relaxed">
-                    Sakthi Sai Biotech<br />
-                    Pollachi, Tamil Nadu 642001, India
-                  </p>
-                </div>
-                <div className="flex items-start space-x-3 text-muted-foreground">
-                  <Phone className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                  <p className="text-sm">+91 12345 67890</p>
-                </div>
+              <h4 className="text-lg font-bold">{t('contact.address.title', 'Our Location')}</h4>
+              <div className="flex items-start space-x-3 text-muted-foreground">
+                <MapPin className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                <p className="text-sm leading-relaxed">
+                  Sakthi Sai Biotech<br />
+                  Pollachi, Tamil Nadu 642001, India
+                </p>
+              </div>
+              <div className="flex items-start space-x-3 text-muted-foreground">
+                <Phone className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                <p className="text-sm">+91 12345 67890</p>
+              </div>
             </div>
           </div>
 

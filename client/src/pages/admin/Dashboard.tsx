@@ -82,23 +82,37 @@ const calculateKPIs = (stats: DashboardStats | undefined, leads: any[] = []) => 
     ? ((stats.pipeline.converted / totalPipeline) * 100).toFixed(1)
     : '0.0';
 
-  // Pipeline Velocity: Average time to conversion (simulated)
-  const pipelineVelocity = (totalPipeline * 0.85).toFixed(0);
+  // Pipeline Velocity: Estimate based on average lead age
+  const avgLeadAge = leads.length > 0
+    ? leads.reduce((acc, lead) => {
+      const age = (new Date().getTime() - new Date(lead.createdAt).getTime()) / (1000 * 60 * 60 * 24);
+      return acc + age;
+    }, 0) / leads.length
+    : 0;
+  const pipelineVelocity = avgLeadAge.toFixed(0);
 
   // Lead Quality Score: Weighted score based on pipeline stage
-  const leadQualityScore = (
+  const leadQualityScore = totalPipeline > 0 ? (
     (stats.pipeline.new * 0.2) +
     (stats.pipeline.contacted * 0.4) +
     (stats.pipeline.quoted * 0.6) +
     (stats.pipeline.negotiation * 0.8) +
     (stats.pipeline.converted * 1.0)
-  ) / (totalPipeline || 1);
+  ) / totalPipeline : 0;
 
-  // Growth Rate: Month-over-month growth (simulated with 12-18% range)
-  const growthRate = (12 + Math.random() * 6).toFixed(1);
+  // Growth Rate: This month vs Last month (Approximation based on available data)
+  // We need lead creation dates for this.
+  const thisMonthLeads = stats.leadsThisMonth;
+  // Estimate last month based on total - this month (rough approx if no history DB)
+  // For better accuracy, we'd need a backend endpoint for history. 
+  // We will assume 0 growth if no history data, avoiding fake random numbers.
+  const growthRate = '0.0';
 
-  // Average Deal Size: Simulated calculation
-  const avgDealSize = (stats.pipeline.converted * 15000).toLocaleString();
+  // Average Deal Size: Simulated calculation based on industry standards if no real revenue data
+  // We assume a base value for converted leads.
+  const avgDealSize = stats.pipeline.converted > 0
+    ? (stats.pipeline.converted * 15000 / stats.pipeline.converted).toLocaleString()
+    : '0';
 
   // Success Rate: (Converted + Negotiation) / Total Active Leads
   const activeLeadCount = stats.activeLeads || 1;
@@ -106,7 +120,7 @@ const calculateKPIs = (stats: DashboardStats | undefined, leads: any[] = []) => 
     ((stats.pipeline.converted + stats.pipeline.negotiation) / activeLeadCount) * 100
   ).toFixed(1);
 
-  // Market Penetration: Active markets / Total possible markets
+  // Market Penetration: Active markets / Total possible markets (Target 50 countries)
   const marketPenetration = ((stats.exportCountries / 50) * 100).toFixed(1);
 
   return {
@@ -659,72 +673,82 @@ export default function AdminDashboard() {
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={320}>
-                  <PieChart>
-                    <Pie
-                      data={useMemo(() => {
-                        // Calculate REAL source distribution from leads
-                        const total = leads.length || 1;
-                        const sourceCounts = leads.reduce((acc: any, lead: any) => {
-                          const source = lead.source || 'Unknown';
-                          acc[source] = (acc[source] || 0) + 1;
-                          return acc;
-                        }, {});
+                  <ResponsiveContainer width="100%" height={320}>
+                    <PieChart>
+                      <Pie
+                        data={useMemo(() => {
+                          const total = leads.length;
+                          if (total === 0) {
+                            return [{ name: 'No Data', value: 100, color: '#e5e7eb', actualCount: 0 }];
+                          }
 
-                        const sourceColors: Record<string, string> = {
-                          website: '#0288D1',
-                          whatsapp: '#25D366',
-                          email: '#FF8F00',
-                          referral: '#22C55E',
-                          phone: '#9C27B0',
-                          trade_show: '#FF5722',
-                        };
+                          const sourceCounts = leads.reduce((acc: any, lead: any) => {
+                            const source = lead.source || 'Unknown';
+                            acc[source] = (acc[source] || 0) + 1;
+                            return acc;
+                          }, {});
 
-                        return Object.entries(sourceCounts).map(([source, count]) => ({
-                          name: source.charAt(0).toUpperCase() + source.slice(1).replace('_', ' '),
-                          value: Math.round((count as number / total) * 100),
-                          actualCount: count,
-                          color: sourceColors[source.toLowerCase()] || '#757575',
-                        }));
-                      }, [leads])}
-                      cx="50%"
-                      cy="50%"
-                      labelLine={false}
-                      label={(entry) => entry.value > 0 ? `${entry.name}: ${entry.value}%` : ''}
-                      outerRadius={100}
-                      dataKey="value"
-                    >
-                      {useMemo(() => {
-                        const total = leads.length || 1;
-                        const sourceCounts = leads.reduce((acc: any, lead: any) => {
-                          const source = lead.source || 'Unknown';
-                          acc[source] = (acc[source] || 0) + 1;
-                          return acc;
-                        }, {});
-                        return Object.keys(sourceCounts);
-                      }, [leads]).map((source, index) => {
-                        const sourceColors: Record<string, string> = {
-                          website: '#0288D1',
-                          whatsapp: '#25D366',
-                          email: '#FF8F00',
-                          referral: '#22C55E',
-                          phone: '#9C27B0',
-                          trade_show: '#FF5722',
-                        };
-                        return (
+                          const sourceColors: Record<string, string> = {
+                            website: '#0288D1',
+                            whatsapp: '#25D366',
+                            email: '#FF8F00',
+                            referral: '#22C55E',
+                            phone: '#9C27B0',
+                            trade_show: '#FF5722',
+                          };
+
+                          return Object.entries(sourceCounts).map(([source, count]) => ({
+                            name: source.charAt(0).toUpperCase() + source.slice(1).replace('_', ' '),
+                            value: Math.round((count as number / total) * 100),
+                            actualCount: count,
+                            color: sourceColors[source.toLowerCase()] || '#757575',
+                          }));
+                        }, [leads])}
+                        cx="50%"
+                        cy="50%"
+                        labelLine={false}
+                        label={(entry) => entry.actualCount > 0 ? `${entry.name}: ${entry.value}%` : ''}
+                        outerRadius={100}
+                        dataKey="value"
+                      >
+                        {useMemo(() => {
+                          const total = leads.length;
+                          if (total === 0) {
+                            return [{ name: 'No Data', color: '#e5e7eb' }];
+                          }
+                          const sourceCounts = leads.reduce((acc: any, lead: any) => {
+                            const source = lead.source || 'Unknown';
+                            acc[source] = (acc[source] || 0) + 1;
+                            return acc;
+                          }, {});
+
+                          const sourceColors: Record<string, string> = {
+                            website: '#0288D1',
+                            whatsapp: '#25D366',
+                            email: '#FF8F00',
+                            referral: '#22C55E',
+                            phone: '#9C27B0',
+                            trade_show: '#FF5722',
+                          };
+
+                          return Object.entries(sourceCounts).map(([source]) => ({
+                            color: sourceColors[source.toLowerCase()] || '#757575'
+                          }));
+                        }, [leads]).map((entry: any, index: number) => (
                           <Cell
                             key={`cell-${index}`}
-                            fill={sourceColors[source.toLowerCase()] || '#757575'}
+                            fill={entry.color}
                           />
-                        );
-                      })}
-                    </Pie>
-                    <Tooltip
-                      formatter={(value: any, name: string, props: any) => [
-                        `${props.payload.actualCount} leads (${value}%)`,
-                        name
-                      ]}
-                    />
-                  </PieChart>
+                        ))}
+                      </Pie>
+                      <Tooltip
+                        formatter={(value: any, name: string, props: any) => {
+                          if (name === 'No Data') return ['No leads yet', 'Status'];
+                          return [`${props.payload.actualCount} leads (${value}%)`, name];
+                        }}
+                      />
+                    </PieChart>
+                  </ResponsiveContainer>
                 </ResponsiveContainer>
               </CardContent>
             </Card>

@@ -72,9 +72,35 @@ export default function ProductDetail() {
             <SEO
                 title={`${product.name} - Sakthi Sai Biotech`}
                 description={product.description}
+                keywords={[
+                    product.name,
+                    product.category,
+                    ...product.suitableCrops,
+                    'organic agriculture',
+                    'crop yield booster'
+                ]}
+                canonicalUrl={`https://sakthisaibiotech.com/products/${product.id}`}
                 ogTitle={`${product.name} - Sakthi Sai Biotech`}
                 ogDescription={product.description}
                 ogImage={product.imageUrl}
+                structuredData={{
+                    "@context": "https://schema.org/",
+                    "@type": "Product",
+                    "name": product.name,
+                    "image": product.imageUrl,
+                    "description": product.description,
+                    "brand": {
+                        "@type": "Brand",
+                        "name": "Sakthi Sai Biotech"
+                    },
+                    "offers": {
+                        "@type": "Offer",
+                        "url": `https://sakthisaibiotech.com/products/${product.id}`,
+                        "priceCurrency": "INR",
+                        "price": "0", // Price on request
+                        "availability": "https://schema.org/InStock"
+                    }
+                }}
             />
 
             <div className="pt-24 pb-12">

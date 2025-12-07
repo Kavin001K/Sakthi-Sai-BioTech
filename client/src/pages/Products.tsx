@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { Search, CheckCircle, Box, ArrowRight, Leaf, Wind, Zap, Droplets } from "lucide-react";
@@ -80,13 +81,46 @@ export default function Products() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SEO
-        title="Our Products"
-        description="Explore our range of bio-fertilizers, bio-pesticides, plant growth promoters, and organic agricultural products."
-        ogTitle="Our Products - Sakthi Sai Biotech"
+        title="Our Products - Agricultural Solutions"
+        description="Explore our range of bio-fertilizers, bio-pesticides, plant growth promoters, and organic agricultural products designed for maximum yield."
+        keywords={[
+          'agricultural products',
+          'bio-fertilizers',
+          'organic pesticides',
+          'plant growth promoters',
+          'micronutrients market',
+          'sustainable farming',
+          'Sakthi Sai Biotech products',
+          'crop protection',
+          'soil health',
+          'organic farming solutions',
+          'agricultural inputs',
+          'bio-stimulants',
+          'liquid fertilizers',
+          'pesticides for crops',
+          'plant nutrition'
+        ]}
+        canonicalUrl="https://sakthisaibiotech.com/products"
+        ogTitle="Agricultural Products Catalog - Sakthi Sai Biotech"
         ogDescription="Explore our range of bio-fertilizers, bio-pesticides, plant growth promoters, and organic agricultural products."
         ogUrl="https://sakthisaibiotech.com/products"
         ogImage="https://sakthisaibiotech.com/images/product-preview.png"
         twitterImage="https://sakthisaibiotech.com/images/product-preview.png"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "name": "Product Catalog - Sakthi Sai Biotech",
+          "description": "Explore our curated selection of high-performance agricultural products, engineered for maximum yield and sustainability.",
+          "url": "https://sakthisaibiotech.com/products",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Sakthi Sai Biotech",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://sakthisaibiotech.com/logo.png"
+            }
+          }
+        }}
       />
       {/* Hero Section */}
       <section className="relative py-24 overflow-hidden bg-gradient-to-b from-background to-transparent">
@@ -225,9 +259,11 @@ export default function Products() {
                             <CheckCircle className="w-4 h-4 mr-2" />
                             {t('cta.requestQuote', 'Request Quote')}
                           </Button>
-                          <Button variant="outline" size="icon" className="border-border/70 hover:bg-primary hover:text-primary-foreground">
-                            <ArrowRight className="w-4 h-4" />
-                          </Button>
+                          <Link href={`/products/${product.id}`}>
+                            <Button variant="outline" size="icon" className="border-border/70 hover:bg-primary hover:text-primary-foreground">
+                              <ArrowRight className="w-4 h-4" />
+                            </Button>
+                          </Link>
                         </div>
                       </CardContent>
                     </Card>

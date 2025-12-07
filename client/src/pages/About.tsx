@@ -128,13 +128,52 @@ export default function About() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="About Us"
+        title="About Us - Leading Bio-Tech Manufacturer"
         description="Learn about Sakthi Sai Biotech, our mission, vision, and our commitment to sustainable and organic agriculture from Pollachi, Coimbatore."
+        keywords={[
+          'about sakthi sai biotech',
+          'bio-tech manufacturer india',
+          'agricultural innovation',
+          'sustainable farming company',
+          'Pollachi agriculture',
+          'ISO 9001:2015 agriculture',
+          'organic farming experts',
+          'micronutrient manufacturers',
+          'bio-fertilizer company'
+        ]}
+        canonicalUrl="https://sakthisaibiotech.com/about"
         ogTitle="About Us - Sakthi Sai Biotech"
         ogDescription="Learn about our mission, vision, and commitment to sustainable and organic agriculture."
         ogUrl="https://sakthisaibiotech.com/about"
         ogImage="https://sakthisaibiotech.com/images/about-us-preview.png"
         twitterImage="https://sakthisaibiotech.com/images/about-us-preview.png"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "Sakthi Sai Biotech",
+          "url": "https://sakthisaibiotech.com",
+          "logo": "https://sakthisaibiotech.com/logo.png",
+          "foundingDate": "1999",
+          "sameAs": [
+            "https://www.facebook.com/sakthisaibiotech",
+            "https://www.linkedin.com/company/sakthisaibiotech"
+          ],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+91-1234567890",
+            "contactType": "sales",
+            "areaServed": ["IN", "ET", "ID", "ZA"],
+            "availableLanguage": ["en", "ta"]
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Pollachi Main Road",
+            "addressLocality": "Pollachi",
+            "addressRegion": "Tamil Nadu",
+            "postalCode": "642001",
+            "addressCountry": "IN"
+          }
+        }}
       />
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
@@ -244,9 +283,8 @@ export default function About() {
               {timelineEvents.map((event, index) => (
                 <div
                   key={index}
-                  className={`relative flex items-center ${
-                    event.position === 'right' ? 'lg:flex-row' : 'lg:flex-row-reverse'
-                  } flex-col lg:gap-16 animate-fade-in`}
+                  className={`relative flex items-center ${event.position === 'right' ? 'lg:flex-row' : 'lg:flex-row-reverse'
+                    } flex-col lg:gap-16 animate-fade-in`}
                   style={{ animationDelay: `${index * 0.2}s` }}
                 >
                   {/* Year Badge */}
@@ -255,9 +293,8 @@ export default function About() {
                   </div>
 
                   {/* Content */}
-                  <Card className={`w-full lg:w-5/12 card-hover relative overflow-hidden ${
-                    event.position === 'right' ? 'lg:ml-8' : 'lg:mr-8'
-                  }`}>
+                  <Card className={`w-full lg:w-5/12 card-hover relative overflow-hidden ${event.position === 'right' ? 'lg:ml-8' : 'lg:mr-8'
+                    }`}>
                     {/* Animated border */}
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 

@@ -4,13 +4,13 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { 
-  Package, 
-  Plus, 
-  Search, 
-  Filter, 
-  Edit, 
-  Trash2, 
+import {
+  Package,
+  Plus,
+  Search,
+  Filter,
+  Edit,
+  Trash2,
   Save,
   X,
   Upload,
@@ -22,12 +22,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Select, 
-  SelectContent, 
-  SelectItem, 
-  SelectTrigger, 
-  SelectValue 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
 } from "@/components/ui/select";
 import {
   Dialog,
@@ -79,7 +79,7 @@ export default function AdminProductManager() {
   const { t } = useTranslation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
-  
+
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -165,12 +165,12 @@ export default function AdminProductManager() {
 
   // Filter products
   const filteredProducts = products.filter(product => {
-    const matchesSearch = searchQuery === '' || 
+    const matchesSearch = searchQuery === '' ||
       product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       product.description?.toLowerCase().includes(searchQuery.toLowerCase());
-    
+
     const matchesCategory = categoryFilter === 'all' || product.category === categoryFilter;
-    
+
     return matchesSearch && matchesCategory;
   });
 
@@ -285,7 +285,7 @@ export default function AdminProductManager() {
               <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                   <DialogTitle>
-                    {editingProduct 
+                    {editingProduct
                       ? t('products.editProduct', 'Edit Product')
                       : t('products.addProduct', 'Add Product')
                     }
@@ -317,7 +317,14 @@ export default function AdminProductManager() {
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel>{t('products.form.category', 'Category')} *</FormLabel>
-                              <Select onValueChange={field.onChange} value={field.value}>
+                              <Select
+                                onValueChange={(value) => {
+                                  // If "other" is selected, we keep it as "other" temporarily
+                                  // The actual value input will update the field value
+                                  field.onChange(value);
+                                }}
+                                value={categories.some(c => c.value === field.value) ? field.value : 'other'}
+                              >
                                 <FormControl>
                                   <SelectTrigger data-testid="product-category-select">
                                     <SelectValue placeholder={t('products.form.selectCategory', 'Select a category')} />
@@ -329,8 +336,26 @@ export default function AdminProductManager() {
                                       {category.label}
                                     </SelectItem>
                                   ))}
+                                  <SelectItem value="other">Other (Create New)</SelectItem>
                                 </SelectContent>
                               </Select>
+
+                              {/* Custom Category Input */}
+                              {/* Condition: value is 'other' OR value is not in predefined list (meaning it's a custom value) AND not empty */}
+                              {(field.value === 'other' || (!categories.some(c => c.value === field.value) && field.value !== '')) && (
+                                <div className="mt-2 animate-in fade-in slide-in-from-top-2">
+                                  <Input
+                                    placeholder="Enter new category name"
+                                    value={field.value === 'other' ? '' : field.value}
+                                    onChange={(e) => field.onChange(e.target.value)}
+                                    className="bg-muted/50"
+                                    autoFocus
+                                  />
+                                  <p className="text-xs text-muted-foreground mt-1">
+                                    Enter the name for the new category.
+                                  </p>
+                                </div>
+                              )}
                               <FormMessage />
                             </FormItem>
                           )}
@@ -343,9 +368,9 @@ export default function AdminProductManager() {
                             <FormItem>
                               <FormLabel>{t('products.form.description', 'Description')}</FormLabel>
                               <FormControl>
-                                <Textarea 
-                                  {...field} 
-                                  rows={3} 
+                                <Textarea
+                                  {...field}
+                                  rows={3}
                                   data-testid="product-description-input"
                                 />
                               </FormControl>
@@ -520,7 +545,7 @@ export default function AdminProductManager() {
                       <Button type="button" variant="outline" onClick={handleCloseDialog}>
                         {t('common.cancel', 'Cancel')}
                       </Button>
-                      <Button 
+                      <Button
                         type="submit"
                         disabled={createProductMutation.isPending || updateProductMutation.isPending}
                         data-testid="product-form-submit"
@@ -610,7 +635,7 @@ export default function AdminProductManager() {
                     </Badge>
                   </div>
                 </div>
-                
+
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between mb-2">
                     <Badge variant="outline" className="capitalize">
@@ -620,15 +645,15 @@ export default function AdminProductManager() {
                       {formatDate(product.createdAt)}
                     </span>
                   </div>
-                  
+
                   <h3 className="text-lg font-semibold mb-2" data-testid={`product-name-${product.id}`}>
                     {product.name}
                   </h3>
-                  
+
                   <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
                     {product.description || t('products.noDescription', 'No description available')}
                   </p>
-                  
+
                   <div className="flex items-center justify-between">
                     <div className="flex flex-wrap gap-1">
                       {product.suitableCrops.slice(0, 2).map((crop, index) => (
@@ -642,7 +667,7 @@ export default function AdminProductManager() {
                         </Badge>
                       )}
                     </div>
-                    
+
                     <div className="flex items-center gap-2">
                       <Button
                         size="sm"

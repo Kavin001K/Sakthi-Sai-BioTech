@@ -36,7 +36,7 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.acceptPrivacy) {
       toast({
         title: t('contact.error.privacy.title', 'Privacy Policy Required'),
@@ -116,13 +116,57 @@ export default function Contact() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Contact Us"
-        description="Get in touch with Sakthi Sai Biotech. Find our address in Pollachi, Coimbatore, phone number, and email for inquiries."
+        title="Contact Us - Get a Quote"
+        description="Get in touch with Sakthi Sai Biotech. Find our address in Pollachi, Coimbatore, phone number, and email for inquiries about our bio-products."
+        keywords={[
+          'contact sakthi sai biotech',
+          'agricultural consultation',
+          'bulk order inquiry',
+          'bio-fertilizer quote',
+          'Pollachi office',
+          'customer support',
+          'agricultural distributors contact'
+        ]}
+        canonicalUrl="https://sakthisaibiotech.com/contact"
         ogTitle="Contact Us - Sakthi Sai Biotech"
         ogDescription="Get in touch with Sakthi Sai Biotech. Find our address, phone number, and email for inquiries."
         ogUrl="https://sakthisaibiotech.com/contact"
         ogImage="https://sakthisaibiotech.com/images/contact-preview.png"
         twitterImage="https://sakthisaibiotech.com/images/contact-preview.png"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "name": "Sakthi Sai Biotech",
+          "image": "https://sakthisaibiotech.com/logo.png",
+          "telephone": "+91-1234567890",
+          "email": "info@sakthisaibiotech.com",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Pollachi Main Road",
+            "addressLocality": "Pollachi",
+            "addressRegion": "Tamil Nadu",
+            "postalCode": "642001",
+            "addressCountry": "IN"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "10.6609",
+            "longitude": "77.0048"
+          },
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday"
+            ],
+            "opens": "09:00",
+            "closes": "18:00"
+          }
+        }}
       />
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
@@ -303,8 +347,8 @@ export default function Contact() {
                     </label>
                   </div>
 
-                  <Button 
-                    type="submit" 
+                  <Button
+                    type="submit"
                     disabled={isSubmitting}
                     className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-4 rounded-lg font-semibold text-lg"
                     data-testid="contact-form-submit"
@@ -328,15 +372,18 @@ export default function Contact() {
             {/* Contact Information */}
             <div className="space-y-8 animate-slide-in-right">
               {/* Google Maps */}
-              <Card className="overflow-hidden card-hover">
-                <div className="w-full h-64 bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center relative">
-                  <div className="absolute inset-0 bg-dot-pattern opacity-20" />
-                  <div className="text-center">
-                    <MapPin className="w-12 h-12 text-primary mx-auto mb-3" />
-                    <p className="text-muted-foreground font-medium">{t('contact.map.title', 'Google Maps Integration')}</p>
-                    <p className="text-sm text-muted-foreground">{t('contact.map.subtitle', 'Pollachi, Tamil Nadu')}</p>
-                  </div>
-                </div>
+              {/* Google Maps */}
+              <Card className="overflow-hidden card-hover h-80">
+                <iframe
+                  src="https://maps.google.com/maps?q=10.670944,76.953528&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Sakthi Sai Biotech Location"
+                />
               </Card>
 
               {/* Contact Details */}

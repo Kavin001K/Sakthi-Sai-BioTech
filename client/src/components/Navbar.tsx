@@ -63,8 +63,8 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
             {navigation.map((item) => (
-              <Link 
-                key={item.href} 
+              <Link
+                key={item.href}
                 href={item.href}
                 className={cn(
                   "text-foreground hover:text-primary transition-colors font-medium relative",
@@ -93,7 +93,7 @@ export default function Navbar() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 {languages.map((lang) => (
-                  <DropdownMenuItem 
+                  <DropdownMenuItem
                     key={lang.code}
                     onClick={() => changeLanguage(lang.code)}
                     className={cn(
@@ -110,9 +110,9 @@ export default function Navbar() {
             </DropdownMenu>
 
             {/* Theme Toggle */}
-            <Button 
-              variant="ghost" 
-              size="sm" 
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={toggleTheme}
               className="w-9 h-9 p-0"
               data-testid="theme-toggle"
@@ -141,25 +141,37 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation Overlay */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden border-t border-border py-4">
-            <nav className="space-y-4">
-              {navigation.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={cn(
-                    "block text-foreground hover:text-primary transition-colors font-medium py-2",
-                    location === item.href && "text-primary"
-                  )}
-                  data-testid={`mobile-nav-link-${item.href.replace('/', '') || 'home'}`}
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </nav>
+          <div className="fixed inset-0 z-50 bg-background/95 backdrop-blur-md lg:hidden animate-in slide-in-from-top-10 duration-200">
+            <div className="container mx-auto px-4 py-6 h-full flex flex-col">
+              <div className="flex justify-end mb-8">
+                <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(false)}>
+                  <X className="w-6 h-6" />
+                </Button>
+              </div>
+              <nav className="flex flex-col space-y-6 items-center justify-center flex-1">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={cn(
+                      "text-2xl font-bold transition-colors hover:text-primary",
+                      location === item.href ? "text-primary" : "text-foreground"
+                    )}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+                <div className="mt-8 flex gap-4">
+                  <Button variant="outline" size="lg" className="w-full" onClick={() => toggleTheme()}>
+                    {theme === 'dark' ? <Sun className="mr-2" /> : <Moon className="mr-2" />}
+                    {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+                  </Button>
+                </div>
+              </nav>
+            </div>
           </div>
         )}
       </div>

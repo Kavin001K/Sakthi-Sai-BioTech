@@ -15,6 +15,7 @@ import ProductDetail from "@/pages/ProductDetail";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 import Resources from "@/pages/Resources";
+import BlogPostDetail from "@/pages/BlogPostDetail";
 import Exports from "@/pages/Exports";
 import AdminLogin from "@/pages/admin/Login";
 import AdminDashboard from "@/pages/admin/Dashboard";
@@ -30,6 +31,7 @@ import FloatingCTA from "@/components/FloatingCTA";
 import ChatBot from "@/components/ChatBot";
 import CustomCursor from "@/components/CustomCursor";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import ScrollToTop from "@/components/ScrollToTop";
 
 function Router() {
   return (
@@ -41,6 +43,7 @@ function Router() {
       <Route path="/about" component={About} />
       <Route path="/contact" component={Contact} />
       <Route path="/resources" component={Resources} />
+      <Route path="/resources/:slug" component={BlogPostDetail} />
       <Route path="/exports" component={Exports} />
 
       {/* Admin login (public) */}
@@ -85,6 +88,7 @@ function Router() {
 function AppContent() {
   return (
     <>
+      <ScrollToTop />
       <CustomCursor />
       <Navbar />
       <main className="min-h-screen">

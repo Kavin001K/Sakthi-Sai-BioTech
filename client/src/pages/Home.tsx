@@ -48,6 +48,8 @@ interface ExportMarket {
   flagIcon: string;
 }
 
+import SEO from "@/components/SEO";
+
 export default function Home() {
   const { t } = useTranslation();
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
@@ -102,6 +104,23 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground aurora-bg">
+      <SEO
+        title="Home"
+        description="Leading manufacturer of organic agricultural inputs, bio-fertilizers, and plant growth promoters in Pollachi, Coimbatore. Sustainable farming solutions for better yield."
+        keywords={[
+          'bio-fertilizers',
+          'organic farming',
+          'Pollachi',
+          'Coimbatore',
+          'Sakthi Sai Biotech',
+          'plant growth promoters',
+          'micronutrients',
+          'humic acid',
+          'seaweed extract',
+          'organic pesticides'
+        ]}
+        canonicalUrl="https://sakthisaibiotech.com/"
+      />
       <CustomCursor />
       <section className="relative min-h-screen flex items-center overflow-hidden">
         <BackgroundVideo src="/Bg.mp4" overlayOpacity={0.7} />
@@ -111,10 +130,10 @@ export default function Home() {
               <Award className="w-4 h-4 mr-2 text-primary" />
               {t('hero.badge', 'Trusted Since 1999 | Exporting to 50+ Countries')}
             </Badge>
-            <h1 className="text-5xl lg:text-8xl font-bold text-white mb-6 leading-tight shadow-text-strong">
+            <h1 className="text-4xl md:text-6xl lg:text-8xl font-bold text-white mb-6 leading-tight shadow-text-strong">
               {t('hero.title', 'Advanced Agricultural Solutions')}
             </h1>
-            <p className="text-xl text-white/80 mb-10 leading-relaxed max-w-3xl">
+            <p className="text-lg md:text-xl text-white/80 mb-10 leading-relaxed max-w-3xl">
               {t('hero.description', 'Premium micronutrients, bactericides, and growth promoters trusted by distributors worldwide.')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
