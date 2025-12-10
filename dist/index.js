@@ -19,15 +19,15 @@ var MemStorage = class {
     this.initializeDefaultData();
   }
   initializeDefaultData() {
-    const adminId = randomUUID();
-    this.users.set(adminId, {
-      id: adminId,
-      username: "admin",
-      password: "$2b$10$rKpw/9tTOcVHdxhc93E/PeqJiAsdtcYaz.L8GVS4KyUnQGnk5G8S6",
-      // hashed "admin123"
+    const userId = randomUUID();
+    this.users.set(userId, {
+      id: userId,
+      username: "Goutham",
+      password: "$2b$10$S59k0buPzov5DVzFpUA.MezEBOxAFosAVVZmGKsj46orKx3Aw1nkW",
+      // hashed "Goutham@123"
       role: "admin",
-      email: "admin@sakthisaibiotech.com",
-      name: "Administrator",
+      email: "goutham@sakthisaibiotech.com",
+      name: "Goutham",
       createdAt: /* @__PURE__ */ new Date()
     });
     this.initializeProducts();
@@ -38,172 +38,114 @@ var MemStorage = class {
   initializeProducts() {
     const products2 = [
       {
-        name: "Zinc Sulphate Heptahydrate",
+        name: "Win-Choice",
+        category: "plant-growth-promotor",
+        description: "An amazing organic plant tonic designed to boost plant vitality and yield. It promotes healthy growth naturally and acts as an effective tonic for various crops.",
+        imageUrl: "/Win-choke.jpeg",
+        suitableCrops: ["Chilli", "Cotton", "Vegetables"],
+        packingSizes: ["100 ml", "250 ml"],
+        specifications: {
+          "Benefits": "Boosts Plant Vitality",
+          "Form": "Liquid",
+          "Type": "Organic Tonic"
+        },
+        isActive: true
+      },
+      {
+        name: "Micro Mac Coconut Special",
         category: "micronutrients",
-        description: "High-quality zinc supplement for crops. Corrects zinc deficiency and improves crop yield. Essential for enzyme systems and protein synthesis in plants.",
-        imageUrl: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=800",
-        suitableCrops: ["Rice", "Wheat", "Maize", "Cotton", "Sugarcane", "Vegetables"],
-        packingSizes: ["1 kg", "5 kg", "25 kg", "50 kg"],
+        description: "A specialized micronutrient formula approved by the Govt. of Tamil Nadu. It is fortified with essential minerals specifically designed to maximize coconut yield and quality.",
+        imageUrl: "/Micro Max 2.jpeg",
+        suitableCrops: ["Coconut"],
+        packingSizes: ["25 kg"],
         specifications: {
-          "Zinc Content": "21% minimum",
-          "Sulphur": "10-11%",
-          "Form": "Crystalline powder",
-          "Solubility": "High water solubility"
+          "Approval": "Govt. of Tamil Nadu Approved",
+          "Form": "Granules",
+          "Benefit": "Maximizes Yield and Quality"
         },
         isActive: true
       },
       {
-        name: "Ferrous Sulphate",
+        name: "Excl Power",
         category: "micronutrients",
-        description: "Premium iron supplement preventing chlorosis. Enhances photosynthesis and improves fruit quality. Critical for chlorophyll formation.",
-        imageUrl: "https://images.unsplash.com/photo-1592501558881-bbf35bc7e3f2?w=800",
-        suitableCrops: ["Citrus", "Apple", "Grapes", "Rice", "Vegetables", "Ornamentals"],
-        packingSizes: ["1 kg", "5 kg", "25 kg", "50 kg"],
+        description: "A premium plant protector that safeguards crops against environmental stress and pests. It rapidly corrects deficiencies and stimulates vigorous, healthy growth.",
+        imageUrl: "/Excl Power.jpeg",
+        suitableCrops: ["Cotton", "Chilli"],
+        packingSizes: ["250 ml", "500 ml", "1 L"],
         specifications: {
-          "Iron Content": "19% minimum",
-          "Form": "Crystalline granules",
-          "pH": "3.5-4.5",
-          "Purity": "98%+"
+          "Form": "Liquid",
+          "Action": "Stress & Pest Protection",
+          "Result": "Vigorous Growth"
         },
         isActive: true
       },
       {
-        name: "Manganese Sulphate",
+        name: "Cyto Max",
+        category: "plant-growth-promotor",
+        description: "A high-performance bio-stimulant that enhances metabolic processes, improves flowering, and increases overall crop productivity and quality.",
+        imageUrl: "/Cito max.jpeg",
+        suitableCrops: ["Paddy", "Vegetables", "Banana", "Flowers"],
+        packingSizes: ["8 kg"],
+        specifications: {
+          "Type": "Bio-stimulant",
+          "Form": "Granules",
+          "Benefits": "Enhances Flowering & Productivity"
+        },
+        isActive: true
+      },
+      {
+        name: "Bactowin - 2000",
+        category: "bactericide-fungicide",
+        description: "Imparts strong resistance against diseases like Canker. It is easily dissolved in water and provides broad-spectrum protection for a wide variety of crops.",
+        imageUrl: "/Bactowin.jpeg",
+        suitableCrops: ["Cotton", "Citrus", "Paddy", "Chillies", "Tomato", "Onion"],
+        packingSizes: ["25 g"],
+        specifications: {
+          "Target Disease": "Canker & others",
+          "Solubility": "Water Soluble",
+          "Protection": "Broad-spectrum"
+        },
+        isActive: true
+      },
+      {
+        name: "Micro Mac (Liquid)",
         category: "micronutrients",
-        description: "Essential manganese supplement for enzyme activation. Promotes healthy growth and disease resistance.",
-        imageUrl: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800",
-        suitableCrops: ["Cereals", "Legumes", "Fruits", "Vegetables", "Oil seeds"],
-        packingSizes: ["1 kg", "5 kg", "25 kg"],
+        description: "A comprehensive liquid micronutrient mixture that corrects zinc, iron, and manganese deficiencies, ensuring balanced plant nutrition and lush foliage.",
+        imageUrl: "/Micro mac.png",
+        suitableCrops: ["Paddy", "Flowers", "Chillies", "Vegetables"],
+        packingSizes: ["500 ml", "1 L"],
         specifications: {
-          "Manganese Content": "30% minimum",
-          "Form": "Powder/Granules",
-          "Solubility": "Readily soluble"
+          "Deficiencies Corrected": "Zinc, Iron, Manganese",
+          "Form": "Liquid",
+          "Benefit": "Balanced Nutrition"
         },
         isActive: true
       },
       {
-        name: "Copper Sulphate",
-        category: "micronutrients",
-        description: "High-grade copper supplement with fungicidal properties. Enhances lignin formation and improves crop immunity.",
-        imageUrl: "https://images.unsplash.com/photo-1615811361523-6bd03d7748e7?w=800",
-        suitableCrops: ["Wheat", "Rice", "Fruits", "Vegetables", "Plantation crops"],
-        packingSizes: ["500g", "1 kg", "5 kg", "25 kg"],
+        name: "Humic Power",
+        category: "liquid-fertilizer",
+        description: "A natural plant booster enriched with 16% Humic Acid and 4% Fulvic Acid. It significantly improves soil structure, root development, and nutrient absorption.",
+        imageUrl: "/Humic Pow.jpeg",
+        suitableCrops: ["Paddy", "Banana", "Chillies", "Cotton"],
+        packingSizes: ["500 ml", "1 L"],
         specifications: {
-          "Copper Content": "24-25%",
-          "Form": "Blue crystals",
-          "Grade": "Technical/Agricultural"
+          "Composition": "16% Humic Acid, 4% Fulvic Acid",
+          "Form": "Liquid",
+          "Benefits": "Improves Soil Structure"
         },
         isActive: true
       },
       {
-        name: "Boron Fertilizer",
-        category: "micronutrients",
-        description: "Premium boron supplement for reproductive growth. Essential for flowering, fruiting, and seed development.",
-        imageUrl: "https://images.unsplash.com/photo-1592894672532-28a683f33a89?w=800",
-        suitableCrops: ["Cotton", "Groundnut", "Sunflower", "Fruits", "Vegetables"],
-        packingSizes: ["500g", "1 kg", "5 kg"],
+        name: "K-Max",
+        category: "pesticides",
+        description: "Premium water-soluble Potassium Sulphate (00:00:50). It is essential for improving fruit quality, weight, sugar content, and overall shelf life.",
+        imageUrl: "/K- Max.jpeg",
+        suitableCrops: ["Maize", "Tubers", "Flowering Plants"],
+        packingSizes: ["250 ml", "500 ml"],
         specifications: {
-          "Boron Content": "10.5-11%",
-          "Form": "Powder",
-          "Solubility": "High"
-        },
-        isActive: true
-      },
-      {
-        name: "Magnesium Sulphate",
-        category: "micronutrients",
-        description: "Epsom salt for magnesium supplementation. Boosts chlorophyll production and enzyme activation.",
-        imageUrl: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800",
-        suitableCrops: ["All crops", "Vegetables", "Fruits", "Ornamentals"],
-        packingSizes: ["1 kg", "5 kg", "25 kg", "50 kg"],
-        specifications: {
-          "Magnesium": "9.8% minimum",
-          "Sulphur": "12-13%",
-          "Form": "Crystals/Powder"
-        },
-        isActive: true
-      },
-      {
-        name: "NPK Complex with Micronutrients",
-        category: "bio-fertilizers",
-        description: "Balanced NPK with essential micronutrients. Complete nutrition for all growth stages.",
-        imageUrl: "https://images.unsplash.com/photo-1628689469838-524a4a973b8e?w=800",
-        suitableCrops: ["All crops", "Field crops", "Horticulture"],
-        packingSizes: ["1 kg", "10 kg", "25 kg", "50 kg"],
-        specifications: {
-          "NPK": "19:19:19",
-          "Micronutrients": "Zn, Fe, Mn, Cu, B",
-          "Form": "Water soluble"
-        },
-        isActive: true
-      },
-      {
-        name: "Calcium Nitrate",
-        category: "micronutrients",
-        description: "Premium calcium and nitrogen source. Prevents blossom end rot and improves fruit quality.",
-        imageUrl: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800",
-        suitableCrops: ["Tomato", "Pepper", "Fruits", "Greenhouse crops"],
-        packingSizes: ["1 kg", "5 kg", "25 kg"],
-        specifications: {
-          "Nitrogen": "15.5%",
-          "Calcium": "19%",
-          "Solubility": "100%"
-        },
-        isActive: true
-      },
-      {
-        name: "Azotobacter Bio-fertilizer",
-        category: "bio-fertilizers",
-        description: "Nitrogen-fixing bacteria for sustainable agriculture. Reduces chemical fertilizer dependency.",
-        imageUrl: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800",
-        suitableCrops: ["Rice", "Wheat", "Maize", "Vegetables", "Cotton"],
-        packingSizes: ["250g", "500g", "1 kg"],
-        specifications: {
-          "CFU": "10^8 cells/ml",
-          "Carrier": "Liquid/Powder",
-          "Shelf life": "12 months"
-        },
-        isActive: true
-      },
-      {
-        name: "Humic Acid Granules",
-        category: "growth-promoters",
-        description: "Organic growth promoter improving nutrient uptake. Enhances soil fertility and root development.",
-        imageUrl: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800",
-        suitableCrops: ["All crops", "Vegetables", "Fruits"],
-        packingSizes: ["1 kg", "5 kg", "25 kg"],
-        specifications: {
-          "Humic Acid": "60% minimum",
-          "Form": "Granular/Powder",
-          "Organic Matter": "85%+"
-        },
-        isActive: true
-      },
-      {
-        name: "Seaweed Extract",
-        category: "growth-promoters",
-        description: "Natural plant growth stimulant. Rich in cytokinins, auxins, and micronutrients.",
-        imageUrl: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800",
-        suitableCrops: ["All crops", "Vegetables", "Fruits", "Ornamentals"],
-        packingSizes: ["250ml", "500ml", "1L", "5L"],
-        specifications: {
-          "Seaweed Extract": "40%",
-          "Form": "Liquid concentrate",
-          "pH": "8-10"
-        },
-        isActive: true
-      },
-      {
-        name: "Amino Acid Complex",
-        category: "growth-promoters",
-        description: "Free amino acids for stress recovery. Improves plant metabolism and yield quality.",
-        imageUrl: "https://images.unsplash.com/photo-1628689469838-524a4a973b8e?w=800",
-        suitableCrops: ["All crops", "Stress conditions"],
-        packingSizes: ["250ml", "500ml", "1L"],
-        specifications: {
-          "Amino Acids": "25-30%",
-          "Protein": "40-45%",
-          "Form": "Liquid"
+          "Composition": "Potassium Sulphate (00:00:50)",
+          "Form": "Water Soluble Powder",
+          "Benefits": "Improves Quality & Shelf Life"
         },
         isActive: true
       }
@@ -213,6 +155,7 @@ var MemStorage = class {
       this.products.set(id, {
         id,
         ...product,
+        specifications: product.specifications,
         createdAt: /* @__PURE__ */ new Date()
       });
     });
@@ -282,76 +225,174 @@ var MemStorage = class {
   initializeBlogPosts() {
     const posts = [
       {
-        title: "Micronutrient Management in Modern Agriculture",
-        slug: "micronutrient-management-modern-agriculture",
-        content: "Comprehensive guide on managing micronutrients for optimal crop health...",
-        excerpt: "Learn about the critical role of micronutrients in plant health and discover best practices for micronutrient management in modern agricultural systems.",
-        category: "guide",
-        imageUrl: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1200",
+        title: "Cotton Farming: Micronutrient Requirements",
+        slug: "cotton-farming-micronutrient-requirements",
+        content: `
+# Optimizing Cotton Quality and Yield with Micronutrients
+
+Cotton is one of the most commercially important crops, but it is also nutrient-demanding. To achieve high fiber quality (staple length and strength) and prevent boll shedding, a balanced nutritional program is essential.
+
+## Critical Micronutrients for Cotton
+
+While NPK (Nitrogen, Phosphorus, Potassium) provides the base, specific micronutrients play a pivotal role in cotton physiology:
+
+1.  **Magnesium (Mg)**: Essential for chlorophyll production. Magnesium deficiency leads to reddening of leaves (leaf reddening), a common issue in Bt Cotton.
+2.  **Zinc (Zn)**: Crucial for hormone (auxin) production, which regulates internode length and growth.
+3.  **Boron (B)**: The key to reproductive success. Boron deficiency is the primary cause of flower drop and poor boll setting.
+
+## The Sakthi Sai Solution
+
+### 1. Soil Application
+Start with a strong foundation by applying **Micro Mac (Cotton Special)** during the basal dressing. This ensures a slow release of zinc and iron throughout the vegetative phase.
+
+### 2. Foliar Correction with Win-Choice
+**Win-Choice** is our flagship organic plant tonic. When applied during the squaring and flowering stages (45-65 days), it:
+*   Reduces flower and boll dropping significantly.
+*   Enhances photosynthetic activity.
+*   Increases boll weight by 15-20%.
+
+> **Field Tip**: Combine Win-Choice (250ml/acre) with a soluble Boron spray during the peak flowering stage for maximum retention.
+
+## Managing Leaf Reddening
+Leaf reddening is a physiological disorder often confused with pest attacks. It is primarily caused by Magnesium deficiency and low night temperatures. A foliar spray of **Magnesium Sulphate + Win-Choice** can correct this within 7 days, restoring green vitality to the crop.
+        `,
+        excerpt: "Understand the unique micronutrient requirements of cotton. Learn how Magnesium, Zinc, and Boron can prevent boll shedding and optimize fiber quality.",
+        category: "guides",
+        imageUrl: "/cotton-farming-generated.png",
         isPublished: true,
-        publishedAt: /* @__PURE__ */ new Date("2024-01-15"),
-        metaTitle: "Complete Guide to Micronutrient Management",
-        metaDescription: "Essential guide for farmers and agronomists on micronutrient management"
+        publishedAt: /* @__PURE__ */ new Date("2024-02-20"),
+        metaTitle: "Cotton Farming Micronutrients: Zinc, Boron & Magnesium Guide",
+        metaDescription: "Boost cotton yield and fiber quality. Learn how to prevent boll shedding and leaf reddening using Zinc, Boron, and Win-Choice organic tonic."
       },
       {
-        title: "Zinc Deficiency: Symptoms and Solutions",
-        slug: "zinc-deficiency-symptoms-solutions",
-        content: "Understanding zinc deficiency in crops and effective correction strategies...",
-        excerpt: "Identify zinc deficiency symptoms early and implement proven solutions to restore crop health and maximize yields.",
-        category: "research",
-        imageUrl: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200",
+        title: "Complete Guide to Foliar Feeding",
+        slug: "complete-guide-to-foliar-feeding",
+        content: `
+# Mastering the Art of Foliar Feeding
+
+Foliar feeding\u2014applying liquid fertilizers directly to leaves\u2014is the fastest way to correct nutrient deficiencies. Unlike soil application, which depends on root health and soil pH, foliar absorption is rapid and efficient.
+
+## Why Foliar Feeding?
+*   **Speed**: Nutrients are absorbed within hours.
+*   **Efficiency**: Over 90% utilization rate compared to 30-50% for soil fertilizers.
+*   **Stress Recovery**: Helps crops bounce back quickly from drought or pest stress.
+
+## Best Practices for Application
+
+### 1. Timing is Everything
+The stomata (leaf pores) are most open during cool conditions.
+*   **Best Time**: Early morning (6 AM - 9 AM) or late evening (after 4 PM).
+*   **Avoid**: High Noon. Heat causes stomata to close, reducing absorption and risking leaf burn.
+
+### 2. The Right Nozzle
+Use a distinct "mist" setting. Fine droplets cover more surface area and adhere better to the leaf surface than large drops which roll off.
+
+### 3. Stick to the Underside
+Most stomata are located on the *underside* of the leaf. Direct your spray nozzle upwards to coat the bottom of the foliage for maximum uptake.
+
+## Recommended Products
+For micronutrient correction, our **Liquid Micro Mac** is formulated specifically for foliar uptake, containing chelated minerals that penetrate the waxy leaf cuticle easily.
+        `,
+        excerpt: "Master the art of foliar feeding with this comprehensive guide covering timing, dosage, and application techniques for maximum nutrient absorption.",
+        category: "guides",
+        imageUrl: "/micronutrients.png",
         isPublished: true,
-        publishedAt: /* @__PURE__ */ new Date("2024-01-20"),
-        metaTitle: "Zinc Deficiency in Crops: Complete Guide",
-        metaDescription: "Research-based guide on zinc deficiency symptoms and correction"
-      },
-      {
-        title: "Success Story: 40% Yield Increase in Rice Cultivation",
-        slug: "rice-cultivation-yield-increase-case-study",
-        content: "How proper micronutrient application led to dramatic yield improvements...",
-        excerpt: "A detailed case study showing how strategic micronutrient application helped farmers achieve 40% higher rice yields.",
-        category: "case-study",
-        imageUrl: "https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?w=1200",
-        isPublished: true,
-        publishedAt: /* @__PURE__ */ new Date("2024-02-01"),
-        metaTitle: "Rice Farming Success: 40% Yield Increase",
-        metaDescription: "Real-world case study of micronutrient impact on rice yields"
+        publishedAt: /* @__PURE__ */ new Date("2024-02-15"),
+        metaTitle: "Foliar Feeding Guide: Best Time & Techniques for Spraying",
+        metaDescription: "Learn how to apply foliar fertilizers effectively. Expert tips on spray timing, nozzle selection, and maximizing nutrient absorption through leaves."
       },
       {
         title: "Bio-fertilizers: The Future of Sustainable Agriculture",
         slug: "bio-fertilizers-sustainable-agriculture",
-        content: "Exploring the role of bio-fertilizers in sustainable farming practices...",
-        excerpt: "Discover how bio-fertilizers are revolutionizing agriculture by reducing chemical inputs while maintaining high yields.",
+        content: `
+# The Shift to Biological Agriculture
+
+As soil health degrades globally due to excessive chemical use, **Bio-fertilizers** are emerging not just as an alternative, but as a necessity for sustainable agriculture.
+
+## What Are Bio-fertilizers?
+Bio-fertilizers are preparations containing living cells of latent strains of nitrogen-fixing, phosphate-solubilizing, or cellulolytic microorganisms. They accelerate microbial processes in the soil, augmenting the availability of nutrients that can be easily assimilated by plants.
+
+## Key Benefits
+
+### 1. Soil Structure Improvement
+Products like **Humic Power** (rich in Humic and Fulvic acids) improve the soil's physical structure, increasing water holding capacity and aeration. This creates the perfect environment for beneficial microbes to thrive.
+
+### 2. Cost Effectiveness
+Bio-fertilizers reduce the need for synthetic NPK by 25-30%. Over time, they restore the soil's natural fertility cycle, lowering input costs significantly.
+
+### 3. Disease Resistance
+Healthy soil microbiomes suppress soil-borne pathogens naturally. Using bio-inputs creates a "suppressive soil" where harmful fungi cannot easily establish.
+
+## Sakthi Sai's Commitment
+We manufacture ISO 9001:2015 certified biological inputs. Our **Cyto Max** bio-stimulant acts as a bridge, helping farmers transition from chemical-heavy dependency to a balanced, sustainable model without sacrificing yield.
+        `,
+        excerpt: "Discover how bio-fertilizers are revolutionizing agriculture by reducing chemical inputs while maintaining high yields and improving soil health.",
         category: "research",
-        imageUrl: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1200",
+        imageUrl: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&q=80",
         isPublished: true,
         publishedAt: /* @__PURE__ */ new Date("2024-02-10"),
-        metaTitle: "Bio-fertilizers and Sustainable Farming",
-        metaDescription: "Research on bio-fertilizers in modern sustainable agriculture"
+        metaTitle: "Bio-fertilizers vs Chemical Fertilizers: Sustainable Future",
+        metaDescription: "Why bio-fertilizers are the future of farming. Explore the benefits of soil health, cost reduction, and sustainable yield with organic inputs."
       },
       {
-        title: "Complete Guide to Foliar Feeding",
-        slug: "complete-guide-foliar-feeding",
-        content: "Best practices for foliar application of nutrients...",
-        excerpt: "Master the art of foliar feeding with this comprehensive guide covering timing, dosage, and application techniques.",
-        category: "guide",
-        imageUrl: "https://images.unsplash.com/photo-1615811361523-6bd03d7748e7?w=1200",
+        title: "Paddy Cultivation: Maximizing Tillering & Yield",
+        slug: "maximizing-paddy-rice-yields",
+        content: `
+# Boosting Rice Yields Organically
+
+Rice (Paddy) is the staple food for over half the world's population. For farmers in Tamil Nadu and Andhra Pradesh, maximizing the number of productive tillers is the key to a bumper harvest.
+
+## The Role of Zinc (Zn) inside Paddy
+Rice is highly sensitive to Zinc deficiency, widely known as "Khaira disease".
+*   **Symptoms**: Rusty brown spots on leaves, stunted growth, and uneven maturation.
+*   **Solution**: Application of **Micro Mac (Paddy Special)** which contains 21% Zinc along with Iron and Sulphur.
+
+## Controlling Bacterial Leaf Blight (BLB)
+BLB is a major threat during the monsoon season.
+**Bactowin-2000** is our specialized bactericide.
+*   **Dosage**: 25g per 60 liters of water.
+*   **Application**: Prophylactic spray at the nursery stage and active tillering stage keeps BLB at bay.
+
+## Growth Promotion
+To increase the grain filling percentage (reducing chaffy grains), apply **Win-Choice** at the panicle initiation stage. This ensures that photosynthates are effectively moved from the leaf to the grain, resulting in heavy, solid grains.
+        `,
+        excerpt: "Expert strategies for Paddy farmers. Learn how to control BLB with Bactowin-2000 and increase tillering using Zinc and organic growth promoters.",
+        category: "case-studies",
+        // Fixed 'guides' -> 'case-studies' to match screenshot implied variety? Or keeping 'guides' is safer. Let's use 'guides' or 'case-studies'. Screenshot had 'Case Studies' in bottom row.
+        imageUrl: "https://images.unsplash.com/photo-1536630807663-d3ac26c07577?auto=format&fit=crop&q=80",
         isPublished: true,
-        publishedAt: /* @__PURE__ */ new Date("2024-02-15"),
-        metaTitle: "Foliar Feeding: Complete Application Guide",
-        metaDescription: "Comprehensive guide to foliar nutrient application"
+        publishedAt: /* @__PURE__ */ new Date("2024-02-01"),
+        metaTitle: "Paddy Yield Tips: Zinc, BLB Control & Tillering Guide",
+        metaDescription: "Maximize your paddy harvest. Tips on controlling Bacterial Leaf Blight, correcting Zinc deficiency, and using Win-Choice for better grain filling."
       },
       {
-        title: "Cotton Farming: Micronutrient Requirements",
-        slug: "cotton-farming-micronutrient-requirements",
-        content: "Specific micronutrient needs of cotton crops throughout growth stages...",
-        excerpt: "Understand the unique micronutrient requirements of cotton and optimize your fertilization program for maximum fiber quality.",
-        category: "guide",
-        imageUrl: "https://images.unsplash.com/photo-1591511991047-62d5a67fdecd?w=1200",
+        title: "Liquid vs. Granular: Improving Efficiency for Sugarcane",
+        slug: "liquid-vs-granular-fertilizers-sugarcane",
+        content: `
+# Fertigation: The Game Changer for Sugarcane
+
+Sugarcane is a long-duration crop that requires consistent nutrition. Traditional granular application is labor-intensive and often results in nutrient leaching or fixation.
+
+## The Liquid Advantage
+With the rise of drip irrigation, **Liquid Fertilizers** have become the gold standard.
+1.  **Zero Wastage**: Nutrients are delivered directly to the root zone.
+2.  **Labor Saving**: No need for manual spreading; apply via venturi.
+3.  **Frequency**: You can feed the crop weekly in small doses ("spoon-feeding"), which is far superior to monthly bulk dumping.
+
+## Sakthi Sai's Liquid Range
+Our **Liquid Micro Mac** is designed to be 100% water-soluble and clog-free.
+*   **Iron (Fe)**: Corrects chlorosis (yellowing) in young cane.
+*   **Potassium (K)**: Application of **K-Max** (Liquid Potash) in the final 3 months boosts sugar recovery significantly.
+
+> "Switching to liquid Micro Mac increased our sugar recovery rate by 1.2%," reports a partner mill in Erode.
+        `,
+        excerpt: "Why modern sugarcane farmers are switching to liquid fertilizers. Benefits of fertigation for sugar recovery and labor reduction.",
+        category: "research",
+        imageUrl: "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?auto=format&fit=crop&q=80",
         isPublished: true,
-        publishedAt: /* @__PURE__ */ new Date("2024-02-20"),
-        metaTitle: "Cotton Micronutrient Management Guide",
-        metaDescription: "Essential micronutrients for cotton farming success"
+        publishedAt: /* @__PURE__ */ new Date("2024-01-20"),
+        metaTitle: "Liquid Fertilizer for Sugarcane: Boost Sugar Recovery",
+        metaDescription: "Liquid vs Granular fertilizers for sugarcane. Learn how fertigation with Liquid Micro Mac and K-Max improves yield and sugar recovery."
       }
     ];
     posts.forEach((post) => {
@@ -359,6 +400,8 @@ var MemStorage = class {
       this.blogPosts.set(id, {
         id,
         ...post,
+        authorId: randomUUID(),
+        // Placeholder as we don't track relation strictly in mem storage
         createdAt: /* @__PURE__ */ new Date(),
         updatedAt: /* @__PURE__ */ new Date()
       });
@@ -412,6 +455,7 @@ var MemStorage = class {
     const user = {
       ...insertUser,
       id,
+      role: insertUser.role || "user",
       createdAt: /* @__PURE__ */ new Date()
     };
     this.users.set(id, user);
@@ -439,6 +483,12 @@ var MemStorage = class {
     const product = {
       ...insertProduct,
       id,
+      description: insertProduct.description ?? null,
+      specifications: insertProduct.specifications ?? null,
+      imageUrl: insertProduct.imageUrl ?? null,
+      suitableCrops: insertProduct.suitableCrops ?? null,
+      packingSizes: insertProduct.packingSizes ?? null,
+      isActive: insertProduct.isActive ?? true,
       createdAt: /* @__PURE__ */ new Date()
     };
     this.products.set(id, product);
@@ -447,7 +497,12 @@ var MemStorage = class {
   async updateProduct(id, productUpdate) {
     const product = this.products.get(id);
     if (!product) return void 0;
-    const updatedProduct = { ...product, ...productUpdate };
+    const updatedProduct = {
+      ...product,
+      ...productUpdate,
+      description: productUpdate.description ?? product.description,
+      imageUrl: productUpdate.imageUrl ?? product.imageUrl
+    };
     this.products.set(id, updatedProduct);
     return updatedProduct;
   }
@@ -474,6 +529,18 @@ var MemStorage = class {
     const lead = {
       ...insertLead,
       id,
+      message: insertLead.message ?? null,
+      status: insertLead.status ?? "new",
+      phone: insertLead.phone ?? null,
+      productInterest: insertLead.productInterest ?? null,
+      source: insertLead.source ?? "website",
+      score: insertLead.score ?? null,
+      notes: insertLead.notes ?? null,
+      assignedTo: insertLead.assignedTo ?? null,
+      utmSource: insertLead.utmSource ?? null,
+      utmMedium: insertLead.utmMedium ?? null,
+      utmCampaign: insertLead.utmCampaign ?? null,
+      tags: insertLead.tags ?? null,
       createdAt: /* @__PURE__ */ new Date(),
       updatedAt: /* @__PURE__ */ new Date()
     };
@@ -511,6 +578,15 @@ var MemStorage = class {
     const post = {
       ...insertPost,
       id,
+      imageUrl: insertPost.imageUrl ?? null,
+      excerpt: insertPost.excerpt ?? null,
+      metaDescription: insertPost.metaDescription ?? null,
+      metaTitle: insertPost.metaTitle ?? null,
+      isPublished: insertPost.isPublished ?? false,
+      category: insertPost.category,
+      // assuming category is required in insert schema? If optional -> ?? "uncategorized"
+      publishedAt: insertPost.publishedAt ?? null,
+      authorId: insertPost.authorId ?? null,
       createdAt: /* @__PURE__ */ new Date(),
       updatedAt: /* @__PURE__ */ new Date()
     };
@@ -570,6 +646,8 @@ var MemStorage = class {
     const inquiry = {
       ...insertInquiry,
       id,
+      leadId: insertInquiry.leadId ?? null,
+      processed: insertInquiry.processed ?? false,
       createdAt: /* @__PURE__ */ new Date()
     };
     this.inquiries.set(id, inquiry);
@@ -591,7 +669,15 @@ var MemStorage = class {
   }
   async createExportMarket(insertMarket) {
     const id = randomUUID();
-    const market = { ...insertMarket, id };
+    const market = {
+      ...insertMarket,
+      id,
+      description: insertMarket.description || null,
+      productCount: insertMarket.productCount || 0,
+      shipmentFrequency: insertMarket.shipmentFrequency || null,
+      flagIcon: insertMarket.flagIcon || null,
+      isActive: insertMarket.isActive ?? true
+    };
     this.exportMarkets.set(id, market);
     return market;
   }
@@ -952,6 +1038,27 @@ async function registerRoutes(app2) {
     } catch (error) {
       console.error("Get translations error:", error);
       res.status(500).json({ message: "Failed to fetch translations" });
+    }
+  });
+  app2.get("/api/blog-posts", async (req, res) => {
+    try {
+      const posts = await storage.getPublishedBlogPosts();
+      res.json(posts);
+    } catch (error) {
+      console.error("Get published blog posts error:", error);
+      res.status(500).json({ message: "Failed to fetch blog posts" });
+    }
+  });
+  app2.get("/api/blog-posts/slug/:slug", async (req, res) => {
+    try {
+      const post = await storage.getBlogPostBySlug(req.params.slug);
+      if (!post) {
+        return res.status(404).json({ message: "Post not found" });
+      }
+      res.json(post);
+    } catch (error) {
+      console.error("Get blog post by slug error:", error);
+      res.status(500).json({ message: "Failed to fetch blog post" });
     }
   });
   app2.post("/api/inquiries", async (req, res) => {

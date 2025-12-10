@@ -17,6 +17,8 @@ import Contact from "@/pages/Contact";
 import Resources from "@/pages/Resources";
 import BlogPostDetail from "@/pages/BlogPostDetail";
 import Exports from "@/pages/Exports";
+import UserLogin from "@/pages/UserLogin";
+import UserRegister from "@/pages/UserRegister";
 import AdminLogin from "@/pages/admin/Login";
 import AdminDashboard from "@/pages/admin/Dashboard";
 import AdminCRM from "@/pages/admin/CRM";
@@ -45,6 +47,10 @@ function Router() {
       <Route path="/resources" component={Resources} />
       <Route path="/resources/:slug" component={BlogPostDetail} />
       <Route path="/exports" component={Exports} />
+
+      {/* User login (public) */}
+      <Route path="/login" component={UserLogin} />
+      <Route path="/register" component={UserRegister} />
 
       {/* Admin login (public) */}
       <Route path="/admin/login" component={AdminLogin} />

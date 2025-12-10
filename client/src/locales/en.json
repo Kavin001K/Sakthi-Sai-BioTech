@@ -5,7 +5,12 @@
     "about": "About",
     "resources": "Resources",
     "exports": "Exports",
-    "contact": "Contact"
+    "contact": "Contact",
+    "login": "Login",
+    "profile": "Profile",
+    "orders": "My Orders",
+    "logout": "Logout",
+    "welcome": "Welcome"
   },
   "company": {
     "name": "Sakthi Sai Biotech",
@@ -508,17 +513,55 @@
   "newsletter": {
     "placeholder": "Enter your email"
   },
-  "admin": {
+"user": {
     "login": {
-      "title": "Admin Login",
-      "subtitle": "Access the Sakthi Sai Biotech admin dashboard",
-      "username": "Username",
-      "usernamePlaceholder": "Enter your username",
+      "title": "Customer Portal",
+      "subtitle": "Access your Sakthi Sai Biotech account",
+      "email": "Email Address",
+      "emailPlaceholder": "Enter your email",
       "password": "Password",
       "passwordPlaceholder": "Enter your password",
       "submit": "Sign In",
-      "signing": "Signing In...",
-      "demo": "Demo credentials: admin / admin123",
+      "signing": "Signing in...",
+      "forgot": "Forgot?",
+      "noAccount": "Don't have an account?",
+      "register": "Sign up now!",
+      "registerForm": {
+        "title": "Create Account",
+        "subtitle": "Join Sakthi Sai BioTech",
+        "name": "Full Name",
+        "namePlaceholder": "Enter your full name",
+        "email": "Email",
+        "emailPlaceholder": "Enter your email",
+        "password": "Password",
+        "passwordPlaceholder": "Create a password",
+        "confirmPassword": "Confirm Password",
+        "confirmPasswordPlaceholder": "Confirm your password",
+        "create": "Create Account",
+        "creating": "Creating Account...",
+        "backToLogin": "Back to Login"
+      },
+      "back": "Back to Home",
+      "success": {
+        "title": "Login Successful",
+        "description": "Welcome back to Sakthi Sai Biotech"
+      },
+      "error": {
+        "credentials": "Please enter valid email and password",
+        "general": "Login failed. Please try again."
+      }
+    }
+  },
+  "admin": {
+    "login": {
+      "title": "Admin Portal",
+      "subtitle": "Secure access for Sakthi Sai Biotech Management",
+      "username": "Username or Email",
+      "usernamePlaceholder": "Enter credentials",
+      "password": "Password",
+      "passwordPlaceholder": "Enter password",
+      "submit": "Sign In to Dashboard",
+      "signing": "Authenticating...",
       "success": {
         "title": "Login Successful",
         "description": "Welcome to the admin dashboard"

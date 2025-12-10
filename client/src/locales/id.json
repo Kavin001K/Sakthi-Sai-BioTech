@@ -5,7 +5,12 @@
     "about": "Tentang Kami",
     "resources": "Sumber Daya",
     "exports": "Ekspor",
-    "contact": "Kontak"
+    "contact": "Kontak",
+    "login": "Masuk",
+    "profile": "Profil",
+    "orders": "Pesanan Saya",
+    "logout": "Keluar",
+    "welcome": "Selamat datang"
   },
   "company": {
     "name": "Sakthi Sai Biotech",
@@ -507,17 +512,50 @@
   "newsletter": {
     "placeholder": "Masukkan email Anda"
   },
-  "admin": {
+  "user": {
     "login": {
-      "title": "Login Admin",
-      "subtitle": "Akses dashboard admin Sakthi Sai Biotech",
-      "username": "Nama Pengguna",
-      "usernamePlaceholder": "Masukkan nama pengguna Anda",
+      "title": "Portal Pelanggan",
+      "subtitle": "Akses akun Sakthi Sai Biotech Anda",
+      "email": "Alamat Email",
+      "emailPlaceholder": "Masukkan email Anda",
       "password": "Kata Sandi",
       "passwordPlaceholder": "Masukkan kata sandi Anda",
       "submit": "Masuk",
-      "signing": "Sedang Masuk...",
-      "demo": "Kredensial demo: admin / admin123",
+      "signing": "Sedang masuk...",
+      "forgot": "Lupa?",
+      "noAccount": "Belum punya akun?",
+"register": "Daftar sekarang!",
+      "registerForm": {
+        "title": "Buat Akun",
+        "subtitle": "Bergabung dengan Sakthi Sai BioTech",
+        "name": "Nama Lengkap",
+        "namePlaceholder": "Masukkan nama lengkap",
+        "email": "Email",
+        "emailPlaceholder": "Masukkan email",
+        "password": "Kata Sandi",
+        "passwordPlaceholder": "Buat kata sandi",
+        "confirmPassword": "Konfirmasi Kata Sandi",
+        "confirmPasswordPlaceholder": "Konfirmasi kata sandi",
+        "create": "Buat Akun",
+        "creating": "Membuat Akun...",
+        "backToLogin": "Kembali ke Login"
+      },
+      "error": {
+        "credentials": "Silakan masukkan email dan kata sandi yang valid",
+        "general": "Login gagal. Silakan coba lagi."
+      }
+    }
+  },
+  "admin": {
+    "login": {
+      "title": "Portal Admin",
+      "subtitle": "Akses aman untuk Manajemen Sakthi Sai Biotech",
+      "username": "Nama Pengguna atau Email",
+      "usernamePlaceholder": "Masukkan kredensial",
+      "password": "Kata Sandi",
+      "passwordPlaceholder": "Masukkan kata sandi",
+      "submit": "Masuk ke Dashboard",
+      "signing": "Mengautentikasi...",
       "success": {
         "title": "Login Berhasil",
         "description": "Selamat datang di dashboard admin"
@@ -525,6 +563,21 @@
       "error": {
         "credentials": "Nama pengguna atau kata sandi tidak valid",
         "general": "Login gagal. Silakan coba lagi."
+      },
+      "register": {
+        "title": "Buat Akun",
+        "subtitle": "Bergabung dengan Sakthi Sai Biotech",
+        "name": "Nama Lengkap",
+        "namePlaceholder": "Masukkan nama lengkap",
+        "email": "Email",
+        "emailPlaceholder": "Masukkan email",
+        "password": "Kata Sandi",
+        "passwordPlaceholder": "Buat kata sandi",
+        "confirmPassword": "Konfirmasi Kata Sandi",
+        "confirmPasswordPlaceholder": "Konfirmasi kata sandi",
+        "create": "Buat Akun",
+        "creating": "Membuat Akun...",
+        "backToLogin": "Kembali ke Login"
       }
     }
   },

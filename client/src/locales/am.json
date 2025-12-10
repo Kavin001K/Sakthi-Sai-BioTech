@@ -5,7 +5,12 @@
     "about": "ስለ እኛ",
     "resources": "ምንጮች",
     "exports": "ኤክስፖርት",
-    "contact": "ግንኙነት"
+    "contact": "ግንኙነት",
+    "login": "መግቢያ",
+    "profile": "መገለጫ",
+    "orders": "ትዕዛቄዎቼ",
+    "logout": "መውጣት",
+    "welcome": "እንኳን ደህና መጣህ"
   },
   "company": {
     "name": "ሳክቲ ሳይ ባዮቴክ",
@@ -507,24 +512,72 @@
   "newsletter": {
     "placeholder": "ኢሜይልዎን ያስገቡ"
   },
-  "admin": {
+  "user": {
     "login": {
-      "title": "የአስተዳዳሪ መግቢያ",
-      "subtitle": "የሳክቲ ሳይ ባዮቴክ አስተዳዳሪ ዳሽቦርድ ይድረሱ",
-      "username": "የተጠቃሚ ስም",
-      "usernamePlaceholder": "የተጠቃሚ ስምዎን ያስገቡ",
+      "title": "የደንበኛ ፖርታል",
+      "subtitle": "የሳክቲ ሳይ ባዮቴክ መለያዎን ይድረሱ",
+      "email": "ኢሜይል አድራሻ",
+      "emailPlaceholder": "ኢሜይልዎን ያስገቡ",
       "password": "የይለፍ ቃል",
       "passwordPlaceholder": "የይለፍ ቃልዎን ያስገቡ",
       "submit": "ግባ",
       "signing": "እየገባ...",
-      "demo": "የማሳያ ምስክርነቶች: admin / admin123",
+      "forgot": "ረሳው?",
+      "noAccount": "መለያ የለዎት?",
+"register": "አሁንም ይመዝገቡ!",
+      "registerForm": {
+        "title": "አካውንት መፍሰስ",
+        "subtitle": "የሳክቲ ሳይ ባዮቴክ ተባባሪ",
+        "name": "ሙሉ ስም",
+        "namePlaceholder": "ሙሉ ስምዎን ያስገቡ",
+        "email": "ኢሜይል",
+        "emailPlaceholder": "ኢሜይልዎን ያስገቡ",
+        "password": "የይለፍ ቃል",
+        "passwordPlaceholder": "የይለፍ ቃል ይፍሰስ",
+        "confirmPassword": "የይለፍ ቃል ያረጋጋጋ",
+        "confirmPasswordPlaceholder": "የይሉ ቃልዎን ያረጋጋጋ",
+        "create": "አካውንት መፍሰስ",
+        "creating": "አካውንት በመፍሰስ ላይ...",
+        "backToLogin": "ወደ መግቢያ ተመለስ"
+      },
+      "error": {
+        "credentials": "እባክዎ ትክክለኛ ኢሜይል እና የይለፍ ቃል ያስገቡ",
+        "general": "መግቢያ አልተሳካም። እባክዎ እንደገና ይሞክሩ።"
+      }
+    }
+  },
+  "admin": {
+    "login": {
+      "title": "የአስተዳዳሪ ፖርታል",
+      "subtitle": "የሳክቲ ሳይ ባዮቴክ አስተዳዳሪነት ደህንነት ያለው ድረስ",
+      "username": "የተጠቃሚ ስም ወይም ኢሜይል",
+      "usernamePlaceholder": "ምስክርነቶችዎን ያስገቡ",
+      "password": "የይለፍ ቃል",
+      "passwordPlaceholder": "የይለፍ ቃል",
+      "submit": "ወደ ዳሽቦርድ ግባ",
+      "signing": "በመረጋጋጋ ላይ...",
       "success": {
         "title": "መግቢያ ተሳክቷል",
         "description": "ወደ አስተዳዳሪ ዳሽቦርድ እንኳን ደህና መጣህ"
       },
-      "error": {
-        "credentials": "ተገቢ ያልሆነ የተጠቃሚ ስም ወይም የይለፍ ቃል",
+"error": {
+        "credentials": "ተገቢ ያልሆነ የተጠቃሚ ስም ወይም የይሉ ቃል",
         "general": "መግቢያ አልተሳካም። እባክዎ እንደገና ይሞክሩ።"
+      },
+      "register": {
+        "title": "አካውንት መፍሰስ",
+        "subtitle": "የሳክቲ ሳይ ባዮቴክ ተባባሪ",
+        "name": "ሙሉ ስም",
+        "namePlaceholder": "ሙሉ ስምዎን ያስገቡ",
+        "email": "ኢሜይል",
+        "emailPlaceholder": "ኢሜይልዎን ያስገቡ",
+        "password": "የይለፍ ቃል",
+        "passwordPlaceholder": "የይለፍ ቃል ይፍሰስ",
+        "confirmPassword": "የይለፍ ቃል ያረጋጋጋ",
+        "confirmPasswordPlaceholder": "የይሉ ቃልዎን ያረጋጋጋ",
+        "create": "አካውንት መፍሰስ",
+        "creating": "አካውንት በመፍሰስ ላይ...",
+        "backToLogin": "ወደ መግቢያ ተመለስ"
       }
     }
   },

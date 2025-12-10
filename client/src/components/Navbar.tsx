@@ -2,22 +2,25 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 import { Link, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
-import { Menu, X, Globe, Sun, Moon, Sprout } from "lucide-react";
+import { Menu, X, Globe, Sun, Moon, Sprout, LogIn, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/contexts/ThemeContext";
+import { useAuth } from "@/contexts/AuthContext";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 
 export default function Navbar() {
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { t, i18n } = useTranslation();
   const { theme, toggleTheme } = useTheme();
+  const { user, isAuthenticated, isUser, logout } = useAuth();
 
   const navigation = [
     { name: t('nav.home'), href: '/' },
@@ -83,6 +86,66 @@ export default function Navbar() {
 
           {/* Right Section */}
           <div className="flex items-center space-x-4">
+            {/* User Profile/Login */}
+            {isAuthenticated && isUser ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="hidden sm:flex items-center gap-2 border-primary/20 hover:border-primary hover:bg-primary/10 transition-all duration-300"
+                    data-testid="user-profile-btn"
+                  >
+                    <User className="w-4 h-4" />
+                    <span className="font-medium">{user?.email?.split('@')[0] || 'User'}</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem className="cursor-pointer">
+                    <User className="w-4 h-4 mr-2" />
+                    {t('nav.profile', 'Profile')}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="cursor-pointer">
+                    <LogIn className="w-4 h-4 mr-2" />
+                    {t('nav.orders', 'My Orders')}
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem 
+                    onClick={logout}
+                    className="cursor-pointer text-red-600 focus:text-red-600"
+                  >
+                    <LogOut className="w-4 h-4 mr-2" />
+                    {t('nav.logout', 'Logout')}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <>
+                {/* User Login Button */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setLocation('/login')}
+                  className="hidden sm:flex items-center gap-2 border-primary/20 hover:border-primary hover:bg-primary/10 transition-all duration-300"
+                  data-testid="user-login-btn"
+                >
+                  <LogIn className="w-4 h-4" />
+                  <span className="font-medium">{t('nav.login', 'Login')}</span>
+                </Button>
+
+                {/* Mobile User Login */}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setLocation('/login')}
+                  className="sm:hidden w-9 h-9 p-0"
+                  data-testid="mobile-user-login-btn"
+                >
+                  <User className="w-4 h-4" />
+                </Button>
+              </>
+            )}
+
             {/* Language Switcher */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -165,7 +228,39 @@ export default function Navbar() {
                     {item.name}
                   </Link>
                 ))}
-                <div className="mt-8 flex gap-4">
+                {isAuthenticated && isUser ? (
+                  <div className="w-full mt-4 space-y-2">
+                    <div className="text-center text-sm text-muted-foreground">
+                      {t('nav.welcome', 'Welcome')}, {user?.email?.split('@')[0] || 'User'}
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="w-full"
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        logout();
+                      }}
+                    >
+                      <LogOut className="mr-2" />
+                      {t('nav.logout', 'Logout')}
+                    </Button>
+                  </div>
+                ) : (
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="w-full mt-4"
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      setLocation('/login');
+                    }}
+                  >
+                    <LogIn className="mr-2" />
+                    {t('nav.login', 'Login')}
+                  </Button>
+                )}
+                <div className="mt-4 flex gap-4">
                   <Button variant="outline" size="lg" className="w-full" onClick={() => toggleTheme()}>
                     {theme === 'dark' ? <Sun className="mr-2" /> : <Moon className="mr-2" />}
                     {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
